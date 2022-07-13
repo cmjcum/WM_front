@@ -1,12 +1,12 @@
 /*  fonts  */
 @font-face {
     font-family: "EduQLDBeginner";
-    src: url("../fonts/EduQLDBeginner-Regular.ttf") format("truetype");
+    src: url("../../../static/fonts/EduQLDBeginner-Regular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Montserrat";
-    src: url("../fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+    src: url("../../../static/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
 }
 
 body {
@@ -55,6 +55,14 @@ body {
     letter-spacing: 2px;
 }
 
+.login-form-margin {
+    margin: 20px 10px;
+}
+
+.signup-form-margin {
+    margin: 15px 10px;
+}
+
 .input {
     width: 90%;
     min-height: 30px;
@@ -62,7 +70,6 @@ body {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid white;
-    margin: 20px 10px;
 }
 
 .input::placeholder {

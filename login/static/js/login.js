@@ -95,3 +95,7 @@ async function handleLogin() {
         alert("일치하지 않는 아이디나 비밀번호입니다.")
     }
 }
+
+function go_signup() {
+    window.location.replace(`${frontend_base_url}/login/signup.html`)
+}
