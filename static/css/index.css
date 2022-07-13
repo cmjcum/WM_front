@@ -1,0 +1,194 @@
+/*  fonts  */
+@font-face {
+    font-family: "EduQLDBeginner";
+    src: url("../fonts/EduQLDBeginner-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("../fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
+
+body {
+    background-image: url("../../images/bg-space.png");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.login-wrap {
+    width: 250px;
+    height: 350px;
+    margin: 10% auto auto auto;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+    z-index: 1;
+}
+
+.profile {
+    background-image: url("../../images/profile.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.login-html {
+    width: 250px;
+    height: 350px;
+    padding: 45px 40px 50px 40px;
+    border-radius: 60px;
+    background: rgba(161, 159, 161, 0.137);
+    backdrop-filter: blur(10px);
+}
+
+.login-html > p {
+    margin: 0 0 0 10px;
+    font-size: 30px;
+    font-family: 'EduQLDBeginner', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.input {
+    width: 90%;
+    min-height: 30px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    margin: 20px 10px;
+}
+
+.input::placeholder {
+
+}
+
+.input:focus {
+    outline: none;
+}
+
+.signup-phrase {
+    font-size: 16px;
+    font-family: 'EduQLDBeginner', serif;
+    text-align: end;
+    cursor: pointer;
+}
+
+.button {
+    width: 100%;
+    color: rgba(245, 245, 245);
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, rgb(73, 6, 44), rgba(65, 56, 153));
+    border-radius: 12px;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+/*  planets  */
+.sun {
+    background-image: url("../../images/sun.png");
+    background-size: cover;
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    top: -25vh;
+    left: -55vh;
+    z-index: -1;
+}
+
+.mercury {
+    background-image: url("../../images/mercury.png");
+    background-size: cover;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 45vh;
+    left: 45vh;
+}
+
+.venus {
+    background-image: url("../../images/venus.png");
+    background-size: cover;
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 47vh;
+    left: 52vh;
+}
+
+.earth {
+    background-image: url("../../images/earth.png");
+    background-size: cover;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50vh;
+    left: 62vh;
+}
+
+.mars {
+    background-image: url("../../images/mars.png");
+    background-size: cover;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 55vh;
+    left: 75vh;
+}
+
+.jupiter {
+    background-image: url("../../images/jupiter.png");
+    background-size: cover;
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: 56vh;
+    left: 90vh;
+}
+
+.saturn {
+    background-image: url("../../images/saturn.png");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: 62vh;
+    left: 115vh;
+}
+
+.uranus {
+    background-image: url("../../images/uranus.png");
+    background-size: cover;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 79vh;
+    left: 148vh;
+}
+
+.neptune {
+    background-image: url("../../images/neptune.png");
+    background-size: cover;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 86vh;
+    left: 170vh;
+}
+
+.scale:hover {
+    transform: scale(1.4);
+}
