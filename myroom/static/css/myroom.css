@@ -1,0 +1,69 @@
+.solid{
+    border: 1px solid red;
+}
+
+body{
+    background-color: rgb(244, 244, 244);
+}
+
+.main-box{
+    width: 1400px;
+    height: 1200px;
+    margin: auto;
+}
+
+.main-data{
+    width: 1350px;
+    margin: auto;
+}
+
+.logo{
+    width: 350px;
+    height: 150px;
+    margin: 0px 0px 10px 50px;
+    background-color: grey;
+}
+
+.frofile-data{
+    display: flex;
+}
+
+.furniture{
+    width: 700px;
+    height: 650px;
+    margin: auto;
+    background-color: grey;
+
+}
+
+.profile{
+    width: 320px;
+    height: 220px;
+    border-radius: 15%;
+    background-color: grey;
+}
+
+.profile-portrait{
+    width: 120px;
+    height: 120px;
+    margin: 15px auto auto auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.profile-name{
+    text-align: center;
+    font-size: 20px;
+    margin: 5px 0px 15px 0px;
+}
+
+.my-profile{
+    text-align: center;
+}
+
+.guestbook{
+    width: 900px;
+    height: 150px;
+    margin: 20px auto auto auto;
+    background-color: grey;
+}  
