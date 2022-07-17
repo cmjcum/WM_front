@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
     <title>myroom</title>
     <link rel="stylesheet" href="static/css/myroom.css" />
     <script src="static/js/myroom.js"></script>
-
 </head>
+
+
 <body>
     <div class=" main-box">
         <div class=" main-data solid">
@@ -19,17 +21,29 @@
                     <div class="profile-portrait"></div>
                     <div class="profile-name">홍길동</div>
                     <div class="my-profile">생일, 코인</div>
-                    
+
                 </div>
             </div>
         </div>
-        <div class="guestbook solid">guestbook
-            
-        </div>
-        <div class="guestbook solid">guestbook</div>
-        <div class="guestbook solid">guestbook</div>
+        <hr class="guestbook-hr">
+        <div class="guestbook_text">
+            <b>방명록</b>
+            <button class="guestbook_button">방명록 작성</button>
 
-    </div>
-    
+            <!-- modal -->
+            <button id="openBtn" class="openBtn" onclick="guestbookModal()">모달창 open</button>
+            <div id="modal" class="modal hidden">
+                <div id="bg" class="bg"></div>
+                <div class="modalBox">
+                    <p>모달창!</p>
+                    <button id="closeBtn" class="closeBtn">✖</button>
+                </div>
+            </div>
+            <!-- modal -->
+
+            <div class="guestbook">guestbook
+                <button class="guestbook_delete solid">삭제</button>
+            </div>
+        </div>
 </body>
 </html>
