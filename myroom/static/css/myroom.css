@@ -35,7 +35,7 @@ body {
     height: 650px;
     margin: auto;
     background-color: grey;
-
+    position: relative;
 }
 
 .profile {
@@ -147,3 +147,10 @@ body {
   .hidden {
     display: none;
   }
+
+#cursor {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2;
+    pointer-events: none;
+}
