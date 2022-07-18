@@ -25,7 +25,17 @@ function click_room(e) {
             e.target.remove();
         });
 
-        img.setAttribute('value', index);
+        let new_furniture = {
+            'myfurniture': parseInt(img.getAttribute('value')),
+            'pos_x': left,
+            'pos_y': top,
+            'is_left': is_left
+        }
+
+        furniture_positions[index] = new_furniture
+
+        img.setAttribute('id', index);
+
         index++;
 
         document.getElementById('room').appendChild(img);
@@ -68,6 +78,7 @@ async function get_my_furniture() {
 
                 furniture_button.addEventListener('click', () => {
                     img = document.createElement('img');
+                    img.setAttribute('value', data.my_furniture[i]['id'])
                     is_left ? img.setAttribute('src', cur_furniture['url_left']) : img.setAttribute('src', cur_furniture['url_right']);
                     img.style.pointerEvents = 'none'
                     is_clicked = true
@@ -95,11 +106,13 @@ function click_edit_button(e) {
         let length = childs.length
         for(let i=0; i<length; i++)
             furniture_div.removeChild(childs[0])
+        save_room()
     }
 }
 
+
 async function load_room() {
-    const response = await fetch(`${backend_base_url}/myroom/load/`, {
+    const response = await fetch(`${backend_base_url}/myroom/room/`, {
         method: 'GET',
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
         withCredentials: true,
@@ -108,6 +121,31 @@ async function load_room() {
         .then(data => {
             
         });
+}
+
+
+async function save_room() {
+    const furniture_position_data = {'data': furniture_positions}
+    console.log(JSON.stringify(furniture_position_data))
+    const response = await fetch(`${backend_base_url}/myroom/room/`, {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            Accept: "application/json",
+            'Content-type': 'application/json'},
+        withCredentials: true,
+        body: JSON.stringify(furniture_position_data)
+    })
+        .then(response => {
+            if (response.status == 200) {
+                window.location.reload()
+            }
+            
+            if (response.status == 400) {
+                alert(response.status)
+            }
+        });
+
 }
 
 
