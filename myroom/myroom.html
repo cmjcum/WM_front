@@ -13,11 +13,11 @@
 
 <body>
     <div class=" main-box">
-        <div class=" main-data solid">
-            <div class="logo solid">logo</div>
-            <div class=" frofile-data solid">
-                <div class=" furniture solid">furniture</div>
-                <div class=" profile solid">
+        <div class=" main-data">
+            <div class="logo">logo</div>
+            <div class=" frofile-data">
+                <div class=" furniture">furniture</div>
+                <div class=" profile">
                     <div class="profile-portrait"></div>
                     <div class="profile-name">홍길동</div>
                     <div class="my-profile">생일, 코인</div>
@@ -27,23 +27,35 @@
         </div>
         <hr class="guestbook-hr">
         <div class="guestbook_text">
-            <b>방명록</b>
-            <button class="guestbook_button">방명록 작성</button>
+            <b style="color: rgba(255, 255, 255, 0.89)">방명록</b>
 
             <!-- modal -->
-            <button id="openBtn" class="openBtn" onclick="guestbookModal()">모달창 open</button>
+            <button id="openBtn" class="openBtn guestbook_button" onclick="guestbookModal()">방명록 작성</button>
             <div id="modal" class="modal hidden">
                 <div id="bg" class="bg"></div>
-                <div class="modalBox">
-                    <p>모달창!</p>
-                    <button id="closeBtn" class="closeBtn">✖</button>
+                <div class="modal_box">
+                    <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
+                    <form>
+                        <textarea type="" id="contentId" class="content" onclick=""></textarea>
+                        <div class="btn_set">
+                            <button id="" class="" style="margin-left: 210px;">작성 버튼</button>
+                            <button class="closeBtn" style="margin-right: 210px;">닫기</button>
+                        </div>
+                    </form>
+
+
                 </div>
             </div>
             <!-- modal -->
 
-            <div class="guestbook">guestbook
-                <button class="guestbook_delete solid">삭제</button>
+            <div class="guestbook">
+                <button class="guestbook_delete">삭제</button>
+                <div class="guestbook_user">
+                    <b>홍길동</b><span>&nbsp| 2000.01.01</span>                
+                </div>
+                <div class="guestbook_data">작성한 내용</div>
             </div>
         </div>
 </body>
+
 </html>
