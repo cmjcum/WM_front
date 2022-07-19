@@ -135,7 +135,7 @@ async function save_room() {
             Accept: "application/json",
             'Content-type': 'application/json'},
         withCredentials: true,
-        body: JSON.stringify({'data': furniture_positions})
+        body: JSON.stringify({'furniture_positions': furniture_positions})
     })
         .then(response => {
             if (response.status == 200) {
