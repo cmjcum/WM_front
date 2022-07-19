@@ -18,7 +18,6 @@ body {
     width: 950px;
     height: 700px;
     padding-top: 10px;
-
     margin: auto;
     background-color: white;
 }
@@ -28,6 +27,10 @@ body {
     height: 100px;
     margin: auto auto 50px auto;
     background-color: grey;
+    /* 로고 이미지 넣기 */
+    /* background-image: url("../../images/''.png"); */
+    /* background-size: cover;
+    background-position: center; */
 
 }
 
@@ -40,7 +43,8 @@ body {
     height: 500px;
     margin: auto;
     background-color: grey;
-
+    /* border: solid 1px; */
+    
 }
 
 .profile {
@@ -57,6 +61,7 @@ body {
     margin: 15px auto auto auto;
     border-radius: 50%;
     background-color: white;
+    
 }
 
 .profile-name {
@@ -70,11 +75,10 @@ body {
 }
 
 .guestbook-hr {
-    margin: 35px auto 35px auto;
+    margin: 40px auto 40px auto;
     width: 1000px;
     height: 2px;
     border: 0;
-    /* opacity: initial; */
     background-color: grey;
 }
 

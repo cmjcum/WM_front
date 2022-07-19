@@ -1,28 +1,34 @@
+const backend_base_url = "http://127.0.0.1:8000"
+const frontend_base_url = "http://127.0.0.1:5500"
+
+
 function guestbookModal() {
     const open = () => {
         document.querySelector(".modal").classList.remove("hidden");
     }
-    
+
     const close = () => {
         document.querySelector(".modal").classList.add("hidden");
     }
-    
     document.querySelector(".openBtn").addEventListener("click", open);
     document.querySelector(".closeBtn").addEventListener("click", close);
     document.querySelector(".bg").addEventListener("click", close);
 }
 
 
-async function handleSignup() {
+async function modalData() {
     const contentData = {
-        content: document.getElementById('contentId').value,
+        content: document.getElementById('guestBookData').value,
     }
+    // <owner_id>
     // 가져온 데이터를 fetch를 사용해 해당 url의 headers 에 json 방식으로 넘겨운다.
-    const response = await fetch(`${backend_base_url}/user/<int:owner_id>`, {
+    const response = await fetch(`${backend_base_url}/myroom/user/1/`, {
         headers: {
             // 어떤 type으로 데이터를 보내줄지 선택한다.
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            withCredentials: true,
+            'Content-type': 'application/json',
             Accept: "application/json",
-            'Content-type': 'application/json'
         },
         method: 'POST',
         //  body 에는 프론트에서 가져온 signupData 를
@@ -35,12 +41,21 @@ async function handleSignup() {
 
     if (response.status == 200) {
         alert('방명록이 작성됬습니다.')
-        window.location.reload();
     } else {
         alert('다시 작성해 주세요')
     }
 }
 
 
-
-{/* <input type="submit" id="login" class="button margin-top-40" value="Sign In" onclick="handleSignin()"></input> */}
+// async function post_comment() {
+//     const postData = {
+//       content: document.getElementById("input-comment").value
+//     }
+  
+//     const response = await fetch(`${backend_base_url}/lounge/`, {
+//       method: 'POST',
+//       headers: { Authorization: "Bearer " + localStorage.getItem("access"), "Content-Type": "application/json", },
+//       body: JSON.stringify(postData)
+//     })
+//     response_json = await response.json()
+// }

@@ -30,28 +30,24 @@
             <b style="color: rgba(255, 255, 255, 0.89)">방명록</b>
 
             <!-- modal -->
-            <button id="openBtn" class="openBtn guestbook_button" onclick="guestbookModal()">방명록 작성</button>
+            <button id="" class="openBtn guestbook_button" onclick="guestbookModal()">방명록 작성</button>
             <div id="modal" class="modal hidden">
                 <div id="bg" class="bg"></div>
                 <div class="modal_box">
                     <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
-                    <form>
-                        <textarea type="" id="contentId" class="content" onclick=""></textarea>
+                        <textarea id="" class="content"></textarea>
                         <div class="btn_set">
-                            <button id="" class="" style="margin-left: 210px;">작성 버튼</button>
+                            <button type="button" id="guestBookData" class="" style="margin-left: 210px"
+                                onclick="modalData()">작성 버튼</button>
                             <button class="closeBtn" style="margin-right: 210px;">닫기</button>
                         </div>
-                    </form>
-
-
                 </div>
             </div>
             <!-- modal -->
-
             <div class="guestbook">
                 <button class="guestbook_delete">삭제</button>
                 <div class="guestbook_user">
-                    <b>홍길동</b><span>&nbsp| 2000.01.01</span>                
+                    <b>홍길동</b><span>&nbsp| 2000.01.01</span>
                 </div>
                 <div class="guestbook_data">작성한 내용</div>
             </div>
