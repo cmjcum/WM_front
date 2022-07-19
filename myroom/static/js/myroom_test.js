@@ -1,5 +1,5 @@
-const backend_base_url = "http://127.0.0.1:8000"
-const frontend_base_url = "https://d26fccab8r7c47.cloudfront.net"
+// const backend_base_url = "http://127.0.0.1:8000"
+// const frontend_base_url = "https://d26fccab8r7c47.cloudfront.net"
 
 
 let img;
@@ -21,10 +21,7 @@ function click_room(e) {
         img.style.left = `${left}px`;
         img.style.top = `${top}px`;
 
-        img.addEventListener('click', (e) => {
-            e.target.remove();
-            furniture_positions[parseInt(e.target.getAttribute('id'))] = null
-        });
+        img.addEventListener('click', (e) => { remove_furniture(e) });
 
         let new_furniture = {
             'myfurniture': parseInt(img.getAttribute('value')),
@@ -112,15 +109,51 @@ function click_edit_button(e) {
 }
 
 
+function remove_furniture(e) {
+    e.target.remove();
+    furniture_positions[parseInt(e.target.getAttribute('id'))] = null
+}
+
+
 async function load_room() {
-    const response = await fetch(`${backend_base_url}/myroom/room/`, {
+    let owner_id = window.location.search.split('=')[1]
+    const response = await fetch(`${backend_base_url}/myroom/room/${owner_id}/`, {
         method: 'GET',
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
         withCredentials: true,
     })
         .then(response => response.json())
         .then(data => {
-            
+            const room = document.getElementById('room');
+            let receive_furniture_positions = data['furniture_positions']
+            for(let i=0; i<receive_furniture_positions.length; i++) {
+                let cur_furniture = receive_furniture_positions[i]
+
+                let furniture = document.createElement('img');
+
+                furniture.style.position = 'absolute';
+
+                furniture.style.left = `${cur_furniture['pos_x']}px`
+                furniture.style.top = `${cur_furniture['pos_y']}px`
+
+                furniture.addEventListener('click', (e) => { remove_furniture(e) })
+
+                furniture.setAttribute('src', cur_furniture['myfurniture_url'])
+                furniture.setAttribute('id', index)
+
+                let new_furniture = {
+                    'myfurniture': parseInt(cur_furniture['myfurniture']),
+                    'pos_x': cur_furniture['pos_x'],
+                    'pos_y': cur_furniture['pos_y'],
+                    'is_left': cur_furniture[is_left]
+                }
+        
+                furniture_positions[index] = new_furniture
+
+                index++
+
+                room.appendChild(furniture)
+            }
         });
 }
 
@@ -151,6 +184,7 @@ async function save_room() {
 
 
 window.onload = function () {
+    load_room()
 
     document.getElementById("edit_button").addEventListener('click', (e) => {click_edit_button(e)});
 
