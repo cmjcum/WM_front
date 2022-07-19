@@ -26,10 +26,10 @@ async function modalData() {
         headers: {
             // 어떤 type으로 데이터를 보내줄지 선택한다.
             Authorization: 'Bearer ' + localStorage.getItem('access'),
-            withCredentials: true,
             'Content-type': 'application/json',
             Accept: "application/json",
         },
+        withCredentials: true,
         method: 'POST',
         //  body 에는 프론트에서 가져온 signupData 를
         // stringify 를 사용해 자바스크립트의 값을 JSON 문자열로 변환한다.
@@ -47,15 +47,14 @@ async function modalData() {
 }
 
 
-// async function post_comment() {
-//     const postData = {
-//       content: document.getElementById("input-comment").value
+// async function roomData() {
+//     const a = {
 //     }
   
-//     const response = await fetch(`${backend_base_url}/lounge/`, {
-//       method: 'POST',
-//       headers: { Authorization: "Bearer " + localStorage.getItem("access"), "Content-Type": "application/json", },
-//       body: JSON.stringify(postData)
+//     const response = await fetch(`${backend_base_url}/myroom/user/1/`, {
+//       method: 'GET',
+//       headers: '',
+//       body: JSON.stringify(a)
 //     })
 //     response_json = await response.json()
 // }
