@@ -23,6 +23,7 @@ function click_room(e) {
 
         img.addEventListener('click', (e) => {
             e.target.remove();
+            furniture_positions[parseInt(e.target.getAttribute('id'))] = null
         });
 
         let new_furniture = {
@@ -125,16 +126,16 @@ async function load_room() {
 
 
 async function save_room() {
-    const furniture_position_data = {'data': furniture_positions}
-    console.log(JSON.stringify(furniture_position_data))
-    const response = await fetch(`${backend_base_url}/myroom/room/`, {
+    furniture_positions = furniture_positions.filter((elem) => elem != null)
+
+    const response = await fetch(`${backend_base_url}/myroom/test/`, {
         method: 'POST',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
             Accept: "application/json",
             'Content-type': 'application/json'},
         withCredentials: true,
-        body: JSON.stringify(furniture_position_data)
+        body: JSON.stringify({'data': furniture_positions})
     })
         .then(response => {
             if (response.status == 200) {
