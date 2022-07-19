@@ -8,6 +8,7 @@
     <title>myroom</title>
     <link rel="stylesheet" href="static/css/myroom.css" />
     <script src="static/js/myroom.js"></script>
+    <script src="static/js/myroom_test.js"></script>
 </head>
 
 
@@ -16,12 +17,15 @@
         <div class=" main-data">
             <div class="logo">logo</div>
             <div class=" frofile-data">
-                <div class=" furniture">furniture</div>
+                <div id="room" class=" furniture"></div>
                 <div class=" profile">
                     <div class="profile-portrait"></div>
                     <div class="profile-name">홍길동</div>
                     <div class="my-profile">생일, 코인</div>
-
+                    <button id="edit_button">편집</button>
+                    <button id="rotate_button">회전</button>
+                    <button id="remove_button">지우기</button>
+                    <div id="furniture_div"></div>
                 </div>
             </div>
         </div>
