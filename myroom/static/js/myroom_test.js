@@ -4,6 +4,8 @@ let index = 0;
 
 let furniture_positions = [];
 
+let my_furniture_img_urls = [];
+
 const cursor = document.createElement('img');
 cursor.setAttribute('id', 'cursor');
 
@@ -97,6 +99,8 @@ async function get_my_furniture() {
                 })
 
                 document.getElementById('furniture_div').appendChild(furniture_img)
+
+                my_furniture_img_urls[i] = {'url_left': cur_furniture['url_left'], 'url_right': cur_furniture['url_right']}
             }
         });
 }
@@ -113,7 +117,19 @@ function click_edit_button(e) {
         rotate_button.innerHTML = '회전'
         rotate_button.addEventListener('click', () => {
             cursor.remove()
-            is_left ? is_left = false : is_left = true
+
+            let furniture_div_childs = document.getElementById('furniture_div').childNodes
+            if(is_left) {
+                for(let i=0; i<furniture_div_childs.length; i++)
+                    furniture_div_childs[i].setAttribute('src', my_furniture_img_urls[i]['url_right'])
+                is_left = false
+            }
+            else {
+                for(let i=0; i<furniture_div_childs.length; i++)
+                    furniture_div_childs[i].setAttribute('src', my_furniture_img_urls[i]['url_left'])
+                is_left = true
+            }
+
             is_clicked = false
         })
 
