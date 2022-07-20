@@ -2,7 +2,7 @@ let img;
 let is_clicked = false;
 
 let furniture_positions = [];
-let index = 0;
+let furniture_positions_index = 0;
 
 let my_furniture_img_urls = [];
 
@@ -18,9 +18,9 @@ function add_furniture_position(myfurniture, pos_x, pos_y, is_left) {
         'is_left': is_left
     }
 
-    furniture_positions[index] = new_furniture
+    furniture_positions[furniture_positions_index] = new_furniture
 
-    index++;
+    furniture_positions_index++;
 }
 
 
@@ -48,7 +48,7 @@ function add_new_furniture(e) {
         img.style.top = `${top}px`;
 
         img.addEventListener('click', (e) => { remove_furniture(e) });
-        img.setAttribute('id', index);
+        img.setAttribute('id', furniture_positions_index);
 
         add_furniture_position(img.getAttribute('value'), left, top, is_left)
 
@@ -194,7 +194,7 @@ async function load_room() {
                 furniture.addEventListener('click', (e) => { remove_furniture(e) })
 
                 furniture.setAttribute('src', cur_furniture['myfurniture_url'])
-                furniture.setAttribute('id', index)
+                furniture.setAttribute('id', furniture_positions_index)
 
                 add_furniture_position(cur_furniture['myfurniture'], cur_furniture['pos_x'], cur_furniture['pos_y'], cur_furniture['is_left'])
 
