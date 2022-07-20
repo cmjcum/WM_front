@@ -205,7 +205,6 @@ async function save_room() {
                 alert(response.status)
             }
         });
-
 }
 
 
