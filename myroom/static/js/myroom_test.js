@@ -79,11 +79,14 @@ async function get_my_furniture() {
             for(let i = 0; i < data.my_furniture.length; i++) {
                 let cur_furniture = data.my_furniture[i]['furniture']
 
-                let furniture_button = document.createElement('button')
+                let furniture_img = document.createElement('img')
+                furniture_img.setAttribute('src', cur_furniture['url_left'])
+                furniture_img.style.width = '50px'
+                furniture_img.style.aspectRatio = `${furniture_img.naturalWidth}/${furniture_img.naturalHeight}`
 
                 let id = data.my_furniture[i]['id']
 
-                furniture_button.addEventListener('click', () => {
+                furniture_img.addEventListener('click', () => {
                     img = document.createElement('img');
                     img.setAttribute('value', id)
                     is_left ? img.setAttribute('src', cur_furniture['url_left']) : img.setAttribute('src', cur_furniture['url_right']);
@@ -96,9 +99,7 @@ async function get_my_furniture() {
                         room_childs[i].style.pointerEvents = 'none';
                 })
 
-                furniture_button.innerHTML = cur_furniture['name']
-
-                document.getElementById('furniture_div').appendChild(furniture_button)
+                document.getElementById('furniture_div').appendChild(furniture_img)
             }
         });
 }
@@ -138,8 +139,14 @@ function click_edit_button(e) {
             }
         })
 
+        let cancel_button = document.createElement('button')
+        cancel_button.setAttribute('id', 'cancel_button')
+        cancel_button.innerHTML = '취소'
+        cancel_button.addEventListener('click', () => { window.location.reload() })
+
         buttons_div.appendChild(rotate_button)
         buttons_div.appendChild(remove_button)
+        buttons_div.appendChild(cancel_button)
     
         get_my_furniture()
     }
