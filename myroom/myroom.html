@@ -7,10 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myroom</title>
     <link rel="stylesheet" href="static/css/myroom.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="static/js/jquery.min.js"></script> -->
+
     <script src="static/js/myroom.js"></script>
     <script src="static/js/myroom_test.js"></script>
 </head>
-
+<!-- 방명록 조회 -->
+<script>
+    window.onload = function() {
+        guestData()
+    }
+</script>
 
 <body>
     <div class=" main-box">
@@ -39,22 +48,15 @@
                 <div id="bg" class="bg"></div>
                 <div class="modal_box">
                     <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
-                        <textarea id="" class="content"></textarea>
-                        <div class="btn_set">
-                            <button type="button" id="guestBookData" class="" style="margin-left: 210px"
-                                onclick="modalData()">작성 버튼</button>
-                            <button class="closeBtn" style="margin-right: 210px;">닫기</button>
-                        </div>
+                    <textarea id="guestBookData" class="content"></textarea>
+                    <div class="btn_set">
+                        <button type="button" class="" style="margin-left: 210px" onclick="modalData()">작성 버튼</button>
+                        <button class="closeBtn" style="margin-right: 210px;">닫기</button>
+                    </div>
                 </div>
             </div>
-            <!-- modal -->
-            <div class="guestbook">
-                <button class="guestbook_delete">삭제</button>
-                <div class="guestbook_user">
-                    <b>홍길동</b><span>&nbsp| 2000.01.01</span>
-                </div>
-                <div class="guestbook_data">작성한 내용</div>
-            </div>
+            <!-- 방명록 -->
+            <div id="guest_book"></div>
         </div>
 </body>
 
