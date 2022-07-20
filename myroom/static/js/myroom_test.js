@@ -128,7 +128,7 @@ async function load_room() {
             let receive_furniture_positions = data['furniture_positions']
             for(let i=0; i<receive_furniture_positions.length; i++) {
                 let cur_furniture = receive_furniture_positions[i]
-
+                
                 let furniture = document.createElement('img');
 
                 furniture.style.position = 'absolute';
