@@ -1,8 +1,8 @@
 let img;
 let is_clicked = false;
-let index = 0;
 
 let furniture_positions = [];
+let index = 0;
 
 let my_furniture_img_urls = [];
 
@@ -21,6 +21,18 @@ function add_furniture_position(myfurniture, pos_x, pos_y, is_left) {
     furniture_positions[index] = new_furniture
 
     index++;
+}
+
+
+function change_cursor(e) {
+    if(is_clicked) {
+        cursor.setAttribute('src', img.getAttribute('src'))
+
+        cursor.style.left = `${e.offsetX - img.naturalWidth / 2}px`;
+        cursor.style.top = `${e.offsetY - img.naturalHeight / 2}px`;
+
+        document.getElementById('room').appendChild(cursor);
+    }
 }
 
 
@@ -50,18 +62,6 @@ function add_new_furniture(e) {
 function remove_furniture(e) {
     e.target.remove();
     furniture_positions[parseInt(e.target.getAttribute('id'))] = null
-}
-
-
-function change_cursor(e) {
-    if(is_clicked) {
-        cursor.setAttribute('src', img.getAttribute('src'))
-
-        cursor.style.left = `${e.offsetX - img.naturalWidth / 2}px`;
-        cursor.style.top = `${e.offsetY - img.naturalHeight / 2}px`;
-
-        document.getElementById('room').appendChild(cursor);
-    }
 }
 
 
