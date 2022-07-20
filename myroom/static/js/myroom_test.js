@@ -229,6 +229,8 @@ async function save_room() {
 
 
 window.onload = function () {
+    guestData()
+    
     load_room()
 
     document.getElementById("edit_button").addEventListener('click', (e) => {click_edit_button(e)});
