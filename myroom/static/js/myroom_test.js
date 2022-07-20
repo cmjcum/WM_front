@@ -81,14 +81,19 @@ async function get_my_furniture() {
 
                 let furniture_button = document.createElement('button')
 
+                let id = data.my_furniture[i]['id']
+
                 furniture_button.addEventListener('click', () => {
                     img = document.createElement('img');
-                    img.setAttribute('value', data.my_furniture[i]['id'])
+                    img.setAttribute('value', id)
                     is_left ? img.setAttribute('src', cur_furniture['url_left']) : img.setAttribute('src', cur_furniture['url_right']);
                     img.style.pointerEvents = 'none'
                     is_clicked = true
 
                     document.getElementById('remove_button').innerHTML = '지우기';
+                    let room_childs = document.getElementById('room').childNodes
+                    for(i=0; i<room_childs.length; i++)
+                        room_childs[i].style.pointerEvents = 'none';
                 })
 
                 furniture_button.innerHTML = cur_furniture['name']
