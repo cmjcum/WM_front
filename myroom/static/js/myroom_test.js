@@ -160,7 +160,8 @@ async function load_room() {
                 let furniture = document.createElement('img');
 
                 furniture.style.position = 'absolute';
-
+                
+                furniture.style.pointerEvents = 'none'
                 furniture.style.left = `${cur_furniture['pos_x']}px`
                 furniture.style.top = `${cur_furniture['pos_y']}px`
 
