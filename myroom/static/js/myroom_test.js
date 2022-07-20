@@ -5,6 +5,7 @@ let index = 0;
 let furniture_positions = [];
 
 const cursor = document.createElement('img');
+cursor.setAttribute('id', 'cursor');
 
 
 function add_furniture_position(myfurniture, pos_x, pos_y, is_left) {
@@ -52,11 +53,7 @@ function remove_furniture(e) {
 
 function change_cursor(e) {
     if(is_clicked) {
-        cursor.setAttribute('id', 'cursor');
-
         cursor.setAttribute('src', img.getAttribute('src'))
-
-        cursor.style.position = 'absolute';
 
         cursor.style.left = `${e.offsetX - img.naturalWidth / 2}px`;
         cursor.style.top = `${e.offsetY - img.naturalHeight / 2}px`;
