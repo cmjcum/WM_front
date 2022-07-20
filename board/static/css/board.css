@@ -1,0 +1,102 @@
+#rocket {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../images/rocket.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.wrap {
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    min-height: 600px;
+}
+
+.board-wrap {
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    min-height: 600px;
+    max-width: 800px;
+}
+
+.logo {
+    max-width: 700px;
+    width: 95%;
+    height: auto;
+    margin: auto;
+}
+
+.logo > img {
+    width: 100%;
+}
+
+#board-list {
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.board {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.board > img {
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+}
+
+.table {
+    color: #1a0933;
+    margin-bottom: 20px;
+}
+
+td > a {
+    text-decoration: none !important;
+    text-shadow: none !important;
+    color: #1a0933;
+    font-weight: 600;
+}
+
+#content {
+    margin: 40px 0;
+    text-shadow: none !important;
+    color: #1a0933;
+
+}
+
+p {
+    line-height: 2em;
+}
+
+figure > img {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.no-deco {
+    text-decoration: none;
+}
+
+.reply {
+    padding-left: 15px;
+}
+
+
+
+
+
