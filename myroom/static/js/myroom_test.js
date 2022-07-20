@@ -92,18 +92,46 @@ async function get_my_furniture() {
 }
 
 function click_edit_button(e) {
+    let buttons_div = document.getElementById('buttons_div')
+
     if(e.target.innerHTML == '편집') {
         e.target.innerHTML = '완료'
+
+        let rotate_button = document.createElement('button')
+        rotate_button.setAttribute('id', 'rotate_button')
+        rotate_button.innerHTML = '회전'
+        rotate_button.addEventListener('click', () => {
+            cursor.remove()
+            is_left ? is_left = false : is_left = true
+            is_clicked = false
+        })
+
+        let remove_button = document.createElement('button')
+        remove_button.setAttribute('id', 'remove_button')
+        remove_button.innerHTML = '지우기'
+        remove_button.addEventListener('click', (e) => {
+            let room_childs = document.getElementById('room').childNodes
+            //e.target.innerHTML == '지우기' ? e.target.innerHTML = '배치' : e.target.innerHTML = '지우기'
+            if(e.target.innerHTML == '지우기') {
+                cursor.remove();
+                is_clicked = false;
+                e.target.innerHTML = '배치하기';
+                for(i=0; i<room_childs.length; i++)
+                    room_childs[i].style.pointerEvents = 'auto';
+            }
+            else {
+                e.target.innerHTML = '지우기';
+                for(i=0; i<room_childs.length; i++)
+                    room_childs[i].style.pointerEvents = 'none';
+            }
+        })
+
+        buttons_div.appendChild(rotate_button)
+        buttons_div.appendChild(remove_button)
+    
         get_my_furniture()
     }
-    else {
-        e.target.innerHTML = '편집'
-
-        let furniture_div = document.getElementById('furniture_div')
-        let childs = furniture_div.childNodes
-        let length = childs.length
-        for(let i=0; i<length; i++)
-            furniture_div.removeChild(childs[0])
+    else {        
         save_room()
     }
 }
@@ -194,28 +222,28 @@ window.onload = function () {
     room.addEventListener('click', click_room)
     room.addEventListener('mousemove', change_cursor)
 
-    document.getElementById('remove_button').addEventListener('click', (e) => {
-        let room_childs = document.getElementById('room').childNodes
-        //e.target.innerHTML == '지우기' ? e.target.innerHTML = '배치' : e.target.innerHTML = '지우기'
-        if(e.target.innerHTML == '지우기') {
-            cursor.remove();
-            is_clicked = false;
-            e.target.innerHTML = '배치하기';
-            for(i=0; i<room_childs.length; i++)
-                room_childs[i].style.pointerEvents = 'auto';
-        }
-        else {
-            e.target.innerHTML = '지우기';
-            for(i=0; i<room_childs.length; i++)
-                room_childs[i].style.pointerEvents = 'none';
-        }
-    })
+    // document.getElementById('remove_button').addEventListener('click', (e) => {
+    //     let room_childs = document.getElementById('room').childNodes
+    //     //e.target.innerHTML == '지우기' ? e.target.innerHTML = '배치' : e.target.innerHTML = '지우기'
+    //     if(e.target.innerHTML == '지우기') {
+    //         cursor.remove();
+    //         is_clicked = false;
+    //         e.target.innerHTML = '배치하기';
+    //         for(i=0; i<room_childs.length; i++)
+    //             room_childs[i].style.pointerEvents = 'auto';
+    //     }
+    //     else {
+    //         e.target.innerHTML = '지우기';
+    //         for(i=0; i<room_childs.length; i++)
+    //             room_childs[i].style.pointerEvents = 'none';
+    //     }
+    // })
 
-    document.getElementById('rotate_button').addEventListener('click', () => {
-        cursor.remove()
-        is_left ? is_left = false : is_left = true
-        is_clicked = false
-    })
+    // document.getElementById('rotate_button').addEventListener('click', () => {
+    //     cursor.remove()
+    //     is_left ? is_left = false : is_left = true
+    //     is_clicked = false
+    // })
 
     // room.addEventListener('mouseleave', () => {
     //     cursor.remove()
