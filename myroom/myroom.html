@@ -17,7 +17,8 @@
 <!-- 방명록 조회 -->
 <script>
     window.onload = function() {
-        guestData()
+        show_guest_book()
+        show_profile()
     }
 </script>
 
@@ -29,7 +30,7 @@
                 <div id="room" class=" furniture"></div>
                 <div class=" profile">
                     <div class="profile-portrait"></div>
-                    <div class="profile-name">홍길동</div>
+                    <div class="profile-name"></div>
                     <div class="my-profile">생일, 코인</div>
                     <button id="edit_button">편집</button>
                     <button id="rotate_button">회전</button>
@@ -43,14 +44,14 @@
             <b style="color: rgba(255, 255, 255, 0.89)">방명록</b>
 
             <!-- modal -->
-            <button id="" class="openBtn guestbook_button" onclick="guestbookModal()">방명록 작성</button>
+            <button id="" class="openBtn guestbook_button" onclick="show_modal()">방명록 작성</button>
             <div id="modal" class="modal hidden">
                 <div id="bg" class="bg"></div>
                 <div class="modal_box">
                     <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
                     <textarea id="guestBookData" class="content"></textarea>
                     <div class="btn_set">
-                        <button type="button" class="" style="margin-left: 210px" onclick="modalData()">작성 버튼</button>
+                        <button type="button" class="" style="margin-left: 210px" onclick="write_guest_book()">작성 버튼</button>
                         <button class="closeBtn" style="margin-right: 210px;">닫기</button>
                     </div>
                 </div>

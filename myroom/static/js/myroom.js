@@ -2,7 +2,7 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
-function guestbookModal() {
+function show_modal() {
     const open = () => {
         document.querySelector(".modal").classList.remove("hidden");
     }
@@ -16,28 +16,24 @@ function guestbookModal() {
 }
 
 
-async function modalData() {
+async function write_guest_book() {
     let owner_id = window.location.search.split('=')[1]
     const contentData = {
         content: document.getElementById('guestBookData').value,
     }
     // <owner_id>
-    // 가져온 데이터를 fetch를 사용해 해당 url의 headers 에 json 방식으로 넘겨운다.
     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
         headers: {
-            // 어떤 type으로 데이터를 보내줄지 선택한다.
             Authorization: 'Bearer ' + localStorage.getItem('access'),
             'Content-type': 'application/json',
             Accept: "application/json",
         },
         withCredentials: true,
         method: 'POST',
-        //  body 에는 프론트에서 가져온 signupData 를
-        // stringify 를 사용해 자바스크립트의 값을 JSON 문자열로 변환한다.
+
         body: JSON.stringify(contentData)
     }
     )
-    // response 한 데이터 또한 json 화 해주어야 한다. url에 await 걸어준것처럼 await 를 걸어준다.
     response_json = await response.json()
 
     if (response.status == 200) {
@@ -52,7 +48,6 @@ async function modalData() {
 async function delete_guest(book_id) {
     let guest_book_id = $(book_id).val();
     const response = await fetch(`${backend_base_url}/myroom/book/${guest_book_id}/`, {
-        // const response = await fetch(`${backend_base_url}/myroom/book/12/`, {
 
         method: 'DELETE',
         headers: {
@@ -71,7 +66,7 @@ async function delete_guest(book_id) {
 
 
 // get 방식 호출
-async function guestData() {
+async function show_guest_book() {
     let owner_id = window.location.search.split('=')[1]
     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
         method: 'GET',
@@ -111,6 +106,27 @@ async function guestData() {
                     </div>`
                     $("#guest_book").append(content_temp)
                 }
+            }
+        })
+}
+
+
+async function show_profile() {
+    let owner_id = window.location.search.split('=')[1]
+    const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // JSON.parse() 데이터를 실제 json화 시켜준다.
+            const login_user = JSON.parse(localStorage.getItem("payload")).user_id
+
+            for (let i = 0; i < data.length; i++) {
+                let nickname = data[i]["nickname"]
+
             }
         })
 }
