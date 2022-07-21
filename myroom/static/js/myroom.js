@@ -25,8 +25,8 @@ async function write_guest_book() {
     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
-            'Content-type': 'application/json',
             Accept: "application/json",
+            'Content-type': 'application/json'
         },
         withCredentials: true,
         method: 'POST',
@@ -65,7 +65,7 @@ async function delete_guest(book_id) {
 }
 
 
-// get 방식 호출
+// 방명록 조회
 async function show_guest_book() {
     let owner_id = window.location.search.split('=')[1]
     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
@@ -111,9 +111,10 @@ async function show_guest_book() {
 }
 
 
+// 회원 정보
 async function show_profile() {
     let owner_id = window.location.search.split('=')[1]
-    const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
+    const response = await fetch(`${backend_base_url}/myroom/${owner_id}/`, {
         method: 'GET',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -124,9 +125,36 @@ async function show_profile() {
             // JSON.parse() 데이터를 실제 json화 시켜준다.
             const login_user = JSON.parse(localStorage.getItem("payload")).user_id
 
-            for (let i = 0; i < data.length; i++) {
-                let nickname = data[i]["nickname"]
+            const name = data["name"]
+            const birthday = data["birthday"]
+            const portrait = data["portrait"]
+            const coin = data["coin"]
+            console.log(data)
 
-            }
+            content_temp = `
+                <div class="profile-portrait">${portrait}</div>
+                <div class="profile-name">${name}</div>
+                <div class="my-profile">${birthday} | ${coin}</div>
+                `
+            $("#show_profile").append(content_temp)
         })
 }
+
+
+// async function show_profile() {
+//     const formdata = new FormData();
+
+//     formdata.append()
+
+
+//     let owner_id = window.location.search.split('=')[1]
+//     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
+//         method: 'GET',
+//         headers: {
+//             Authorization: 'Bearer ' + localStorage.getItem('access'),
+//         },
+//     })
+
+//     response_json = await response.json()
+//     console.log(response_json)
+// }

@@ -16,7 +16,7 @@
 </head>
 <!-- 방명록 조회 -->
 <script>
-    window.onload = function() {
+    window.onload = function () {
         show_guest_book()
         show_profile()
     }
@@ -26,11 +26,11 @@
     <div class=" main-box">
         <div class=" main-data">
             <div class="logo">logo</div>
-            <div class=" frofile-data">
-                <div id="room" class=" furniture"></div>
-                <div class=" profile">
+            <div class="frofile-data">
+                <div id="room" class="furniture"></div>
+                <div class="profile">
                     <div class="profile-portrait"></div>
-                    <div class="profile-name"></div>
+                    <div class="profile-name" id="profile_name">이름</div>
                     <div class="my-profile">생일, 코인</div>
                     <button id="edit_button">편집</button>
                     <button id="rotate_button">회전</button>
@@ -51,7 +51,8 @@
                     <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
                     <textarea id="guestBookData" class="content"></textarea>
                     <div class="btn_set">
-                        <button type="button" class="" style="margin-left: 210px" onclick="write_guest_book()">작성 버튼</button>
+                        <button type="button" class="" style="margin-left: 210px" onclick="write_guest_book()">작성
+                            버튼</button>
                         <button class="closeBtn" style="margin-right: 210px;">닫기</button>
                     </div>
                 </div>
