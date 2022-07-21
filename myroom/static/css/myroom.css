@@ -38,10 +38,11 @@ body {
 }
 
 .furniture {
+    background-image: url('../../images/room1.png');
+    background-size: cover;
     width: 600px;
     height: 500px;
     margin: auto;
-    background-color: grey;
     position: relative;
 }
 

@@ -139,22 +139,3 @@ async function show_profile() {
             $("#show_profile").append(content_temp)
         })
 }
-
-
-// async function show_profile() {
-//     const formdata = new FormData();
-
-//     formdata.append()
-
-
-//     let owner_id = window.location.search.split('=')[1]
-//     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
-//         method: 'GET',
-//         headers: {
-//             Authorization: 'Bearer ' + localStorage.getItem('access'),
-//         },
-//     })
-
-//     response_json = await response.json()
-//     console.log(response_json)
-// }
