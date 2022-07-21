@@ -37,7 +37,7 @@ async function modalData() {
         body: JSON.stringify(contentData)
     }
     )
-    // response 한 데이터 또한 json 화 해주어야 한다. url에 await 걸어준것 처럼 await 를 걸어준다.
+    // response 한 데이터 또한 json 화 해주어야 한다. url에 await 걸어준것처럼 await 를 걸어준다.
     response_json = await response.json()
 
     if (response.status == 200) {
@@ -49,34 +49,25 @@ async function modalData() {
 }
 
 
-// 삭제
+async function delete_guest(book_id) {
+    let guest_book_id = $(book_id).val();
+    const response = await fetch(`${backend_base_url}/myroom/book/${guest_book_id}/`, {
+        // const response = await fetch(`${backend_base_url}/myroom/book/12/`, {
 
-// async function guestDelete() {
-//     // owner_id와 다르다. guest_book_id
-//     let guest_book_id = window.location.search.split('=')[1]
-//     const response = await fetch(`${backend_base_url}/myroom/book/${guest_book_id}/`, {
-//         method: 'DELETE',
-//         headers: {
-//             Authorization: 'Bearer ' + localStorage.getItem('access'),
-//         },
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             // for (let i = 0; i < data.length; i++) {
-//             //     let content = data[i]["content"]
-//             //     let nickname = data[i]["nickname"]
-//             //     let create_date = data[i]["create_date"]
-//             // }
-//         console.log(data)
-//         })
+        method: 'DELETE',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+        },
+    })
+    response_json = await response.json()
 
-//     if (response.status == 200) {
-//         alert('삭제 되었습니다.')
-//         window.location.reload();
-//     } else {
-//         alert('권한이 없습니다.')
-//     }
-// }
+    if (response.status == 200) {
+        alert('삭제 되었습니다.')
+        window.location.reload();
+    } else {
+        alert('권한이 없습니다.')
+    }
+}
 
 
 // get 방식 호출
@@ -90,22 +81,25 @@ async function guestData() {
     })
         .then(response => response.json())
         .then(data => {
+            // JSON.parse() 데이터를 실제 json화 시켜준다.
+            const login_user = JSON.parse(localStorage.getItem("payload")).user_id
+
             for (let i = 0; i < data.length; i++) {
                 let content = data[i]["content"]
                 let nickname = data[i]["nickname"]
                 let create_date = data[i]["create_date"]
 
-                // 방명록
-                user_id = data[i].author
-                if (user_id == owner_id) {
+                // 방명록을 작성한 유저
+                const author_id = data[i].author_id
+                if (login_user == author_id) {
                     content_temp = `
-                    <div class="guestbook">
-                        <button type="button" class="guestbook_delete" onclick="guestDelete">삭제</button>
-                        <div class="guestbook_user">
-                            <b>${nickname}</b><span>&nbsp| ${create_date}</span>
-                        </div>
-                        <div class="guestbook_data">${content}</div>
-                    </div>`
+                <div class="guestbook"> 
+                    <button type="button" class="guestbook_delete" onclick="delete_guest(this)" value=${data[i]["id"]}>삭제</button>
+                    <div class="guestbook_user">
+                        <b>${nickname}</b><span>&nbsp| ${create_date}</span>
+                    </div>
+                    <div class="guestbook_data">${content}</div>
+                </div>`
                     $("#guest_book").append(content_temp)
                 } else {
                     content_temp = `
