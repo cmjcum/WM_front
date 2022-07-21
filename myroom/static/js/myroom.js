@@ -122,20 +122,24 @@ async function show_profile() {
     })
         .then(response => response.json())
         .then(data => {
-            // JSON.parse() 데이터를 실제 json화 시켜준다.
-            const login_user = JSON.parse(localStorage.getItem("payload")).user_id
+            for (let i = 0; i < data.length; i++) {
+                const name = data[i]["name"]
+                const birthday = data[i]["birthday"]
+                const portrait = data[i]["portrait"]
+                const coin = data[i]["coin"]
 
-            const name = data["name"]
-            const birthday = data["birthday"]
-            const portrait = data["portrait"]
-            const coin = data["coin"]
-            console.log(data)
-
-            content_temp = `
-                <div class="profile-portrait">${portrait}</div>
-                <div class="profile-name">${name}</div>
-                <div class="my-profile">${birthday} | ${coin}</div>
+                content_temp = `
+                <div class="profile">
+                    <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
+                    <div class="profile-name" id="profile_name">${name}</div>
+                    <div class="my-profile">생일:&nbsp;${birthday}</div>
+                    <div class="my-profile">코인:&nbsp;${coin}</div>
+                    <div id="buttons_div">
+                        <button id="edit_button" onclick="click_edit_button(event)">편집</button>
+                    </div>
+                    <div id="furniture_div"></div>
                 `
-            $("#show_profile").append(content_temp)
+                $("#show_profile").append(content_temp)
+            }
         })
 }
