@@ -229,14 +229,10 @@ async function save_room() {
 
 
 window.onload = function () {
-    guestData()
     load_room()
     // myroom.js
     show_guest_book()
     show_profile()
-
-
-    document.getElementById("edit_button").addEventListener('click', (e) => {click_edit_button(e)});
 
     const room = document.getElementById('room');
     room.addEventListener('click', add_new_furniture)
