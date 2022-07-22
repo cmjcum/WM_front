@@ -1,7 +1,7 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
-
+// 모달창 띄우기
 function show_modal() {
     const open = () => {
         document.querySelector(".modal").classList.remove("hidden");
@@ -15,7 +15,7 @@ function show_modal() {
     document.querySelector(".bg").addEventListener("click", close);
 }
 
-
+// 방명록 작성
 async function write_guest_book() {
     let owner_id = window.location.search.split('=')[1]
     const contentData = {
@@ -44,7 +44,7 @@ async function write_guest_book() {
     }
 }
 
-
+// 방명록 삭제
 async function delete_guest(book_id) {
     let guest_book_id = $(book_id).val();
     const response = await fetch(`${backend_base_url}/myroom/book/${guest_book_id}/`, {
@@ -63,7 +63,6 @@ async function delete_guest(book_id) {
         alert('권한이 없습니다.')
     }
 }
-
 
 // 방명록 조회
 async function show_guest_book() {
@@ -111,7 +110,7 @@ async function show_guest_book() {
 }
 
 
-// 회원 정보
+// 회원 정보 조회
 async function show_profile() {
     let owner_id = window.location.search.split('=')[1]
     const response = await fetch(`${backend_base_url}/myroom/${owner_id}/`, {
@@ -129,11 +128,22 @@ async function show_profile() {
                 const coin = data[i]["coin"]
 
                 content_temp = `
+                <script>
+                    $(".btn_like").click(function () {
+                        $(this).toggleClass("done");
+                    })
+                </script>
                 <div class="profile">
                     <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
                     <div class="profile-name" id="profile_name">${name}</div>
                     <div class="my-profile">생일:&nbsp;${birthday}</div>
                     <div class="my-profile">코인:&nbsp;${coin}</div>
+
+                    <div id="">
+                    <button class="btn_like" id="" onclick="like_follow()">❤️</button>
+                    <button class="btn_like" id="" onclick="follow_follow()">🚀</button>
+                    </div>
+                    
                     <div id="buttons_div">
                         <button id="edit_button" onclick="click_edit_button(event)">편집</button>
                     </div>
@@ -142,4 +152,61 @@ async function show_profile() {
                 $("#show_profile").append(content_temp)
             }
         })
+}
+
+
+// 좋아요
+async function like_follow() {
+    let owner_id = window.location.search.split('=')[1]
+    const contentData = {
+        content: document.getElementById('guestBookData').value,
+    }
+
+    const response = await fetch(`${backend_base_url}/myroom/like/${owner_id}/`, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            Accept: "application/json",
+            'Content-type': 'application/json'
+        },
+        withCredentials: true,
+        method: 'POST',
+
+        body: JSON.stringify(contentData)
+    }
+    )
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        alert('좋아요.')
+    } else {
+        alert('좋아요 취소.')
+    }
+}
+
+
+async function follow_follow() {
+    let owner_id = window.location.search.split('=')[1]
+    const contentData = {
+        content: document.getElementById('guestBookData').value,
+    }
+
+    const response = await fetch(`${backend_base_url}/myroom/follow/${owner_id}/`, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            Accept: "application/json",
+            'Content-type': 'application/json'
+        },
+        withCredentials: true,
+        method: 'POST',
+
+        body: JSON.stringify(contentData)
+    }
+    )
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        alert('팔로우.')
+    } else {
+        alert('팔로우 취소.')
+    }
 }
