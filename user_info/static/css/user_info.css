@@ -1,0 +1,87 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 100px;
+
+    color: black;
+
+    min-height: 100vh;
+}
+
+.title {
+    margin-bottom: 30px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.logo {
+    width: 800px;
+    aspect-ratio: 101/11;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: row;
+
+    background-color: white;
+    padding: 100px;
+    border-radius: 30px;
+}
+
+.face-picture-label {
+    display: inline-block;
+}
+
+#face_picture {
+    display: none;
+}
+
+.face-picture-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 0 10px 30px 10px;
+
+    background-color: #8773a1;
+    width: 300px;
+    aspect-ratio: 7/9;
+
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3), 0 0 2px rgba(255, 255, 255, 0.3), 0 0 5px rgba(50, 251, 226, 0.2);
+}
+
+.context-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-left: 20px;
+}
+
+.names-div {
+    margin-bottom: 10px;
+}
+
+.input-name {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.input-birthday {
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+.check-p {
+    margin-top: 10px;
+}
+
+#submit_button {
+    margin-top: 10px;
+}
