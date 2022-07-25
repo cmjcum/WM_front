@@ -4,14 +4,14 @@ const frontend_base_url = "http://127.0.0.1:5500"
 // 모달창 띄우기
 function show_modal() {
     const open = () => {
-        document.querySelector(".modal").classList.remove("hidden");
+        document.querySelector(".modal").style.display = "flex";
+        console.log(document.querySelector(".modal").classList)
     }
     const close = () => {
-        document.querySelector(".modal").classList.add("hidden");
+        document.querySelector(".modal").style.display = "none";
     }
     document.querySelector(".openBtn").addEventListener("click", open);
     document.querySelector(".closeBtn").addEventListener("click", close);
-    document.querySelector(".bg").addEventListener("click", close);
 }
 
 // 방명록 작성
@@ -138,7 +138,7 @@ async function show_profile() {
                     <div class="profile-name" id="profile_name">${name}</div>
                     <div class="my-profile">birthday:&nbsp;${birthday}</div>
                     <div class="my-profile">coin:&nbsp;${coin}</div>
-                    <div id="furniture_div"></div>
+        
                     <div class="" id="buttons_div">
                         <button class="btn_like badge rounded-pill bg-warning" id="edit_button"
                             onclick="click_edit_button(event)">방꾸미기</button>
@@ -146,6 +146,7 @@ async function show_profile() {
                         <button class="btn_like badge rounded-pill bg-primary" id="" onclick="like_follow()">like❤️</button>
                     </div>
                 </div>
+                <div id="furniture_div" class="furniture_div"></div>
                 `
                 $("#show_profile").append(content_temp)
             }

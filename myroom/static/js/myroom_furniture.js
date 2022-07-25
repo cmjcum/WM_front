@@ -164,9 +164,9 @@ function click_edit_button(e) {
         cancel_button.innerHTML = '취소'
         cancel_button.addEventListener('click', () => { window.location.reload() })
 
-        buttons_div.appendChild(rotate_button)
         buttons_div.appendChild(remove_button)
         buttons_div.appendChild(cancel_button)
+        buttons_div.appendChild(rotate_button)
     
         get_my_furniture()
     }
