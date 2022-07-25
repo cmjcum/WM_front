@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/board.css">
     <script src="static/js/board_api.js"></script>
-    <script src="static/js/article_api.js"></script>
-    <script src="static/js/comment_api.js"></script>
+    <!-- <script src="static/js/article_api.js"></script> -->
+    <!-- <script src="static/js/comment_api.js"></script> -->
 
     <!--  loading  -->
     <script>
@@ -82,30 +82,32 @@
     </nav>
     <!-- 상단바 끝 -->
 
-    <section id="main">
-        <div class="container my-5 board-wrap text-primary">
-            <form>
+    <section class="main">
+        <div class="container my-5 board-wrap">
+            <!-- 본문 시작 -->
 
-                <div class="form-group">
-                    <label for="input-title" class="form-label">제목</label>
-                    <input type="text" class="form-control" id="input-title">
+            <div class="logo">
+                <img src="../images/logo1.png">
+            </div>
 
-                    <label for="exampleTextarea" class="form-label mt-4">내용</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="24"></textarea>
+            <div id="boardList" class="text-center">
 
-                    <label for="formFile" class="form-label mt-4">사진 올리기</label>
-                    <input class="form-control" type="file" id="formFile">
-                    
-                    <p class="text-primary"><small>올릴 사진이 없다면 [글 올리기]를 눌러 작성을 완료해주세요!</small></p>
-                    <button type="button" class="btn btn-primary mt-4">글 올리기</button>
+                <div class="board">
+                    <a href="board.html?board=8">
+                        <img class="icon" src="/images/icon/solar.png">
+                        <div>
+                            <a href="board.html?board=8">
+                                <h2 class="text-primary">Solar system</h2>
+                                <p class="text-primary">지금 태양계에서는 어떤 이야기가 화제일까요?</p>
+                        </div>
+                    </a>
                 </div>
 
-            </form>
+                <!-- 거주 행성 아이콘 로딩 -->
 
+            </div>
 
-
-
-
+            <!-- 본문 끝 -->
         </div>
     </section>
 

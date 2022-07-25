@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
 }
 
-#main {
+.main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +25,7 @@
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     min-height: 600px;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .logo {
@@ -39,7 +39,7 @@
     width: 100%;
 }
 
-#board-list {
+#boardList {
     padding: 30px;
     display: flex;
     justify-content: space-around;
@@ -49,12 +49,14 @@
 .board {
     margin-top: 30px;
     margin-bottom: 30px;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 
-.board > img {
+div > a {
+    text-decoration: none !important;
+    text-shadow: none !important;
+}
+
+.icon {
     width: 150px;
     height: 150px;
     margin: 20px;
@@ -72,7 +74,7 @@ td > a {
     font-weight: 600;
 }
 
-#content {
+.content {
     margin: 40px 0;
     text-shadow: none !important;
     color: #1a0933;
@@ -96,6 +98,9 @@ figure > img {
     padding-left: 15px;
 }
 
+.pages {
+    height: 40px;
+}
 
 
 
