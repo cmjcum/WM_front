@@ -68,7 +68,7 @@ function remove_furniture(e) {
 let is_left = true
 
 async function get_my_furniture() {
-    const response = await fetch(`${backend_base_url}/myroom/test/`, {
+    const response = await fetch(`${backend_base_url}/myroom/furniture/`, {
         method: 'GET',
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
         withCredentials: true,
@@ -207,7 +207,7 @@ async function load_room() {
 async function save_room() {
     furniture_positions = furniture_positions.filter((elem) => elem != null)
 
-    const response = await fetch(`${backend_base_url}/myroom/test/`, {
+    const response = await fetch(`${backend_base_url}/myroom/furniture/`, {
         method: 'POST',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
