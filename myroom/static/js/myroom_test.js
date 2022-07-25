@@ -109,11 +109,13 @@ async function get_my_furniture() {
 function click_edit_button(e) {
     let buttons_div = document.getElementById('buttons_div')
 
-    if(e.target.innerHTML == '편집') {
+    if(e.target.innerHTML == '방꾸미기') {
         e.target.innerHTML = '완료'
 
         let rotate_button = document.createElement('button')
         rotate_button.setAttribute('id', 'rotate_button')
+        rotate_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+
         rotate_button.innerHTML = '회전'
         rotate_button.addEventListener('click', () => {
             cursor.remove()
@@ -135,6 +137,8 @@ function click_edit_button(e) {
 
         let remove_button = document.createElement('button')
         remove_button.setAttribute('id', 'remove_button')
+        remove_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+
         remove_button.innerHTML = '지우기'
         remove_button.addEventListener('click', (e) => {
             let room_childs = document.getElementById('room').childNodes
@@ -154,6 +158,8 @@ function click_edit_button(e) {
 
         let cancel_button = document.createElement('button')
         cancel_button.setAttribute('id', 'cancel_button')
+        cancel_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+
         cancel_button.innerHTML = '취소'
         cancel_button.addEventListener('click', () => { window.location.reload() })
 
@@ -229,11 +235,10 @@ async function save_room() {
 
 
 window.onload = function () {
-    guestData()
-    
     load_room()
-
-    document.getElementById("edit_button").addEventListener('click', (e) => {click_edit_button(e)});
+    // myroom.js
+    show_guest_book()
+    show_profile()
 
     const room = document.getElementById('room');
     room.addEventListener('click', add_new_furniture)
