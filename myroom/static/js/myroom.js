@@ -6,7 +6,6 @@ function show_modal() {
     const open = () => {
         document.querySelector(".modal").classList.remove("hidden");
     }
-
     const close = () => {
         document.querySelector(".modal").classList.add("hidden");
     }
@@ -87,10 +86,11 @@ async function show_guest_book() {
                 const author_id = data[i].author_id
                 if (login_user == author_id) {
                     content_temp = `
-                <div class="guestbook"> 
-                    <button type="button" class="guestbook_delete" onclick="delete_guest(this)" value=${data[i]["id"]}>삭제</button>
+                <div class="guestbook">
+                    <button type="button" class="fs-6 guestbook_delete badge rounded-pill bg-primary" onclick="delete_guest(this)"
+                        value=${data[i]["id"]}>삭제</button>
                     <div class="guestbook_user">
-                        <b>${nickname}</b><span>&nbsp| ${create_date}</span>
+                        <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                     </div>
                     <div class="guestbook_data">${content}</div>
                 </div>`
@@ -99,7 +99,7 @@ async function show_guest_book() {
                     content_temp = `
                     <div class="guestbook">
                         <div class="guestbook_user">
-                            <b>${nickname}</b><span>&nbsp| ${create_date}</span>
+                            <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
                     </div>`
@@ -136,18 +136,16 @@ async function show_profile() {
                 <div class="profile">
                     <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
                     <div class="profile-name" id="profile_name">${name}</div>
-                    <div class="my-profile">생일:&nbsp;${birthday}</div>
-                    <div class="my-profile">코인:&nbsp;${coin}</div>
-
-                    <div id="">
-                    <button class="btn_like" id="" onclick="like_follow()">❤️</button>
-                    <button class="btn_like" id="" onclick="follow_follow()">🚀</button>
-                    </div>
-                    
-                    <div id="buttons_div">
-                        <button id="edit_button" onclick="click_edit_button(event)">편집</button>
-                    </div>
+                    <div class="my-profile">birthday:&nbsp;${birthday}</div>
+                    <div class="my-profile">coin:&nbsp;${coin}</div>
                     <div id="furniture_div"></div>
+                    <div class="" id="buttons_div">
+                        <button class="btn_like badge rounded-pill bg-warning" id="edit_button"
+                            onclick="click_edit_button(event)">방꾸미기</button>
+                        <button class="btn_like badge rounded-pill bg-primary" id="" onclick="follow_follow()">follow🚀</button>
+                        <button class="btn_like badge rounded-pill bg-primary" id="" onclick="like_follow()">like❤️</button>
+                    </div>
+                </div>
                 `
                 $("#show_profile").append(content_temp)
             }

@@ -6,6 +6,7 @@
     background-repeat: no-repeat;
 }
 
+/* main 이 부분 */
 #main {
     display: flex;
     justify-content: center;
@@ -19,7 +20,7 @@
     border-radius: 20px;
     min-height: 600px;
 }
-
+/* main 크기 잡은 부분 */
 .board-wrap {
     padding: 50px;
     background-color: rgba(255, 255, 255, 0.9);
