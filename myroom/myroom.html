@@ -19,30 +19,66 @@
 
 
 <body>
-    <div class="main-box">
-        <!-- 방 꾸미기 -->
-        <section id="main">
-            <div class="container my-5 board-wrap">
-                <div class="profile-data">
-                    <div id="room" class="furniture"></div>
-                    <div id="show_profile"></div>
+    <!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="../images/rocket.png" height="30px"> Make Migrations</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+                aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-signpost-fill"></i> Main
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="bi bi-stars"></i> Solar system</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-stars"></i> My planet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-house-heart-fill"></i> My home</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="#"><i class="bi bi-power"></i></a>
                 </div>
-        </section>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 방 꾸미기 -->
+    <div class="main-box">
+        <div class="main-data-box">
+            <section id="main">
+                <div class=" board-wrap">
+                    <div id="room" class="furniture profile-data"></div>
+                </div>
+            </section>
+            <div id="show_profile" style="margin-left: 80px;"></div>
+        </div>
+
+
 
         <div class="guestbook_text">
             <b style="color: rgba(255, 255, 255, 0.937);">방명록</b>
             <!-- modal -->
             <button class="openBtn fs-6 guestbook_button badge rounded-pill bg-primary" onclick="show_modal()">방명록
                 작성</button>
-            <div class="modal hidden">
-                <div id="bg" class="bg"></div>
-                <div class="modal_box">
-                    <p>&nbsp&nbsp방명록을 작성해 주세요!</p>
-                    <textarea id="guestBookData" class="content"></textarea>
-                    <div class="btn_set">
-                        <button type="button" class="" style="margin-left: 210px" onclick="write_guest_book()">작성
-                            버튼</button>
-                        <button class="closeBtn" style="margin-right: 210px;">닫기</button>
+            <div class="modal">
+                <div class="modal_box card text-white bg-primary mb-3" style="border-radius: 15px;">
+                    <div class="card-header" style="margin: auto;">방명록을 작성해 주세요</div>
+                    <textarea id="guestBookData" class="content" style="border-radius: 15px;"></textarea>
+                    <div class="btn_set" style="margin: auto;">
+                        <button type="button" class="modal_btn fs-6 btn btn-primary"
+                            style="border: solid 1px; margin: 3px;" onclick="write_guest_book()">저장</button>
+                        <button class="modal_btn fs-6 closeBtn btn btn-primary"
+                            style="border: solid 1px; margin: 3px;">닫기</button>
                     </div>
                 </div>
             </div>
