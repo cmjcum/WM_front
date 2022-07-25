@@ -41,7 +41,7 @@ async function modalData() {
     response_json = await response.json()
 
     if (response.status == 200) {
-        alert('방명록이 작성됬습니다.')
+        alert('방명록이 작성됐습니다.')
         window.location.reload();
     } else {
         alert('다시 작성해 주세요')
