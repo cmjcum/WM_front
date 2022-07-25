@@ -20,6 +20,7 @@
     border-radius: 20px;
     min-height: 600px;
 }
+
 .board-wrap {
     padding: 50px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -37,7 +38,6 @@
 
 .logo > img {
     max-width: 100%;
-    width: auto;
 }
 
 #boardList {
@@ -96,7 +96,7 @@ figure > img {
 }
 
 .reply {
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 .pages {

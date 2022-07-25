@@ -148,11 +148,6 @@ async function loadBoard() {
             // console.log(jsType(data))
             // console.log(Object.keys(data).length)
             // console.log(data)
-            // console.log(data[2])
-
-            // 글쓰기 버튼
-            // btn_temp = `<a class="btn btn-secondary" href="article_write.html?board=${board_id}"><i class="bi bi-pencil-square"></i> 글쓰기</a>`
-            // $("#postBtn").append(btn_temp)
 
             for(let i = 0; i < Object.keys(data).length; i++) {
 
