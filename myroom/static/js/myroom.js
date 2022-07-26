@@ -122,33 +122,81 @@ async function show_profile() {
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.length; i++) {
+                const login_user_id = JSON.parse(localStorage.getItem("payload")).user_id
+                const user_id = data[i].user_id
+                
                 const name = data[i]["name"]
                 const birthday = data[i]["birthday"]
                 const portrait = data[i]["portrait"]
                 const coin = data[i]["coin"]
+                const like_count = data[i]["user"]["like_count"]
+                const follow_count = data[i]["user"]["follow_count"]                
 
-                content_temp = `
+                if (login_user_id == user_id) {
+                    content_temp = `
                 <script>
                     $(".btn_like").click(function () {
                         $(this).toggleClass("done");
                     })
                 </script>
-                <div class="profile">
+
+                <div class="profile-wrap" style="display:flex;">
                     <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
-                    <div class="profile-name" id="profile_name">${name}</div>
-                    <div class="my-profile">birthday:&nbsp;${birthday}</div>
-                    <div class="my-profile">coin:&nbsp;${coin}</div>
-        
-                    <div class="" id="buttons_div">
-                        <button class="btn_like badge rounded-pill bg-warning" id="edit_button"
-                            onclick="click_edit_button(event)">방꾸미기</button>
-                        <button class="btn_like badge rounded-pill bg-primary" id="" onclick="follow_follow()">follow🚀</button>
-                        <button class="btn_like badge rounded-pill bg-primary" id="" onclick="like_follow()">like❤️</button>
+                    <!-- 유저 정보 -->
+                    <div class="profile-name" id="profile_name">
+                        <div class="my-profile" style="font-size: 11px;">${name}</div>
+                        <div class="my-profile">birthday:&nbsp;${birthday}</div>
+                        <div class="my-profile">coin:&nbsp;${coin}</div>
+                        <div class="my-profile">좋아요:${like_count}</div>
+                        <div class="my-profile">팔로우:${follow_count}</div>
+                        <div class="my-profile">팔로잉:</div>
                     </div>
                 </div>
-                <div id="furniture_div" class="furniture_div"></div>
+            
+                <!-- 방 꾸미기 -->
+                <div id="buttons_div" style="text-align: center;">
+                    <button class="btn_furniture badge rounded-pill bg-warning" id="edit_button" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
+                        onclick="click_edit_button(event)">방꾸미기</button>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div id="furniture_div" class="furniture_div" style="float: right;"></div>
+                    </div>
+                </div>
                 `
-                $("#show_profile").append(content_temp)
+                    $("#show_profile").append(content_temp)
+                    
+                } else {
+                    content_temp = `
+                <script>
+                    $(".btn_like").click(function () {
+                        $(this).toggleClass("done");
+                    })
+                </script>
+
+                <div class="profile-wrap" style="display:flex;">
+                    <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
+                    <!-- 유저 정보 -->
+                    <div class="profile-name" id="profile_name">
+                        <div class="my-profile" style="font-size: 11px;">${name}</div>
+                        <div class="my-profile">birthday:&nbsp;${birthday}</div>
+                        <div class="my-profile">coin:&nbsp;${coin}</div>
+                        <div class="my-profile">좋아요:${like_count}</div>
+                        <div class="my-profile">팔로우:${follow_count}</div>
+                        <div class="my-profile">팔로잉:</div>
+
+                    </div>
+                </div>
+            
+                <!-- 좋아요/팔로우 -->
+                <div id="buttons_div" style="float:right;">
+                    <button class="fs-5 btn_like badge rounded-pill" onclick="like_follow()"><i class="bi bi-heart"></i></button>
+                    <button class="fs-4 btn_like badge rounded-pill" onclick="follow_follow()" style="margin-right: 15px;"><i class="bi bi-person-plus"></i></button>
+                </div>
+                `
+                    $("#show_profile").append(content_temp)
+                }
             }
         })
 }
