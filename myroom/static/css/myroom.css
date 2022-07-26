@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
 }
+
 /* ///////////////////////////// */
 .board-wrap {
     padding: 30px;
@@ -64,35 +65,6 @@ body {
     position: relative;
 }
 
-
-.profile {
-    min-width: 190px;
-    border-radius: 15px;
-    margin: auto;
-    float: right;
-}
-
-.profile-portrait {
-    width: 80px;
-    height: 80px;
-    margin: 0px auto 10px auto;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-}
-
-.profile-name {
-    text-align: center;
-    margin: 5px 0px 0px 0px;
-    font-weight: bold;
-}
-
-.my-profile {
-    text-align: center;
-    font-size: 1px;
-}
-
-
 .guestbook_text {
     width: 900px;
     margin: 30px auto auto auto;
@@ -145,6 +117,7 @@ body {
     display: block;
     margin: 0 auto;
 }
+
 /* /////////////////////////////////////// */
 .content {
     width: 580px;
@@ -173,14 +146,26 @@ body {
     text-shadow: 0;
 }
 
-.btn_like {
+.btn_furniture {
     color: transparent;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.993), 0 0 0 #000;
     border: 0;
     background-color: transparent;
     max-width: 63px;
-    float: right;
-    margin: 10px 1px 1px 1px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn_like {
+    color: transparent;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.993), 0 0 0 #000;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    max-width: 63px;
+    display: inline-block;
+    margin-top: 3px;
+    width: 30px;
 }
 
 .furniture_btn {
@@ -189,16 +174,49 @@ body {
     float: right;
 }
 
-.modal_btn{
+.modal_btn {
     margin: 5px;
 }
 
-.furniture_div{
-    float: right;
+.furniture_div {
+    width: 150px;
+	display :inline-block;
+    margin: auto;
 }
 
-.main-data-box{
+.main-data-box {
     max-width: 900px;
     margin: 100px auto 100px auto;
     display: flex;
+}
+
+
+
+
+
+.profile-wrap {
+    width: 200px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+}
+
+.profile-portrait {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-name {
+    margin: auto;
+    font-weight: bold;
+    color: black;
+}
+
+.my-profile {
+    text-align: center;
+    font-size: 1px;
 }
