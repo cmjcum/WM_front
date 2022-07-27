@@ -31,8 +31,8 @@
     <script>
         $(document).ready(function () {
             loadNavbar()
-            loadMain()
-        }
+            loadArticleData() 
+    }
         );
     </script>
 
@@ -88,12 +88,12 @@
 
                 <div class="form-group">
                     <label for="input-title" class="form-label">제목</label>
-                    <input type="text" class="form-control" id="input-title">
+                    <input type="text" class="form-control" id="inputTitle">
 
                     <label for="exampleTextarea" class="form-label mt-4">내용</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="24"></textarea>
+                    <textarea class="form-control" id="inputContent" rows="24"></textarea>
 
-                    <button type="button" class="btn btn-primary mt-4">수정하기</button>
+                    <button type="button" class="btn btn-primary mt-4" onclick="putArticle()">수정하기</button>
                 </div>
 
             </form>

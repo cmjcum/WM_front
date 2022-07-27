@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="static/css/board.css">
     <script src="static/js/board_api.js"></script>
     <script src="static/js/article_api.js"></script>
-    <!-- <script src="static/js/comment_api.js"></script> -->
+    <script src="static/js/comment_api.js"></script>
 
     <!--  loading  -->
     <script>
@@ -44,7 +44,7 @@
 <body>
 
     <!-- 상단바 시작 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top gap-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/board"><img src="../images/rocket.png" height="30px"> Make
                 Migrations</a>
@@ -71,7 +71,7 @@
                             home</a> -->
                     </li>
                 </ul>
-                <div class="d-flex mx-my-2" id="isAdminNow">
+                <div class="d-flex" id="isAdminNow">
                     <!-- 관리자 로그인 시 표시 -->
                 </div>
                 <div class="d-flex">
@@ -90,13 +90,18 @@
             <div class="d-flex justify-content-between mb-2">
                 <form class="d-flex">
                     <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-secondary my-2 my-sm-0" type="button"
+                        onclick="searchButtonClick()">Search</button>
                 </form>
                 <div id="postBtn">
-                    <a class="btn btn-secondary"onclick="post_button_click()"><i class="bi bi-pencil-square"></i> 글쓰기</a>
+                    <a class="btn btn-secondary" onclick="postButtonClick()"><i class="bi bi-pencil-square"></i> 글쓰기</a>
                 </div>
             </div>
 
+<div id="alert">
+    
+</div>
+            
             <table class="table table-hover">
                 <thead>
                     <tr class="table-primary">
@@ -112,35 +117,35 @@
                     <!-- 게시글 리스트 로딩 영역 -->
                 </tbody>
             </table>
-            
-                <!-- 페이지네이터 시작 -->
-                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-1">
-                    <ul class="pagination pagination justify-content-center">
-                      <li class="page-item disabled">
+
+            <!-- 페이지네이터 시작 -->
+            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-1 visually-hidden">
+                <ul class="pagination pagination justify-content-center">
+                    <li class="page-item disabled">
                         <a class="page-link" href="#">&laquo;</a>
-                      </li>
-                      <li class="page-item active">
+                    </li>
+                    <li class="page-item active">
                         <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item">
                         <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item">
                         <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item">
                         <a class="page-link" href="#">4</a>
-                      </li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item">
                         <a class="page-link" href="#">5</a>
-                      </li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item">
                         <a class="page-link" href="#">&raquo;</a>
-                      </li>
-                    </ul>
-                </div>
-                <!-- 페이지네이터 끝 -->
-                
+                    </li>
+                </ul>
+            </div>
+            <!-- 페이지네이터 끝 -->
+
             <!-- 본문 끝 -->
         </div>
     </section>
