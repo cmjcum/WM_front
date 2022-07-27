@@ -23,6 +23,7 @@ async function load_planet_info() {
         });
 }
 
+
 function click_planet(e) {
     let floor_select = document.getElementById('floor_select')
 
