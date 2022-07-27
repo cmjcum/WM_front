@@ -5871,6 +5871,10 @@ fieldset:disabled .btn {
   border: 0;
   border-radius: 0.15rem;
   opacity: 0.5;
+
+  position: relative;
+  bottom: 15px;
+  left: 10px;
 }
 
 .btn-close:hover {
@@ -6037,6 +6041,7 @@ fieldset:disabled .btn {
   outline: 0;
 
   margin-top: 100px;
+  padding: 10px 10px 0 20px;
 }
 
 .modal-backdrop {
@@ -6086,7 +6091,7 @@ fieldset:disabled .btn {
   position: relative;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .modal-footer {
