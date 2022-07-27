@@ -56,6 +56,28 @@ function click_submit_button() {
         return
     }
 
+    let form_data = new FormData()
+    form_data.append('portrait', file)
+    form_data.append('name_ko', name_ko.value)
+    form_data.append('name_eng', name_eng.value)
+    form_data.append('birthday', birthday.value)
+    
+    const response = await fetch(`${backend_base_url}/user/user_info/`, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("access") },
+        withCredentials: true,
+        method: 'POST',
+        body: form_data
+    }
+    ).then(response => {
+        if (response.status == 200) {
+            
+        }
+        
+        if (response.status == 400) {
+            alert(response.status)
+        }
+    })
+
 }
 
 
