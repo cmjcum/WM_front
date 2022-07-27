@@ -35,7 +35,7 @@ async function load_planet_info() {
 function click_planet(e) {
     let floor_select = document.getElementById('floor_select')
 
-    remove_all_child(floor_select)
+    remove_all_children(floor_select)
 
     let name = e.target.getAttribute('id')
     let empty_rooms = planet_infos[name]['empty_rooms']
@@ -66,7 +66,7 @@ function click_planet(e) {
 function change_floor(e) {
     let number_select = document.getElementById('number_select')
 
-    remove_all_child(number_select)
+    remove_all_children(number_select)
 
     let empty_room_numbers = planet_infos[e.target.getAttribute('name')]['empty_rooms'][e.target.value-1][e.target.value]
     for(let i=0; i<empty_room_numbers.length; i++) {
