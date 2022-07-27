@@ -1,6 +1,17 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
+const planet_names = {
+    'mercury': '수성',
+    'venus': '금성',
+    'earth': '지구',
+    'mars': '화성',
+    'jupiter': '목성',
+    'saturn': '토성',
+    'uranus': '천왕성',
+    'neptune': '해왕성'
+}
+
 let planet_infos = {}
 
 
@@ -38,7 +49,8 @@ function click_planet(e) {
     remove_all_children(floor_select)
 
     let name = e.target.getAttribute('id')
-    let empty_rooms = planet_infos[name]['empty_rooms']
+    let planet_info = planet_infos[name]
+    let empty_rooms = planet_info['empty_rooms']
     floor_select.setAttribute('name', name)
 
     for(let i=0; i<empty_rooms.length; i++) {
@@ -60,6 +72,9 @@ function click_planet(e) {
         new_option.setAttribute('value', first_empty_room_numbers[i])
         number_select.appendChild(new_option)
     }
+
+    let population_name_p = document.getElementById('population_name_p')
+    population_name_p.innerHTML = `총 ${planet_info['population']}명의 사람이 ${planet_names[name]}에 살고 있어요!`
 }
 
 
