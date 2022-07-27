@@ -24,14 +24,22 @@ async function load_planet_info() {
 }
 
 function click_planet(e) {
-    let name = e.target.getAttribute('id')
-    let planet_info = planet_infos[name]
-
     let floor_select = document.getElementById('floor_select')
-    for(let i=0; i<planet_info['empty_rooms'].length; i++) {
-        
+
+    while(floor_select.hasChildNodes()) {
+        floor_select.removeChild(floor_select.firstChild)
     }
-    console.log(planet_info['empty_rooms'])
+
+    let name = e.target.getAttribute('id')
+    let empty_rooms = planet_infos[name]['empty_rooms']
+
+    for(let i=0; i<empty_rooms.length; i++) {
+        let new_option = document.createElement('option')
+        let key = Object.keys(empty_rooms[i])
+        new_option.innerHTML = key
+        new_option.setAttribute('value', key)
+        floor_select.appendChild(new_option)
+    }
 }
 
 window.onload = function() {
