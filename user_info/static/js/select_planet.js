@@ -75,6 +75,8 @@ function click_planet(e) {
 
     let population_name_p = document.getElementById('population_name_p')
     population_name_p.innerHTML = `총 ${planet_info['population']}명의 사람이 ${planet_names[name]}에 살고 있어요!`
+
+    document.getElementById('modal_title').innerHTML = `${planet_names[name]}으로 가시겠어요?`
 }
 
 
