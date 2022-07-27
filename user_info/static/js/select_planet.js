@@ -83,7 +83,7 @@ function change_floor(e) {
 
     remove_all_children(number_select)
 
-    let empty_room_numbers = planet_infos[e.target.getAttribute('name')]['empty_rooms'][e.target.value-1][e.target.value]
+    let empty_room_numbers = planet_infos[e.target.getAttribute('name')]['empty_rooms'][e.target.selectedIndex][e.target.value]
     for(let i=0; i<empty_room_numbers.length; i++) {
         let new_option = document.createElement('option')
         new_option.innerHTML = empty_room_numbers[i]
