@@ -2,7 +2,7 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
-function click_submit_button() {
+async function click_submit_button() {
     const file = document.getElementById('face_picture').files[0]
     if(!file) {
         alert('사진을 선택해주세요!')
