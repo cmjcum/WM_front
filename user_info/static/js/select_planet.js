@@ -3,6 +3,14 @@ const frontend_base_url = "http://127.0.0.1:5500"
 
 let planet_infos = {}
 
+
+function remove_all_children(parent) {
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild)
+    }
+}
+
+
 async function load_planet_info() {
     const response = await fetch(`${backend_base_url}/user/planet/`, {
         method: 'GET',
@@ -27,9 +35,7 @@ async function load_planet_info() {
 function click_planet(e) {
     let floor_select = document.getElementById('floor_select')
 
-    while(floor_select.hasChildNodes()) {
-        floor_select.removeChild(floor_select.firstChild)
-    }
+    remove_all_child(floor_select)
 
     let name = e.target.getAttribute('id')
     let empty_rooms = planet_infos[name]['empty_rooms']
@@ -45,9 +51,7 @@ function click_planet(e) {
 
     let number_select = document.getElementById('number_select')
 
-    while(number_select.hasChildNodes()) {
-        number_select.removeChild(number_select.firstChild)
-    }
+    remove_all_children(number_select)
 
     let first_empty_room_numbers = empty_rooms[0][Object.keys(empty_rooms[0])]
     for(let i=0; i<first_empty_room_numbers.length; i++) {
@@ -62,9 +66,7 @@ function click_planet(e) {
 function change_floor(e) {
     let number_select = document.getElementById('number_select')
 
-    while(number_select.hasChildNodes()) {
-        number_select.removeChild(number_select.firstChild)
-    }
+    remove_all_child(number_select)
 
     let empty_room_numbers = planet_infos[e.target.getAttribute('name')]['empty_rooms'][e.target.value-1][e.target.value]
     for(let i=0; i<empty_room_numbers.length; i++) {
