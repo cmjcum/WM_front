@@ -70,6 +70,9 @@ input {
     padding: 0 10px 30px 10px;
 
     background-color: #8773a1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 300px;
     aspect-ratio: 7/9;
 
