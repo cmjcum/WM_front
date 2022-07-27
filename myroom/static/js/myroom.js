@@ -130,7 +130,11 @@ async function show_profile() {
                 const portrait = data[i]["portrait"]
                 const coin = data[i]["coin"]
                 const like_count = data[i]["user"]["like_count"]
-                const follow_count = data[i]["user"]["follow_count"]                
+                const follow_count = data[i]["user"]["follow_count"]
+                const following_count = data[i]["user"]["following_count"]  
+ 
+                
+                console.log(data)
 
                 if (login_user_id == user_id) {
                     content_temp = `
@@ -148,8 +152,8 @@ async function show_profile() {
                         <div class="my-profile">birthday:&nbsp;${birthday}</div>
                         <div class="my-profile">coin:&nbsp;${coin}</div>
                         <div class="my-profile">좋아요:${like_count}</div>
-                        <div class="my-profile">팔로우:${follow_count}</div>
-                        <div class="my-profile">팔로잉:</div>
+                        <div class="my-profile">팔로워:${follow_count}</div>
+                        <div class="my-profile">팔로우:${following_count}</div>
                     </div>
                 </div>
             
@@ -183,8 +187,8 @@ async function show_profile() {
                         <div class="my-profile">birthday:&nbsp;${birthday}</div>
                         <div class="my-profile">coin:&nbsp;${coin}</div>
                         <div class="my-profile">좋아요:${like_count}</div>
-                        <div class="my-profile">팔로우:${follow_count}</div>
-                        <div class="my-profile">팔로잉:</div>
+                        <div class="my-profile">팔로워:${follow_count}</div>
+                        <div class="my-profile">팔로우:${following_count}</div>
 
                     </div>
                 </div>
