@@ -42,6 +42,20 @@ function click_planet(e) {
         new_option.setAttribute('value', key)
         floor_select.appendChild(new_option)
     }
+
+    let number_select = document.getElementById('number_select')
+
+    while(number_select.hasChildNodes()) {
+        number_select.removeChild(number_select.firstChild)
+    }
+
+    let first_empty_room_numbers = empty_rooms[0][Object.keys(empty_rooms[0])]
+    for(let i=0; i<first_empty_room_numbers.length; i++) {
+        let new_option = document.createElement('option')
+        new_option.innerHTML = first_empty_room_numbers[i]
+        new_option.setAttribute('value', first_empty_room_numbers[i])
+        number_select.appendChild(new_option)
+    }
 }
 
 
