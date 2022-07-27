@@ -32,6 +32,7 @@ function click_planet(e) {
 
     let name = e.target.getAttribute('id')
     let empty_rooms = planet_infos[name]['empty_rooms']
+    floor_select.setAttribute('name', name)
 
     for(let i=0; i<empty_rooms.length; i++) {
         let new_option = document.createElement('option')
@@ -42,10 +43,29 @@ function click_planet(e) {
     }
 }
 
+
+function change_floor(e) {
+    let number_select = document.getElementById('number_select')
+
+    while(number_select.hasChildNodes()) {
+        number_select.removeChild(number_select.firstChild)
+    }
+
+    let empty_room_numbers = planet_infos[e.target.getAttribute('name')]['empty_rooms'][e.target.value-1][e.target.value]
+    for(let i=0; i<empty_room_numbers.length; i++) {
+        let new_option = document.createElement('option')
+        new_option.innerHTML = empty_room_numbers[i]
+        new_option.setAttribute('value', empty_room_numbers[i])
+        number_select.appendChild(new_option)
+    }
+}
+
+
 window.onload = function() {
     load_planet_info()
 
     document.getElementById('click_arrow').addEventListener('click', (e) => { e.target.parentNode.parentNode.style.display = 'none' })
+    document.getElementById('floor_select').addEventListener('change', (e) => { change_floor(e) })
 
     planets = document.getElementsByClassName('scale')
     for(let i=0; i<planets.length; i++) {
