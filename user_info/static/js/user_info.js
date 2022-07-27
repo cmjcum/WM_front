@@ -16,8 +16,8 @@ function click_submit_button() {
         return
     }
 
-    const name_en = document.getElementById('name_en')
-    if(!name_en.value) {
+    const name_eng = document.getElementById('name_eng')
+    if(!name_eng.value) {
         alert('영문 이름을 입력해주세요!')
         name_en.focus()
         return
