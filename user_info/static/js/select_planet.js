@@ -15,6 +15,37 @@ const planet_names = {
 let planet_infos = {}
 
 
+async function click_submit_button() {
+    const floor_select = document.getElementById('floor_select')
+    const info_data = {
+        'planet': floor_select.getAttribute('name'),
+        'floor': floor_select.value,
+        'room_number': document.getElementById('number_select').value
+    }
+
+    const response = await fetch(`${backend_base_url}/user/planet/`, {
+        headers: {
+            Authorization : "Bearer " + localStorage.getItem("access"),
+            Accept: "application/json",
+            'Content-type': 'application/json'},
+        withCredentials: true,
+        method: 'POST',
+        body: JSON.stringify(info_data)
+    }
+    ).then(response => {
+        if (response.status == 200) {
+
+        }
+        if (response.status == 400) {
+            alert(response.status)
+        }
+        if (response.status == 403) {
+            alert('죄송합니다. 다른 방을 선택해주세요.')
+        }
+    })
+}
+
+
 function remove_all_children(parent) {
     while(parent.hasChildNodes()) {
         parent.removeChild(parent.firstChild)
@@ -105,5 +136,7 @@ window.onload = function() {
     for(let i=0; i<planets.length; i++) {
         planets[i].addEventListener('click', (e) => {click_planet(e)})
     }
+
+    document.getElementById('submit_button').addEventListener('click', click_submit_button)
 
 }
