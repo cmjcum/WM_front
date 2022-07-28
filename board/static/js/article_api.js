@@ -1,8 +1,3 @@
-// url matching
-// const backend_base_url = "http://127.0.0.1:8000"
-// const frontend_base_url = "http://127.0.0.1:5500"
-
-
 // method POST
 // 게시글 작성하기
 async function postArticle() {
@@ -140,6 +135,18 @@ async function loadArticle() {
             $("#articleContent").append(change_content)
             $("#articleDate").append(data.create_date)
             $("#commentCount").append(data.comments_cnt)
+            $("#likeCount").append(data.likes_cnt)
+
+            console.log(data.liked_this)
+            if (data.liked_this) {
+                // 좋아요 눌렀음
+                temp = `<span class="fs-6"><a class="text-primary no-deco" onclick="undoLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up-fill  me-1"></i>좋아요!</a></span>`
+            } else {
+                // 좋아요 안 눌렀음
+                temp = `<span class="fs-6"><a class="text-primary  no-deco" onclick="doLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up  me-1"></i>좋아요</a></span>`
+            }
+            $("#articleLikeBtn").append(temp)
+
 
             let author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
             $("#articleAuthorLink").append(author_link_temp)
@@ -327,4 +334,38 @@ async function loadArticle() {
                 }
             }
         })
+}
+
+// 좋아요 등록
+async function doLike() {
+    let article_id = searchParam('article');
+
+    const response = await fetch(`${backend_base_url}/board/like/${article_id}/`, {
+        method: 'POST',
+        headers: { Authorization: "Bearer " + localStorage.getItem("access"), },
+    })
+
+    if (response.status == 200) {
+        window.location.reload(true);
+    } else {
+        alert(response.status)
+    }
+    }
+
+// 좋아요 삭제
+async function undoLike() {
+    let article_id = searchParam('article');
+
+    const response = await fetch(`${backend_base_url}/board/like/${article_id}/`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+        },
+    })
+
+    if (response.status == 200) {
+        window.location.reload(true);
+    } else {
+        alert(response.status)
+    }
 }

@@ -61,7 +61,6 @@ async function loadNavbar() {
                     let login_user_temp = `<span class="text-success vertical-middle me-3">${data[0]} 님</span>`
                     $("#username").append(login_user_temp)
                 }
-                // login_user_temp = `<span class="text-success vertical-middle me-3">${data.slice(-1)} 님</span>`
             }
 
         })
@@ -154,7 +153,7 @@ async function loadBoard() {
                 let author_id = data[i]["author"]
                 let create_date = data[i]["create_date"]
                 let comments = data[i]["comments"]
-                let likes = 0
+                let likes = data[i]["likes"]
 
                 let list_temp = `<tr>
                                             <th scope="row">${num}</th>
@@ -236,16 +235,16 @@ async function loadSearchData() {
                     let author_id = data[i]["author"]
                     let create_date = data[i]["create_date"]
                     let comments = data[i]["comments"]
-                    let likes = 0
+                    let likes = data[i]["likes"]
 
                     let list_temp = `<tr>
-                                            <th scope="row">${num}</th>
-                                            <td><a href="${detail_url}">${title}</a></th>
-                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                            <td>${create_date}</td>
-                                            <td>${comments}</td>
-                                            <td>${likes}</td>
-                                        </tr>`
+                                                        <th scope="row">${num}</th>
+                                                        <td><a href="${detail_url}">${title}</a></th>
+                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                        <td>${create_date}</td>
+                                                        <td>${comments}</td>
+                                                        <td>${likes}</td>
+                                                    </tr>`
                     $("#boardItems").append(list_temp)
                 }
             }
