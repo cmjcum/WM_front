@@ -4,10 +4,12 @@ const frontend_base_url = "http://127.0.0.1:5500"
 // 모달창 띄우기
 function show_modal() {
     const open = () => {
+        document.body.classList.add("stop-scroll");
         document.querySelector(".modal").style.display = "flex";
         console.log(document.querySelector(".modal").classList)
     }
     const close = () => {
+        document.body.classList.remove("stop-scroll");
         document.querySelector(".modal").style.display = "none";
     }
     document.querySelector(".openBtn").addEventListener("click", open);
@@ -124,42 +126,58 @@ async function show_profile() {
             for (let i = 0; i < data.length; i++) {
                 const login_user_id = JSON.parse(localStorage.getItem("payload")).user_id
                 const user_id = data[i].user_id
-                
+
+                // UserInfo.data
                 const name = data[i]["name"]
                 const birthday = data[i]["birthday"]
                 const portrait = data[i]["portrait"]
                 const coin = data[i]["coin"]
+                const floor = data[i]["floor"]
+                const room_number = data[i]["room_number"]
+                // User.data
                 const like_count = data[i]["user"]["like_count"]
+                const follow_id = data[i]["user"]["follow"]
+                const follower_count = data[i]["user"]["follower_count"]
                 const follow_count = data[i]["user"]["follow_count"]
-                const following_count = data[i]["user"]["following_count"]  
- 
-                
-                console.log(data)
+                // planet.data
+                const planet = data[i]["planet"]["name"]
+
+
+                for (let i = 0 ; i < follow_id.length ; i++) {
+                    if (follow_id[i] == login_user_id) {
+                        console.log(follow_id[i])
+                    }
+                }
+
+                console.log(follow_id)
 
                 if (login_user_id == user_id) {
                     content_temp = `
-                <script>
-                    $(".btn_like").click(function () {
-                        $(this).toggleClass("done");
-                    })
-                </script>
-
                 <div class="profile-wrap" style="display:flex;">
                     <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
                     <!-- 유저 정보 -->
                     <div class="profile-name" id="profile_name">
-                        <div class="my-profile" style="font-size: 11px;">${name}</div>
-                        <div class="my-profile">birthday:&nbsp;${birthday}</div>
-                        <div class="my-profile">coin:&nbsp;${coin}</div>
-                        <div class="my-profile">좋아요:${like_count}</div>
-                        <div class="my-profile">팔로워:${follow_count}</div>
-                        <div class="my-profile">팔로우:${following_count}</div>
+                        <div class="my-profile_name" style="font-size: 12px;">${name}</div>
+                            <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
+                                <div class="my-profile">행성:&nbsp;${planet}</div>
+                                <div class="my-profile">층수:&nbsp;${room_number} &nbsp; 호수:&nbsp;${floor}</div>
+                                <div class="my-profile">생일:&nbsp;${birthday}</div>
+                                <div class="my-profile"; style="margin-bottom: 5px;">코인:&nbsp;${coin}</div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="likes_follows-wrap" style="display:flex;">
+                    <div class="profile-name" id="profile_name">
+                        <div class="likes_follows">
+                            좋아요:${like_count} &nbsp 팔로워:${follower_count} &nbsp 팔로우:${follow_count}
+                        </div>
                     </div>
                 </div>
             
                 <!-- 방 꾸미기 -->
                 <div id="buttons_div" style="text-align: center;">
-                    <button class="btn_furniture badge rounded-pill bg-warning" id="edit_button" data-bs-target="#collapseExample"
+                    <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
                         onclick="click_edit_button(event)">방꾸미기</button>
                 </div>
@@ -170,33 +188,36 @@ async function show_profile() {
                 </div>
                 `
                     $("#show_profile").append(content_temp)
-                    
                 } else {
                     content_temp = `
+                <div class="profile-wrap" style="display:flex;">
+                    <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
+                    <!-- 유저 정보 -->
+                    <div class="profile-name" id="profile_name">
+                        <div class="my-profile_name" style="font-size: 12px;">${name}</div>
+                            <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
+                                <div class="my-profile">행성:&nbsp;${planet}</div>
+                                <div class="my-profile">층수:&nbsp;${room_number} &nbsp; 호수:&nbsp;${floor}</div>
+                                <div class="my-profile">생일:&nbsp;${birthday}</div>
+                            </div>
+                    </div>
+                </div>
+                <div class="likes_follows-wrap" style="display:flex;">
+                    <div class="profile-name" id="profile_name">
+                        <div class="likes_follows">
+                            좋아요:${like_count} &nbsp 팔로워:${follower_count} &nbsp 팔로우:${follow_count}
+                        </div>
+                    </div>
+                </div>
+
                 <script>
                     $(".btn_like").click(function () {
                         $(this).toggleClass("done");
                     })
                 </script>
-
-                <div class="profile-wrap" style="display:flex;">
-                    <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
-                    <!-- 유저 정보 -->
-                    <div class="profile-name" id="profile_name">
-                        <div class="my-profile" style="font-size: 11px;">${name}</div>
-                        <div class="my-profile">birthday:&nbsp;${birthday}</div>
-                        <div class="my-profile">coin:&nbsp;${coin}</div>
-                        <div class="my-profile">좋아요:${like_count}</div>
-                        <div class="my-profile">팔로워:${follow_count}</div>
-                        <div class="my-profile">팔로우:${following_count}</div>
-
-                    </div>
-                </div>
-            
-                <!-- 좋아요/팔로우 -->
                 <div id="buttons_div" style="float:right;">
                     <button class="fs-5 btn_like badge rounded-pill" onclick="like_follow()"><i class="bi bi-heart"></i></button>
-                    <button class="fs-4 btn_like badge rounded-pill" onclick="follow_follow()" style="margin-right: 15px;"><i class="bi bi-person-plus"></i></button>
+                    <button class="fs-4 btn_like badge rounded-pill" onclick="follow_follow()" style="margin-right: 25px;"><i class="bi bi-person-plus"></i></button>
                 </div>
                 `
                     $("#show_profile").append(content_temp)
@@ -226,12 +247,8 @@ async function like_follow() {
     }
     )
     response_json = await response.json()
-
-    if (response.status == 200) {
-        alert('좋아요.')
-    } else {
-        alert('좋아요 취소.')
-    }
+    // 새로고침
+    window.location.reload();
 }
 
 
@@ -254,10 +271,6 @@ async function follow_follow() {
     }
     )
     response_json = await response.json()
-
-    if (response.status == 200) {
-        alert('팔로우.')
-    } else {
-        alert('팔로우 취소.')
-    }
+    // 새로고침
+    // window.location.reload();
 }

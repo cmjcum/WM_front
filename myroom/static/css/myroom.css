@@ -6,10 +6,15 @@
     align-items: center;
 }
 
-/* ///////////////////////////// */
+.stop-scroll {
+    height: 100%;
+    overflow: hidden;
+}
+
 .board-wrap {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.9);
+    border: solid 3px rgb(107 70 186);
     border-radius: 30px;
 }
 
@@ -18,7 +23,8 @@
     height: 150px;
     margin: 20px auto auto auto;
     border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: solid 2px rgb(107 70 186);
 }
 
 .guestbook_nickname {
@@ -141,22 +147,26 @@ body {
     pointer-events: none;
 }
 
-.btn_like.done {
-    color: inherit;
-    text-shadow: 0;
-}
-
 .btn_furniture {
-    color: transparent;
-    text-shadow: 0 0 2px rgba(255, 255, 255, 0.993), 0 0 0 #000;
-    border: 0;
-    background-color: transparent;
-    max-width: 63px;
-    display: inline-block;
+    border: solid 2px rgb(107 70 186);
+    background-color: rgb(104, 74, 179, 0.6);
     margin-top: 10px;
 }
 
+.btn_like.done {
+    color: inherit;
+}
+
 .btn_like {
+    width: 30px;
+    background-color: transparent;
+    color: transparent;
+    border: 0;
+    padding: 0;
+    margin-top: 3px;
+}
+
+/* .btn_like {
     color: transparent;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.993), 0 0 0 #000;
     border: 0;
@@ -166,7 +176,7 @@ body {
     display: inline-block;
     margin-top: 3px;
     width: 30px;
-}
+} */
 
 .furniture_btn {
     border: 0px;
@@ -180,7 +190,7 @@ body {
 
 .furniture_div {
     width: 150px;
-	display :inline-block;
+    display: inline-block;
     margin: auto;
 }
 
@@ -190,15 +200,12 @@ body {
     display: flex;
 }
 
-
-
-
-
 .profile-wrap {
-    width: 200px;
-    height: 100px;
-    background-color: rgba(255, 255, 255, 0.9);
+    min-width: 200px;
+    min-height: 100px;
+    background-color: rgb(104, 74, 179, 0.3);
     border-radius: 30px;
+    border: solid 2px rgb(107 70 186);
 }
 
 .profile-portrait {
@@ -213,10 +220,32 @@ body {
 .profile-name {
     margin: auto;
     font-weight: bold;
-    color: black;
+    /* color: black; */
 }
 
 .my-profile {
     text-align: center;
     font-size: 1px;
+    color: white;
+}
+
+.my-profile_name {
+    text-align: center;
+    font-size: 1px;
+    margin: 10px 0px 0px 0px;
+}
+
+.likes_follows {
+    margin: auto;
+    font-size: 12px;
+    color: white;
+}
+
+.likes_follows-wrap {
+    width: 90%;
+    height: 30px;
+    margin: 10px auto auto auto;
+    background-color: rgb(104, 74, 179, 0.3);
+    border: solid 2px rgb(107 70 186);
+    border-radius: 10px;
 }
