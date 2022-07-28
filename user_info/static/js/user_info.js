@@ -70,7 +70,7 @@ async function click_submit_button() {
     }
     ).then(response => {
         if (response.status == 200) {
-            
+            window.location.replace(`${frontend_base_url}/user_info/select_planet.html`)
         }
         
         if (response.status == 400) {
