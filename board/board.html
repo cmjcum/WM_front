@@ -31,9 +31,13 @@
     <script>
         $(document).ready(function () {
             loadNavbar()
-            loadBoard()
+            if (searchParam('search')) {
+                loadSearchData()
+            } else {
+                loadBoard()}
         }
         );
+        
     </script>
 
     <!-- title -->
@@ -64,15 +68,14 @@
                         <a class="nav-link" href="board.html?board=8"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">
-                        <!-- <a class="nav-link" href="" onclick="go_my_planet()"><i class="bi bi-stars"></i> My planet</a> -->
+                        <!-- 소속 행성 전용 게시판 -->
                     </li>
                     <li class="nav-item" id="myHome">
-                        <!-- <a class="nav-link" href="/myroom/myroom.html"><i class="bi bi-house-heart-fill"></i> My
-                            home</a> -->
+                        <!-- 개인 페이지로 이동 -->
                     </li>
                 </ul>
-                <div class="d-flex" id="isAdminNow">
-                    <!-- 관리자 로그인 시 표시 -->
+                <div class="d-flex" id="username">
+                    <!-- 로그인 정보 표시 -->
                 </div>
                 <div class="d-flex">
                     <a href="" onclick="logout()"><i class="bi bi-power"></i></a>
@@ -83,15 +86,15 @@
     <!-- 상단바 끝 -->
 
     <section class="main">
-        <div class="container my-5 board-wrap position-relative">
+        <div class="container my-5 board-wrap">
             <!-- 본문 시작 -->
 
 
             <div class="d-flex justify-content-between mb-2">
                 <form class="d-flex">
-                    <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="Search">
+                    <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="제목 + 본문 + 작성자 검색">
                     <button class="btn btn-secondary my-2 my-sm-0" type="button"
-                        onclick="searchButtonClick()">Search</button>
+                        onclick="searchButtonClick()"><i class="bi bi-search"></i></button>
                 </form>
                 <div id="postBtn">
                     <a class="btn btn-secondary" onclick="postButtonClick()"><i class="bi bi-pencil-square"></i> 글쓰기</a>

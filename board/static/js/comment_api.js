@@ -5,9 +5,8 @@
 // method POST
 // 댓글 작성하기
 async function postComment() {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
-    console.log("comment post start", board_id, article_id)
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
 
     const content = document.getElementById("commentForm").value
 
@@ -29,12 +28,12 @@ async function postComment() {
 
 // 대댓글 작성하기
 async function postReply(obj) {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
     let parent_comment_id = $(obj).prev().attr('value');
     let form_id = `replyForm-${parent_comment_id}`
 
-    console.log("reply post start", board_id, article_id, parent_comment_id)
+    // console.log("reply post start", board_id, article_id, parent_comment_id)
 
     const content = document.getElementById(form_id).value
 
@@ -67,15 +66,15 @@ async function postReply(obj) {
 // method PUT
 // 댓글 수정하기
 async function editComment(obj) {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
     let comment_id = $(obj).prev().attr('data-bs-target').split('-')[2];
     // let parent_comment_id = $(obj).prev().attr('value');
     let form_id = `commentForm-${comment_id}`
 
     const content = document.getElementById(form_id).value
-    console.log("comment_id: ", comment_id)
-    console.log("content: ", content)
+    // console.log("comment_id: ", comment_id)
+    // console.log("content: ", content)
     
     const contentData = {
         content: content,
@@ -106,8 +105,8 @@ async function editComment(obj) {
 // method DELETE
 // 댓글 삭제하기
 async function deleteComment(obj) {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
     let comment_id = $(obj).prev().attr('data-bs-target').split('-')[2];
 
     // console.log("comment_id: ", comment_id)

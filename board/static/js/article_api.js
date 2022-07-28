@@ -7,7 +7,7 @@
 // 게시글 작성하기
 async function postArticle() {
     console.log("article post start")
-    let board_id = window.location.search.split('=')[1]
+    let board_id = searchParam('board');
 
     const title = document.getElementById("inputTitle").value
     const content = document.getElementById("inputContent").value
@@ -46,8 +46,8 @@ function editButtonClick() {
 
 // article edit page load
 async function loadArticleData() {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/editor/${article_id}/`, {
         method: 'GET',
@@ -69,8 +69,8 @@ async function loadArticleData() {
 // 게시글 수정하기
 async function putArticle() {
     console.log("article put start")
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
 
     const title = document.getElementById("inputTitle").value
     const content = document.getElementById("inputContent").value
@@ -97,8 +97,8 @@ async function putArticle() {
 // method DELETE
 // 게시글 삭제하기
 async function deleteArticle() {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
     const response = await fetch(`${backend_base_url}/board/${board_id}/del/${article_id}/`, {
         method: 'DELETE',
         headers: {
@@ -118,9 +118,8 @@ async function deleteArticle() {
 // method GET
 // 게시글 상세 페이지
 async function loadArticle() {
-    let board_id = window.location.search.split('board=')[1].split('&')[0]
-    let article_id = window.location.search.split('article=')[1]
-    // console.log("load article", board_id, article_id)
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
     console.log("load article")
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/${article_id}/`, {
@@ -165,8 +164,6 @@ async function loadArticle() {
                     <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">삭제</button>`
                 $("#authorEditBtn").append(edit_btn_temp)
             }
-
-            // if (login_user == author_id) { } else { }
             
             // 댓글이 있는가? > 없으면 댓글 영역 출력x
             for (let i = 0; i < data['comments'].length; i++) {
@@ -213,7 +210,7 @@ async function loadArticle() {
                                 <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
                                     data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">취소</button>
                                 <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
-                                </div>
+                            </div>
                         </div>
                         <!-- 대댓글 작성폼 -->
                         <div class="collapse" id="reply-${parent_comment.id}">
@@ -221,8 +218,8 @@ async function loadArticle() {
                                 <div class="form-group my-3">
                                 <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
                                 <div class="d-flex justify-content-end mt-2">
-                                <input type="text" class="visually-hidden" value="${parent_comment.id}">
-                                        <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                    <input type="text" class="visually-hidden" value="${parent_comment.id}">
+                                    <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
                                 </div>
                             </div>
                         </div>
