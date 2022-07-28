@@ -58,7 +58,7 @@ async function click_submit_button() {
 
     let form_data = new FormData()
     form_data.append('portrait', file)
-    form_data.append('name_ko', name_ko.value)
+    form_data.append('name', name_ko.value)
     form_data.append('name_eng', name_eng.value)
     form_data.append('birthday', birthday.value)
     
