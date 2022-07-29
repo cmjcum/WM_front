@@ -1,6 +1,7 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
+
 // 모달창 띄우기
 function show_modal() {
     const open = () => {
@@ -16,13 +17,13 @@ function show_modal() {
     document.querySelector(".closeBtn").addEventListener("click", close);
 }
 
+
 // 방명록 작성
 async function write_guest_book() {
     let owner_id = window.location.search.split('=')[1]
     const contentData = {
         content: document.getElementById('guestBookData').value,
     }
-    // <owner_id>
     const response = await fetch(`${backend_base_url}/myroom/user/${owner_id}/`, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -45,6 +46,7 @@ async function write_guest_book() {
     }
 }
 
+
 // 방명록 삭제
 async function delete_guest(book_id) {
     let guest_book_id = $(book_id).val();
@@ -64,6 +66,7 @@ async function delete_guest(book_id) {
         alert('권한이 없습니다.')
     }
 }
+
 
 // 방명록 조회
 async function show_guest_book() {
@@ -141,21 +144,10 @@ async function show_profile() {
                 const nickname = data[i]["user"]["nickname"]
                 const like_user = data[i]["user"]["like_user"]
                 const follow_user = data[i]["user"]["follow_user"]
-                
-                // 팔로우한 유저의 정보의 변수
-                const follow_user_data = data[i]["user"]["follow"]
-                
                 // Plant.data
                 const planet = data[i]["planet"]["name"]
-
-                // // 팔로우한 유저의 정보
-                // for (let i = 0; i < follow_user_data.length; i++) {
-                //     const follow_user_nickname = follow_user_data[i]["follow_user_nickname"]
-                //     const follow_user_portrait = follow_user_data[i]["portrait"]
-                //     console.log(follow_user_nickname)
-                //     console.log(follow_user_portrait)
-                // }
-                // planet.data
+                // 팔로우한 유저의 정보의 변수
+                const follow_user_data = data[i]["user"]["follow"]
 
                 if (login_user_id == user_id) {
                     content_temp = `
@@ -294,7 +286,6 @@ async function show_profile() {
                     if (i == 6) break;
                     $("#show_profile").append(content_temp)
                     }
-                    // {backend_base_url}/myroom/${login_user_id}/
                 }
             }
         })
@@ -321,7 +312,6 @@ async function like() {
     }
     )
     response_json = await response.json()
-    // 새로고침
     window.location.reload();
 }
 
@@ -345,9 +335,9 @@ async function follow() {
     }
     )
     response_json = await response.json()
-    // 새로고침
     window.location.reload();
 }
+
 
 // 팔로우 한 사람들의 목록 get / 링크 post
 async function follow_follow() {
@@ -369,6 +359,5 @@ async function follow_follow() {
     }
     )
     response_json = await response.json()
-    // 새로고침
     window.location.reload();
 }
