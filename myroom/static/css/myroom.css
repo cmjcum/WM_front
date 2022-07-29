@@ -166,18 +166,6 @@ body {
     margin-top: 3px;
 }
 
-/* .btn_like {
-    color: transparent;
-    text-shadow: 0 0 2px rgba(255, 255, 255, 0.993), 0 0 0 #000;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    max-width: 63px;
-    display: inline-block;
-    margin-top: 3px;
-    width: 30px;
-} */
-
 .furniture_btn {
     border: 0px;
     margin: 3px;
@@ -229,7 +217,7 @@ body {
     color: white;
 }
 
-.my-profile_name {
+.my_profile_name {
     text-align: center;
     font-size: 1px;
     margin: 10px 0px 0px 0px;
@@ -241,7 +229,7 @@ body {
     color: white;
 }
 
-.likes_follows-wrap {
+.likes_follows_wrap {
     width: 90%;
     height: 30px;
     margin: 10px auto auto auto;
@@ -249,3 +237,34 @@ body {
     border: solid 2px rgb(107 70 186);
     border-radius: 10px;
 }
+
+
+
+.follow_profile_wrap {
+    width: 120px;
+    /* height: 0px; */
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: solid 2px rgb(107 70 186);
+    margin: auto auto 10px 90px;
+}
+
+.follow_profile_portrait {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    /* float: right; */
+}
+
+.follow_profile_name {
+    margin: auto;
+    font-weight: bold;
+    color: #6b46ba;
+}
+
+/* text-align: center;
+    font-size: 1px;
+    margin: 10px 0px 0px 0px; */
