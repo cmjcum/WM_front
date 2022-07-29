@@ -34,13 +34,15 @@ async function click_submit_button() {
     }
     ).then(response => {
         if (response.status == 200) {
-
+            window.location.replace(`${frontend_base_url}/board/index.html`)
         }
         if (response.status == 400) {
-            alert(response.status)
-        }
-        if (response.status == 403) {
-            alert('죄송합니다. 다른 방을 선택해주세요.')
+            response.json().then(
+                data => {
+                    alert(data['error'])
+                }
+            )
+            window.location.reload()
         }
     })
 }
