@@ -1,3 +1,23 @@
+// content URL a tag add
+function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links.
+    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+    return replacedText;
+}
+
+
 // method POST
 // 게시글 작성하기
 async function postArticle() {
@@ -10,7 +30,7 @@ async function postArticle() {
 
     const formdata = new FormData();
 
-    if (typeof(image) == "undefined") {
+    if (typeof (image) == "undefined") {
         formdata.append('title', title)
         formdata.append('content', content)
     } else {
@@ -26,11 +46,11 @@ async function postArticle() {
     })
 
     if (response.status == 200) {
-        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}`);
+        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&page=1`);
     } else {
         alert("작성 실패")
     }
-    }
+}
 
 
 // article edit button click
@@ -54,11 +74,11 @@ async function loadArticleData() {
         .then(response => response.json())
         .then(data => {
 
-        document.getElementById("inputTitle").setAttribute('value', data.title)
-        document.getElementById("inputContent").innerHTML = data.content
+            document.getElementById("inputTitle").setAttribute('value', data.title)
+            document.getElementById("inputContent").innerHTML = data.content
 
         })
-    }
+}
 
 // method PUT
 // 게시글 수정하기
@@ -86,7 +106,7 @@ async function putArticle() {
     } else {
         alert("작성 실패")
     }
-    }
+}
 
 
 // method DELETE
@@ -103,7 +123,7 @@ async function deleteArticle() {
 
     if (response.status == 200) {
         alert('삭제 되었습니다.')
-        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}`);
+        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&page=1`);
     } else {
         alert('권한이 없습니다.')
     }
@@ -115,7 +135,8 @@ async function deleteArticle() {
 async function loadArticle() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
-    console.log("load article")
+    let current_page = searchParam('page');
+    console.log("load article", board_id, article_id, current_page)
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/${article_id}/`, {
         method: 'GET',
@@ -127,8 +148,13 @@ async function loadArticle() {
         .then(response => response.json())
         .then(data => {
 
-            // db 내의 개행문자를 <br>로 변경
-            let change_content = data.content.replace(/(\n|\r\n)/g, '<br>')
+            console.log(data)
+
+            // content의 url을 하이퍼링크화
+            let content = linkify(data.content)
+
+            // content의 개행문자를 <br>로 변경
+            let change_content = content.replace(/(\n|\r\n)/g, '<br>')
 
             $("#articleTitle").append(data.title)
             $("#articleAuthor").append(data.author_name)
@@ -137,7 +163,7 @@ async function loadArticle() {
             $("#commentCount").append(data.comments_cnt)
             $("#likeCount").append(data.likes_cnt)
 
-            console.log(data.liked_this)
+            // 좋아요 버튼
             if (data.liked_this) {
                 // 좋아요 눌렀음
                 temp = `<span class="fs-6"><a class="text-primary no-deco" onclick="undoLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up-fill  me-1"></i>좋아요!</a></span>`
@@ -146,6 +172,14 @@ async function loadArticle() {
                 temp = `<span class="fs-6"><a class="text-primary  no-deco" onclick="doLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up  me-1"></i>좋아요</a></span>`
             }
             $("#articleLikeBtn").append(temp)
+
+            // 목록으로 돌아가기 버튼
+            let btn_temp = `<div class="position-absolute top-0 end-0 my-2 mx-2">
+                                            <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-success no-deco">
+                                                목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>
+                                        </div>`
+            $("#goToList").append(btn_temp)
 
 
             let author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
@@ -171,7 +205,7 @@ async function loadArticle() {
                     <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">삭제</button>`
                 $("#authorEditBtn").append(edit_btn_temp)
             }
-            
+
             // 댓글이 있는가? > 없으면 댓글 영역 출력x
             for (let i = 0; i < data['comments'].length; i++) {
                 let parent_comment = data['comments'][i]
@@ -272,7 +306,10 @@ async function loadArticle() {
 
                     for (let i = 0; i < parent_comment.reply_cnt; i++) {
                         let reply = parent_comment.reply[i]
-                        let change_content = reply.content.replace(/(\n|\r\n)/g, '<br>')
+                        // content의 url을 하이퍼링크화
+                        let text = linkify(reply.content)
+                        // content의 개행문자를 <br>로 변경
+                        let change_content = text.replace(/(\n|\r\n)/g, '<br>')
 
                         if (login_user == reply.author) {
                             reply_temp = `
@@ -350,7 +387,7 @@ async function doLike() {
     } else {
         alert(response.status)
     }
-    }
+}
 
 // 좋아요 삭제
 async function undoLike() {

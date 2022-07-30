@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li class="nav-item" id="solarSystem">
-                        <a class="nav-link" href="board.html?board=8"><i class="bi bi-stars"></i> Solar system</a>
+                        <a class="nav-link" href="board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">
                         <!-- 소속 행성 전용 게시판 -->
@@ -82,9 +82,9 @@
     <!-- 상단바 끝 -->
 
     <section class="main">
-        <div class="container my-5 board-wrap">
+        <div class="container my-5 board-wrap position-relative">
             <!-- 본문 시작 -->
-            <div id="article-box">
+            <div id="articleBox">
                 <h1 id="articleTitle" class="text-primary"></h1>
                 <h5 class="text-secondary">
                     <span id="articleAuthor">
@@ -101,19 +101,20 @@
                 <span id="articlePic">
                     <!-- 이미지 출력 -->
                 </span>
-            
+
                 <div class="content fs-5 mb-5">
-                    <p id="articleContent" >
-                    <!-- 게시글 내용 -->
+                    <p id="articleContent">
+                        <!-- 게시글 내용 -->
                     </p>
                 </div>
 
                 <div class="d-flex justify-content-between mb-3">
                     <div>
-                        <a class="me-3 " data-bs-toggle="collapse" href="#collapse-comment"
-                            role="button" aria-expanded="false"><span class="text-primary fs-6 "><i class="bi bi-reply-fill  me-1"></i>댓글쓰기</span></a>
-                        <span  id="articleLikeBtn">
-                            <!-- <span class="text-primary fs-6"><i  class="bi bi-hand-thumbs-up  me-1"></i>좋아요</span> -->
+                        <a class="me-3 " data-bs-toggle="collapse" href="#collapse-comment" role="button"
+                            aria-expanded="false"><span class="text-primary fs-6 "><i
+                                    class="bi bi-reply-fill  me-1"></i>댓글쓰기</span></a>
+                        <span id="articleLikeBtn">
+                            <!-- 좋아요 버튼 출력 -->
                         </span>
                     </div>
 
@@ -138,10 +139,12 @@
                 <div id="commentList">
                     <!-- 댓글 출력 영역 -->
                 </div>
-
             </div>
-
+            
+            <div id="goToList"></div>
+        </div>
     </section>
+
 
 </body>
 
