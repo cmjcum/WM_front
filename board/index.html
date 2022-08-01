@@ -26,6 +26,7 @@
     <script src="static/js/board_api.js"></script>
     <script src="static/js/article_api.js"></script>
     <script src="static/js/comment_api.js"></script>
+    <script src="static/js/navbar_api.js"></script>
 
     <!--  loading  -->
     <script>
@@ -56,18 +57,19 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" id="mainPage" href="/board"><i class="bi bi-signpost-fill"></i> Main
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                        <a class="nav-link active" id="mainPage" href="/board"><i class="bi bi-signpost-fill"></i> Main</a>
                     </li>
                     <li class="nav-item"  id="solarSystem" >
-                        <a class="nav-link" href="board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
+                        <a class="nav-link" href="/board/board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">
                         <!-- 소속 행성 전용 게시판 -->
                     </li>
                     <li class="nav-item" id="myHome">
                         <!-- 개인 페이지로 이동 -->
+                    </li>
+                    <li class="nav-item"  id="coinShop">
+                        <a class="nav-link" href="/board/"><i class="bi bi-shop me-1"></i>Market</a>
                     </li>
                 </ul>
                 <div class="d-flex" id="username">
