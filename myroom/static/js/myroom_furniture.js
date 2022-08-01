@@ -103,6 +103,7 @@ async function get_my_furniture() {
                 my_furniture_img_urls[i] = {'url_left': cur_furniture['url_left'], 'url_right': cur_furniture['url_right']}
             }
         });
+
 }
 
 
@@ -114,7 +115,8 @@ function click_edit_button(e) {
 
         let rotate_button = document.createElement('button')
         rotate_button.setAttribute('id', 'rotate_button')
-        rotate_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+        rotate_button.setAttribute('class', 'btn_furniture badge')
+        rotate_button.style.margin = '10px 1px 1px 1px';
 
         rotate_button.innerHTML = '회전'
         rotate_button.addEventListener('click', () => {
@@ -138,7 +140,9 @@ function click_edit_button(e) {
 
         let remove_button = document.createElement('button')
         remove_button.setAttribute('id', 'remove_button')
-        remove_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+        remove_button.setAttribute('class', 'btn_furniture badge')
+        remove_button.style.margin = '10px 1px 1px -1px';
+
 
         remove_button.innerHTML = '지우기'
         remove_button.addEventListener('click', (e) => {
@@ -159,14 +163,16 @@ function click_edit_button(e) {
 
         let cancel_button = document.createElement('button')
         cancel_button.setAttribute('id', 'cancel_button')
-        cancel_button.setAttribute('class', 'badge rounded-pill bg-warning furniture_btn')
+        cancel_button.setAttribute('class', 'btn_furniture badge')
+        cancel_button.style.margin = '10px 1px 1px 1px';
+
 
         cancel_button.innerHTML = '취소'
         cancel_button.addEventListener('click', () => { window.location.reload() })
 
-        buttons_div.appendChild(rotate_button)
         buttons_div.appendChild(remove_button)
         buttons_div.appendChild(cancel_button)
+        buttons_div.appendChild(rotate_button)
     
         get_my_furniture()
     }
