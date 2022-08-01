@@ -201,13 +201,6 @@ async function loadBoard() {
     )
 }
 
-// logoutbutton click
-function logout() {
-    window.localStorage.clear();
-    window.location.replace(`${frontend_base_url}/login/login.html`);
-    alert('logout success')
-}
-
 // post button click
 function postButtonClick() {
     let board_id = searchParam('board');
