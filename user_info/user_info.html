@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- JS, CSS -->
-    <link rel="stylesheet" href="static/css/user_info.css">
     <link rel="stylesheet" href="static/css/bootstrap.css">
-    <!-- <script src="static/js/login.js"></script> -->
+    <link rel="stylesheet" href="static/css/user_info.css">
+    <script src="static/js/user_info.js"></script>
 
     <!-- title -->
     <title>MakeMigrations | 태양계이주센터</title>
@@ -20,24 +20,24 @@
         <div class="title"><img class="logo" src="./images/long_logo.png"><br>이주 신청서</div>
         <div class="input-div">
             <label class="face-picture-label" for="face_picture">
-                <div class="face-picture-div">
+                <div id="face_picture_div" class="face-picture-div">
                     <img class="img-logo" src="./images/logo_ver2.png">
                     사진을 넣어주세요
                 </div>
             </label>
-            <input type="file" id="face_picture">
+            <input type="file" accept="image/*" id="face_picture">
             <div class="context-div">
                 <div class="names-div">
-                    이름(국문)<input class="form-control input-name" type="text">
-                    이름(영문)<input class="form-control input-name" type="text">
+                    이름(국문)<input id="name_ko" class="form-control input-name" type="text">
+                    이름(영문)<input id="name_eng" class="form-control input-name" type="text">
                 </div>
-                <p>생년월일<input class="form-control input-birthday" type="text" placeholder="YYYY-MM-DD"></p>
-                <div>
+                <p>생년월일<input id="birthday" class="form-control input-birthday" type="text" placeholder="YYYY-MM-DD"></p>
+                <div class="caution">
                     <p>1. 이주 신청 후에는 다른 행성으로의 이주 및 지구로의 귀환이 불가능 합니다.</p>
                     <p>2. 이주 신청 후에는 같은 행성 내에서라도 이사가 불가능 합니다.</p>
                     <p>3. 시민증이 발급되면 위에 기입한 내용은 수정할 수 없습니다.</p>
                 </div>
-                <p class="check-p">모든 주의사항을 확인했으며 이주에 동의합니다.<input type="checkbox"></p>
+                <p class="check-p">모든 주의사항을 확인했으며 이주에 동의합니다.<input id="agree_check" type="checkbox"></p>
                 <button id="submit_button" class="btn btn-secondary">이주 신청</button>
             </div>
         </div>

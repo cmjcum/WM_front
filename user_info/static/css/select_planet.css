@@ -1,0 +1,195 @@
+body {
+    background-image: url("../../../images/bg-space.png");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.select-div {
+    display: flex;
+    align-items: center;
+}
+
+.select-div>select {
+    width: 100px;
+}
+
+.select-div > p {
+    margin: 0 10px 0 5px;
+
+    font-weight: bold;
+    color: #44d9e8;
+}
+
+.script-modal {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1055;
+    width: 100%;
+    height: 100%;
+}
+
+.script-modal-body {
+    width: 800px;
+    height: 300px;
+
+    position: relative;
+
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.25);
+
+    border-radius: 10px;
+
+    font-size: large;
+
+    padding: 30px;
+}
+
+#click_arrow {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+
+    margin: 0;
+
+    font-size: 30px;
+    font-style: italic;
+
+    cursor: pointer;
+
+    animation-name: arrow-animation;
+    animation-duration: 0.8s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+}
+
+@keyframes arrow-animation {
+    0% {
+      bottom: 15px;
+    }
+
+    100% {
+        bottom: 25px;
+    }
+  }
+
+/*  planets  */
+.sun {
+    background-image: url("../../../images/sun.png");
+    background-size: cover;
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    top: -25vh;
+    left: -55vh;
+    z-index: -1;
+}
+
+.mercury {
+    background-image: url("../../../images/mercury.png");
+    background-size: cover;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 45vh;
+    left: 45vh;
+
+    cursor: pointer;
+}
+
+.venus {
+    background-image: url("../../../images/venus.png");
+    background-size: cover;
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 47vh;
+    left: 52vh;
+
+    cursor: pointer;
+}
+
+.earth {
+    background-image: url("../../../images/earth.png");
+    background-size: cover;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50vh;
+    left: 62vh;
+}
+
+.mars {
+    background-image: url("../../../images/mars.png");
+    background-size: cover;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 55vh;
+    left: 75vh;
+
+    cursor: pointer;
+}
+
+.jupiter {
+    background-image: url("../../../images/jupiter.png");
+    background-size: cover;
+    position: absolute;
+    width: 170px;
+    height: 175px;
+    top: 56vh;
+    left: 90vh;
+
+    cursor: pointer;
+}
+
+.saturn {
+    background-image: url("../../../images/saturn.png");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: 62vh;
+    left: 115vh;
+
+    cursor: pointer;
+}
+
+.uranus {
+    background-image: url("../../../images/uranus.png");
+    background-size: cover;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 79vh;
+    left: 148vh;
+
+    cursor: pointer;
+}
+
+.neptune {
+    background-image: url("../../../images/neptune.png");
+    background-size: cover;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 86vh;
+    left: 170vh;
+
+    cursor: pointer;
+}
+
+.scale:hover {
+    transform: scale(1.4);
+}
