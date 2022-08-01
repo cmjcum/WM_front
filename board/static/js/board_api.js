@@ -2,11 +2,74 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
-
 // data type check
 function jsType(data) {
     return Object.prototype.toString.call(data).slice(8, -1)
-}
+};
+
+// URLSearchParams
+function searchParam(key) {
+    return new URLSearchParams(location.search).get(key);
+};
+
+// pagenation
+function makePagenation(board_id, current_page, total_data) {
+    const data_per_page = 20; // 페이지 당 출력할 글 수
+    const page_cnt = 5; // 출력할 페이지네이션 링크 수
+
+    const total_pages = Math.ceil(total_data/data_per_page) // 총 페이지 수
+    const page_group = Math.ceil(current_page/page_cnt) // 페이지 그룹
+    
+    console.log("total_data : ", total_data)
+    console.log("total_pages : ", total_pages)
+    console.log("page_group : ", page_group)
+
+    let last = page_group * page_cnt; // 화면에 보여질 마지막 페이지 번호
+    if (last > total_pages) {
+        last = total_pages;
+    }
+    let first = last - (page_cnt-1) // 화면에 보여질 첫번째 페이지 번호
+    const next = last +1
+    const prev = first -1
+
+    if (total_pages < 1) {
+        first = last
+    }
+
+    const pages = $("#pages")
+    pages.empty();
+
+    if (last > 5) {
+        pages.append(
+            `<li class="page-item">
+            <a class="page-link" href="/board/board.html?board=${board_id}&page=${prev}"><i class="bi bi-chevron-double-left"></i></a>
+            </li>`
+        )
+    }
+    for (let j = first; j <= last; j++) {
+        if (current_page == j) {
+            pages.append(
+                `<li class="page-item active">
+                <a class="page-link" href="/board/board.html?board=${board_id}&page=${j}">${j}</a>
+            </li>`
+            )
+        } else if (j > 0) {
+            pages.append(
+                `<li class="page-item">
+                <a class="page-link" href="/board/board.html?board=${board_id}&page=${j}">${j}</a>
+            </li>`
+            )
+        }
+    }
+        if (next > 5 && next < total_pages) {
+            pages.append(
+                `<li class="page-item">
+                <a class="page-link" href="/board/board.html?board=${board_id}&page=${next}"><i class="bi bi-chevron-double-right"></i></a>
+                </li>`
+                )
+        }
+    }
+
 
 // method GET
 // 상단바 로딩
@@ -22,36 +85,61 @@ async function loadNavbar() {
         .then(response => response.json())
         .then(data => {
 
-            // console.log(typeof(data))
-            // console.log(data)
-            // console.log(jsType(data))
+            const payload = JSON.parse(localStorage.getItem("payload"));
+            if (!payload) {
+                // 토큰이 없을 시 로그인 페이지로 replace
+                window.location.replace(`${frontend_base_url}/login/login.html`);
+            } else if (payload.exp < (Date.now() / 1000)) {
+                // 토큰의 유효기간 만료 시 로그인 페이지로 replace
+                window.location.replace(`${frontend_base_url}/login/login.html`);
+            };
 
-            // console.log(data[0])
-            // console.log(data[1])
-            // console.log(data[2])
+            console.log(data)
 
-            if (jsType(data) == "Object") {
+            if (data["admin_data"]) {
                 // is_admin
-                temp = `<span class="text-warning vertical-middle me-3"><i class="bi bi-cone-striped"></i> 관리자로 접속중</span>`
-            $("#isAdminNow").append(temp)
-                
-            } else {
+                let login_user_temp = `<span class="text-warning vertical-middle me-3"><i class="bi bi-cone-striped"></i> 관리자로 접속중</span>`
+                $("#username").append(login_user_temp)
 
-                if (data[0] != null ) {
+            } else {
+                if (data["planet_data"]) {
                     // 시민증 발급 완료
                     console.log("OK")
-                    my_planet_url = data[0]
-                    user_id = data[2]
-                    nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
-                    nav_my_home_temp = `<a class="nav-link" href="/myroom/myroom.html?user=${user_id}"><i class="bi bi-house-heart-fill"></i> My
+                    let my_planet_url = data["planet_data"][2]
+                    let user_id = data["planet_data"][1]
+                    let nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
+                    let nav_my_home_temp = `<a class="nav-link" href="/myroom/myroom.html?user=${user_id}"><i class="bi bi-house-heart-fill"></i> My
                     home</a>`
                     $("#myPlanet").append(nav_my_planet_temp)
                     $("#myHome").append(nav_my_home_temp)
-                    
                 } else {
-                        // 시민증 발급중
-                        console.log("null")
-                    }}
+                    // 시민증 발급중
+                    console.log("null")
+                }
+
+                let login_user_temp = `<span class="text-success vertical-middle me-3">${data["nickname"]} 님</span>`
+                $("#username").append(login_user_temp)
+
+                if (searchParam('board')) {
+                    let board_id = searchParam('board');
+                    if (board_id==8) {
+                        // 솔라에 액티브
+                        console.log("solarSystem")
+                        $( '#solarSystem' ).children().addClass( 'active' )
+                    } else {
+                        // 마이플래닛에 액티브
+                        console.log("myPlanet")
+                        $( '#myPlanet' ).children().addClass( 'active' )
+                    }
+                } else if (searchParam('user')) {
+                    // 마이홈에 액티브
+                    console.log("myHome")
+                    $( '#myHome' ).children().addClass( 'active' )
+                } else {
+                    // 메인 페이지에 액티브
+                }
+
+            }
 
         })
 }
@@ -71,25 +159,13 @@ async function loadMain() {
         .then(response => response.json())
         .then(data => {
 
-            // console.log(typeof(data))
-            console.log(data)
-            // console.log(jsType(data))
-
-            // console.log(data[0])
-            // console.log(data[1])
-            // console.log(data[2])
-
-            if (jsType(data) == "Object") {
+            if (data["admin_data"]) {
                 // is_admin
-                // console.log(data)
-                // console.log(Object.keys(data).length)
-                for(let i = 0; i < Object.keys(data).length; i++) {
-                    // console.log(Object.keys(data)[i])
-                    // console.log(Object.values(data)[i])
-                    planet_name = Object.keys(data)[i]
-                    planet_name_lower = Object.keys(data)[i].toLocaleLowerCase()
-                    planet_url = Object.values(data)[i]
-                    planet_temp = `
+                for (let i = 0; i < Object.keys(data["admin_data"]).length; i++) {
+                    let planet_name = Object.keys(data["admin_data"])[i]
+                    let planet_name_lower = planet_name.toLocaleLowerCase()
+                    let planet_url =  Object.values(data["admin_data"])[i]
+                    let planet_temp = `
                     <div class="board">
                         <img class="icon" src="/images/icon/${planet_name_lower}.png">
                         <div>
@@ -99,16 +175,17 @@ async function loadMain() {
                     </div>`
                     $("#boardList").append(planet_temp)
                 }
-                
+
             } else {
 
-                if (data[0] != null ) {
+                if (data["planet_data"]) {
                     // 시민증 발급 완료
                     console.log("OK")
-                    my_planet_url = data[0]
-                    my_planet_name_lower = data[1].toLowerCase()
-                    my_planet_name = data[1]
-                    my_planet_temp = `
+                    console.log(data["planet_data"])
+                    let my_planet_url = data["planet_data"][2]
+                    let my_planet_name = data["planet_data"][0]
+                    let my_planet_name_lower = my_planet_name.toLowerCase()
+                    let my_planet_temp = `
                     <div class="board">
                         <a href="${my_planet_url}">
                         <img class="icon" src="/images/icon/${my_planet_name_lower}.png">
@@ -119,11 +196,12 @@ async function loadMain() {
                         </a>
                     </div>`
                     $("#boardList").append(my_planet_temp)
-                    
+
                 } else {
-                        // 시민증 발급중
-                        console.log("null")
-                    }}
+                    // 시민증 발급중
+                    console.log("null")
+                }
+            }
 
         })
 }
@@ -132,10 +210,11 @@ async function loadMain() {
 // method GET
 // 게시판 목록 로딩
 async function loadBoard() {
-    let board_id = window.location.search.split('=')[1]
-    console.log("load board", board_id)
 
-    const response = await fetch(`${backend_base_url}/board/${board_id}/`, {
+    let board_id = searchParam('board');
+    let current_page = searchParam('page');    
+
+    const response = await fetch(`${backend_base_url}/board/${board_id}/list/${current_page}/`, {
         method: 'GET',
         headers: {
             Authorization: "Bearer " + localStorage.getItem("access")
@@ -145,38 +224,56 @@ async function loadBoard() {
         .then(response => response.json())
         .then(data => {
 
-            // console.log(jsType(data))
-            // console.log(Object.keys(data).length)
-            // console.log(data)
-            // console.log(data[2])
+            if (Object.keys(data) == "message") {
+                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
+                                                        <div class="card-body">
+                                                        <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
+                                                        <p class="card-text">글을 작성해보세요!</p>
+                                                        </div>
+                                                    </div>`
+                $("#alert").append(alert_temp)
 
-            // 글쓰기 버튼
-            // btn_temp = `<a class="btn btn-secondary" href="article_write.html?board=${board_id}"><i class="bi bi-pencil-square"></i> 글쓰기</a>`
-            // $("#postBtn").append(btn_temp)
+            } else {
+                let total_data = data[0]["articles"];
+                console.log("load board", board_id, current_page, total_data)
+                makePagenation(board_id, current_page, total_data)
 
-            for(let i = 0; i < Object.keys(data).length; i++) {
+                for (let i = 0; i < Object.keys(data).length; i++) {
 
-                num = i+1
-                title = data[i]["title"]
-                detail_url = data[i]["detail_url"]
-                author = data[i]["author"]
-                author_id = data[i]["author_id"]
-                create_date = data[i]["create_date"]
-                comments = data[i]["comments"]
-                likes = 0
+                    let num = data[0]["num"][i]
+                    let title = data[i]["title"]
+                    let detail_url = data[i]["detail_url"]
+                    let author = data[i]["author_name"]
+                    let author_id = data[i]["author"]
+                    let create_date = data[i]["create_date"]
+                    let comments = data[i]["comments"]
+                    let likes = data[i]["likes"]
 
-                list_temp = `<tr>
-                                            <th scope="row">${num}</th>
-                                            <td><a href="${detail_url}">${title}</a></th>
-                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                            <td>${create_date}</td>
-                                            <td>${comments}</td>
-                                            <td>${likes}</td>
-                                        </tr>`
-            $("#boardItems").append(list_temp)
+                    if (data[i]["newest"]) {
+                        list_temp = `<tr>
+                                                        <th scope="row">${num}</th>
+                                                        <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                        <td>${create_date}</td>
+                                                        <td>${comments}</td>
+                                                        <td>${likes}</td>
+                                                    </tr>`
+                    } else {
+                        list_temp = `<tr>
+                                                        <th scope="row">${num}</th>
+                                                        <td><a href="${detail_url}">${title}</a></th>
+                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                        <td>${create_date}</td>
+                                                        <td>${comments}</td>
+                                                        <td>${likes}</td>
+                                                    </tr>`
+                    }
+
+                    $("#boardItems").append(list_temp)
+            }  
             }
-
-        })
+        }
+    )
 }
 
 // logoutbutton click
@@ -187,14 +284,88 @@ function logout() {
 }
 
 // post button click
-function post_button_click() {
-    let board_id = window.location.search.split('=')[1]
+function postButtonClick() {
+    let board_id = searchParam('board');
     window.location.replace(`${frontend_base_url}/board/article_write.html?board=${board_id}`);
 }
 
 // search button click
-function search_button_click() {
-    let board_id = window.location.search.split('=')[1]
-    let searchData =  document.getElementById('searchInput').value
-    window.location.replace(`${frontend_base_url}/board/article_write.html?board=${board_id}`);
+function searchButtonClick() {
+    let board_id = searchParam('board');
+    let searchData = document.getElementById('searchInput').value
+    console.log(board_id, searchData)
+    if (searchData.length == 0) {
+        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <p class="mb-0">검색어를 입력해주세요!</p>
+                                        </div>`
+        $("#alert").append(alert_temp)
+    } else {
+        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&search=${searchData}`);
+    }
+}
+
+
+// 게시글 검색 결과 로딩
+async function loadSearchData() {
+    let keyword = searchParam('search');
+    let board_id = searchParam('board');
+    console.log("load search data", board_id, keyword)
+
+    const response = await fetch(`${backend_base_url}/board/${board_id}/search/${keyword}/`, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("access")
+        },
+        withCredentials: true,
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            if (Object.keys(data) == "message") {
+                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
+                                                        <p class="card-text"><a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-success no-deco">목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i></a></p>
+                                                    </div>
+                                                </div>`
+                $("#alert").append(alert_temp)
+
+            } else {
+                for (let i = 0; i < Object.keys(data).length; i++) {
+
+                    let num = i + 1
+                    let title = data[i]["title"]
+                    let detail_url = data[i]["detail_url"]
+                    let author = data[i]["author_name"]
+                    let author_id = data[i]["author"]
+                    let create_date = data[i]["create_date"]
+                    let comments = data[i]["comments"]
+                    let likes = data[i]["likes"]
+
+                    if (data[i]["newest"]) {
+                        list_temp = `<tr>
+                                                        <th scope="row">${num}</th>
+                                                        <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                        <td>${create_date}</td>
+                                                        <td>${comments}</td>
+                                                        <td>${likes}</td>
+                                                    </tr>`
+                    } else {
+                        list_temp = `<tr>
+                                                        <th scope="row">${num}</th>
+                                                        <td><a href="${detail_url}">${title}</a></th>
+                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                        <td>${create_date}</td>
+                                                        <td>${comments}</td>
+                                                        <td>${likes}</td>
+                                                    </tr>`
+                    }
+                    
+                    $("#boardItems").append(list_temp)
+                }
+            }
+
+        })
 }

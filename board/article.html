@@ -56,23 +56,22 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/board"><i class="bi bi-signpost-fill"></i> Main
+                        <a class="nav-link" href="/board"><i class="bi bi-signpost-fill"></i> Main
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item" id="solarSystem">
-                        <a class="nav-link" href="board.html?board=8"><i class="bi bi-stars"></i> Solar system</a>
+                        <a class="nav-link" href="board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">
-                        <!-- <a class="nav-link" href="" onclick="go_my_planet()"><i class="bi bi-stars"></i> My planet</a> -->
+                        <!-- 소속 행성 전용 게시판 -->
                     </li>
                     <li class="nav-item" id="myHome">
-                        <!-- <a class="nav-link" href="/myroom/myroom.html"><i class="bi bi-house-heart-fill"></i> My
-                            home</a> -->
+                        <!-- 개인 페이지로 이동 -->
                     </li>
                 </ul>
-                <div class="d-flex" id="isAdminNow">
-                    <!-- 관리자 로그인 시 표시 -->
+                <div class="d-flex" id="username">
+                    <!-- 로그인 정보 표시 -->
                 </div>
                 <div class="d-flex">
                     <a href="" onclick="logout()"><i class="bi bi-power"></i></a>
@@ -83,43 +82,45 @@
     <!-- 상단바 끝 -->
 
     <section class="main">
-        <div class="container my-5 board-wrap">
-            <div id="article-box">
+        <div class="container my-5 board-wrap position-relative">
+            <!-- 본문 시작 -->
+            <div id="articleBox">
                 <h1 id="articleTitle" class="text-primary"></h1>
                 <h5 class="text-secondary">
-                    <span id="articleAuthor"></span>
+                    <span id="articleAuthor">
+                        <!-- 작성자명 -->
+                    </span>
                     <span id="articleAuthorLink">
-                        <!-- <a href="/" class="text-secondary"><i class="bi bi-house-heart-fill"></i></a> -->
+                        <!-- 작성자 마이홈 링크 -->
                     </span>
                     <span id="articleDate" class="text-primary text-end fs-6 ms-4">작성: </span>
                 </h5>
                 <div class="d-flex justify-content-end" id="authorEditBtn">
-                    <span class="text-secondary fs-6 me-2">이 게시글을</span>
-                    <button type="button" class="btn btn-secondary btn-sm me-2">수정</button>
-                    <button type="button" class="btn btn-dark btn-sm">삭제</button>
+                    <!-- 수정/삭제 버튼 영역 -->
                 </div>
                 <span id="articlePic">
                     <!-- 이미지 출력 -->
                 </span>
-                <!-- <figure>
-                    <img src="https://mysparta84.s3.ap-northeast-2.amazonaws.com/H8TlzasB-S_FslYa6xpsfgvNPq0.jpg">
-                </figure> -->
+
                 <div class="content fs-5 mb-5">
-                    <p id="articleContent" >
-                    <!-- 게시글 내용 -->
+                    <p id="articleContent">
+                        <!-- 게시글 내용 -->
                     </p>
                 </div>
 
                 <div class="d-flex justify-content-between mb-3">
                     <div>
-                        <a class="me-3" data-bs-toggle="collapse" href="#collapse-comment"
-                            role="button" aria-expanded="false"><span class="text-primary fs-6 "><i class="bi bi-reply-fill  me-1"></i>댓글쓰기</span></a>
-                        <span class="text-primary fs-6"><i class="bi bi-hand-thumbs-up-fill  me-1"></i>좋아요</span>
+                        <a class="me-3 " data-bs-toggle="collapse" href="#collapse-comment" role="button"
+                            aria-expanded="false"><span class="text-primary fs-6 "><i
+                                    class="bi bi-reply-fill  me-1"></i>댓글쓰기</span></a>
+                        <span id="articleLikeBtn">
+                            <!-- 좋아요 버튼 출력 -->
+                        </span>
                     </div>
 
                     <div>
-                        <span class="text-muted fs-6  me-2">댓글(0)</span>
-                        <span class="text-muted fs-6">좋아요(0)</span>
+                        <span class="text-muted fs-6  me-2">댓글(<span id="commentCount"></span>)</span>
+                        <span class="text-muted fs-6">좋아요(<span id="likeCount"></span>)</span>
                     </div>
                 </div>
             </div>
@@ -130,16 +131,20 @@
                 <div class="form-group my-3 collapse" id="collapse-comment">
                     <textarea class="form-control" id="commentForm" rows="3"></textarea>
                     <div class="d-flex justify-content-end mt-1">
-                        <button type="button" class="btn btn-secondary">댓글 남기기</button>
+                        <button type="button" class="btn btn-secondary" onclick="postComment()">댓글 남기기</button>
                     </div>
                 </div>
                 <!-- 댓글 작성폼 끝 -->
 
-                <div id="commentList" class=""></div>
-
+                <div id="commentList">
+                    <!-- 댓글 출력 영역 -->
+                </div>
             </div>
-
+            
+            <div id="goToList"></div>
+        </div>
     </section>
+
 
 </body>
 
