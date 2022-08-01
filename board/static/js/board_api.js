@@ -70,7 +70,6 @@ function makePagenation(board_id, current_page, total_data) {
         }
     }
 
-
 // method GET
 // 메인 페이지 로딩
 async function loadMain() {
