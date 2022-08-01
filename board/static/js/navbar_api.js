@@ -75,3 +75,9 @@ async function loadNavbar() {
 
         })
 }
+
+// logoutbutton click
+function logout() {
+    window.localStorage.clear();
+    window.location.replace(`${frontend_base_url}/login/login.html`);
+}
