@@ -246,6 +246,8 @@ window.onload = function () {
     // myroom.js
     show_guest_book()
     show_profile()
+    // navbar.js
+    loadNavbar()
 
     const room = document.getElementById('room');
     room.addEventListener('click', add_new_furniture)
