@@ -20,9 +20,9 @@ function makePagenation(board_id, current_page, total_data) {
     const total_pages = Math.ceil(total_data/data_per_page) // 총 페이지 수
     const page_group = Math.ceil(current_page/page_cnt) // 페이지 그룹
     
-    console.log("total_data : ", total_data)
-    console.log("total_pages : ", total_pages)
-    console.log("page_group : ", page_group)
+    // console.log("total_data : ", total_data)
+    // console.log("total_pages : ", total_pages)
+    // console.log("page_group : ", page_group)
 
     let last = page_group * page_cnt; // 화면에 보여질 마지막 페이지 번호
     if (last > total_pages) {
@@ -149,6 +149,8 @@ async function loadBoard() {
         .then(response => response.json())
         .then(data => {
 
+            console.log(data)
+
             if (Object.keys(data) == "message") {
                 let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
                                                         <div class="card-body">
@@ -174,26 +176,49 @@ async function loadBoard() {
                     let comments = data[i]["comments"]
                     let likes = data[i]["likes"]
 
-                    if (data[i]["newest"]) {
-                        list_temp = `<tr>
-                                                        <th scope="row">${num}</th>
-                                                        <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
-                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                        <td>${create_date}</td>
-                                                        <td>${comments}</td>
-                                                        <td>${likes}</td>
-                                                    </tr>`
+                    if (data[i]["moved"]) {
+                        // 이사완료
+                        if (data[i]["newest"]) {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        } else {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        }
                     } else {
-                        list_temp = `<tr>
-                                                        <th scope="row">${num}</th>
-                                                        <td><a href="${detail_url}">${title}</a></th>
-                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                        <td>${create_date}</td>
-                                                        <td>${comments}</td>
-                                                        <td>${likes}</td>
-                                                    </tr>`
+                        // 이사중
+                        if (data[i]["newest"]) {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a>${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        } else {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a>${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        }
                     }
-
                     $("#boardItems").append(list_temp)
             }  
             }

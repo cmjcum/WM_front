@@ -91,6 +91,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload);
         alert("안녕하세요 :)")
         // window.location.replace(`${frontend_base_url}/`);
+        window.location.replace(`/board/`);
     } else {
         alert("일치하지 않는 아이디나 비밀번호입니다.")
     }

@@ -174,16 +174,18 @@ async function loadArticle() {
             $("#articleLikeBtn").append(temp)
 
             // 목록으로 돌아가기 버튼
-            let btn_temp = `<div class="position-absolute top-0 end-0 my-2 mx-2">
-                                            <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-success no-deco">
+            let btn_temp = `<div class="position-absolute top-0 end-0 mt-3 me-3">
+                                            <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-primary">
                                                 목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i>
                                             </a>
                                         </div>`
             $("#goToList").append(btn_temp)
 
-
-            let author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
-            $("#articleAuthorLink").append(author_link_temp)
+            if (data.moved) {
+                // 이사완료
+                author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
+                $("#articleAuthorLink").append(author_link_temp)
+            }
 
             // 이미지가 있는가? > 없으면 이미지 영역 출력x
             if (data.picture_url) {
@@ -220,84 +222,171 @@ async function loadArticle() {
                 // (data-bs-target="#reply-${parent_comment.id}")
 
                 if (login_user == parent_comment.author) {
-                    comment_temp = `
-                <div class="card text-white bg-dark my-2">
-                        <div class="card-header d-flex justify-content-between mb-0">
-                            <h5 id="commentHeader-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
-                                <a href="/myroom/myroom.html?user=${parent_comment.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
-                                <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
-                            </h5>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
-                                data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
-                                class="bi bi-reply-fill me-1"></i>댓글</button>
+
+                    if (parent_comment.moved) {
+                        // 이사완료
+                        comment_temp = `
+                        <div class="card text-white bg-dark my-2">
+                                <div class="card-header d-flex justify-content-between mb-0">
+                                    <h5 id="commentHeader-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
+                                        <a href="/myroom/myroom.html?user=${parent_comment.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
+                                        <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
+                                    </h5>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                                        data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
+                                        class="bi bi-reply-fill me-1"></i>댓글</button>
+                                        </div>
+                                <!-- 가변 (보기모드) -->
+                                <div class="collapse multi-collapse-${parent_comment.id} show" id="comment-${parent_comment.id}">
+                                    <div class="card-body pt-0">
+                                        <p class="card-text fs-6">${change_content}</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-end">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                            data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">수정</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="deleteComment(this)">삭제</button>
+                                    </div>
                                 </div>
-                        <!-- 가변 (보기모드) -->
-                        <div class="collapse multi-collapse-${parent_comment.id} show" id="comment-${parent_comment.id}">
-                            <div class="card-body pt-0">
-                                <p class="card-text fs-6">${change_content}</p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-end">
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                    data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">수정</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="deleteComment(this)">삭제</button>
-                            </div>
-                        </div>
-                        <!-- 가변 (수정모드) -->
-                        <div class="collapse multi-collapse-${parent_comment.id}" id="commentEdit-${parent_comment.id}">
-                            <div class="card-body pt-0">
-                                <textarea class="form-control" id="commentForm-${parent_comment.id}" rows="3">${parent_comment.content}</textarea>
-                            </div>
-                            <div class="card-footer d-flex justify-content-end">
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                    data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">취소</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
-                            </div>
-                        </div>
-                        <!-- 대댓글 작성폼 -->
-                        <div class="collapse" id="reply-${parent_comment.id}">
-                            <div class="card-body pt-0">
-                                <div class="form-group my-3">
-                                <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
-                                <div class="d-flex justify-content-end mt-2">
-                                    <input type="text" class="visually-hidden" value="${parent_comment.id}">
-                                    <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                <!-- 가변 (수정모드) -->
+                                <div class="collapse multi-collapse-${parent_comment.id}" id="commentEdit-${parent_comment.id}">
+                                    <div class="card-body pt-0">
+                                        <textarea class="form-control" id="commentForm-${parent_comment.id}" rows="3">${parent_comment.content}</textarea>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-end">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                            data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">취소</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="replyBox-${parent_comment.id}"></div>
-                    </div>
-                    `
-                } else {
-                    comment_temp = `
-                    <div class="card text-white bg-dark my-2">
-                        <div class="card-header d-flex justify-content-between mb-0">
-                            <h5 id="commentAuthor-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
-                                <a href="/myroom/myroom.html?user=${parent_comment.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
-                                <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
-                            </h5>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
-                                    data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
-                                    class="bi bi-reply-fill me-1"></i>댓글</button>
-                        </div>
-                        <div class="card-body pt-0">
-                            <p class="card-text fs-6">${change_content}</p>
-                        </div>
-                        
-                        <!-- 대댓글 작성폼 -->
-                        <div class="collapse" id="reply-${parent_comment.id}">
-                            <div class="card-body pt-0">
-                                <div class="form-group my-3">
-                                    <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
-                                    <div class="d-flex justify-content-end mt-2">
-                                        <input type="text" class="visually-hidden" value="${parent_comment.id}">
-                                        <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                <!-- 대댓글 작성폼 -->
+                                <div class="collapse" id="reply-${parent_comment.id}">
+                                    <div class="card-body pt-0">
+                                        <div class="form-group my-3">
+                                        <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
+                                        <div class="d-flex justify-content-end mt-2">
+                                            <input type="text" class="visually-hidden" value="${parent_comment.id}">
+                                            <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="replyBox-${parent_comment.id}"></div>
-                    </div>`
+                            <div id="replyBox-${parent_comment.id}"></div>
+                            </div>
+                            `
+                    } else {
+                        // 이사중
+                        comment_temp = `
+                            <div class="card text-white bg-dark my-2">
+                                    <div class="card-header d-flex justify-content-between mb-0">
+                                        <h5 id="commentHeader-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
+                                            <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
+                                        </h5>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                                            data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
+                                            class="bi bi-reply-fill me-1"></i>댓글</button>
+                                            </div>
+                                    <!-- 가변 (보기모드) -->
+                                    <div class="collapse multi-collapse-${parent_comment.id} show" id="comment-${parent_comment.id}">
+                                        <div class="card-body pt-0">
+                                            <p class="card-text fs-6">${change_content}</p>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">수정</button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="deleteComment(this)">삭제</button>
+                                        </div>
+                                    </div>
+                                    <!-- 가변 (수정모드) -->
+                                    <div class="collapse multi-collapse-${parent_comment.id}" id="commentEdit-${parent_comment.id}">
+                                        <div class="card-body pt-0">
+                                            <textarea class="form-control" id="commentForm-${parent_comment.id}" rows="3">${parent_comment.content}</textarea>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                data-bs-target=".multi-collapse-${parent_comment.id}" aria-expanded="false">취소</button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
+                                        </div>
+                                    </div>
+                                    <!-- 대댓글 작성폼 -->
+                                    <div class="collapse" id="reply-${parent_comment.id}">
+                                        <div class="card-body pt-0">
+                                            <div class="form-group my-3">
+                                            <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
+                                            <div class="d-flex justify-content-end mt-2">
+                                                <input type="text" class="visually-hidden" value="${parent_comment.id}">
+                                                <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="replyBox-${parent_comment.id}"></div>
+                                </div>
+                                `
+                    }
+
+                } else {
+                    if (parent_comment.moved) {
+                        // 이사완료
+                        comment_temp = `
+                                <div class="card text-white bg-dark my-2">
+                                    <div class="card-header d-flex justify-content-between mb-0">
+                                        <h5 id="commentAuthor-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
+                                            <a href="/myroom/myroom.html?user=${parent_comment.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
+                                            <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
+                                        </h5>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                                                data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
+                                                class="bi bi-reply-fill me-1"></i>댓글</button>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <p class="card-text fs-6">${change_content}</p>
+                                    </div>
+    
+                                    <!-- 대댓글 작성폼 -->
+                                    <div class="collapse" id="reply-${parent_comment.id}">
+                                        <div class="card-body pt-0">
+                                            <div class="form-group my-3">
+                                                <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
+                                                <div class="d-flex justify-content-end mt-2">
+                                                    <input type="text" class="visually-hidden" value="${parent_comment.id}">
+                                                    <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="replyBox-${parent_comment.id}"></div>
+                                </div>`
+                            } else {
+                                // 이사중
+                                comment_temp = `
+                                        <div class="card text-white bg-dark my-2">
+                                            <div class="card-header d-flex justify-content-between mb-0">
+                                                <h5 id="commentAuthor-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
+                                                    <span id="date" class="text-primary text-end fs-6 ms-4">${parent_comment.create_date}</span>
+                                                </h5>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                                                        data-bs-target="#reply-${parent_comment.id}" aria-expanded="false"><i
+                                                        class="bi bi-reply-fill me-1"></i>댓글</button>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <p class="card-text fs-6">${change_content}</p>
+                                            </div>
+            
+                                            <!-- 대댓글 작성폼 -->
+                                            <div class="collapse" id="reply-${parent_comment.id}">
+                                                <div class="card-body pt-0">
+                                                    <div class="form-group my-3">
+                                                        <textarea class="form-control" id="replyForm-${parent_comment.id}" rows="3"></textarea>
+                                                        <div class="d-flex justify-content-end mt-2">
+                                                            <input type="text" class="visually-hidden" value="${parent_comment.id}">
+                                                            <button type="button" class="btn btn-secondary" onclick="postReply(this)">댓글 남기기</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="replyBox-${parent_comment.id}"></div>
+                                        </div>`
+                    }
                 }
                 $("#commentList").append(comment_temp)
                 let replyBox = `replyBox-${parent_comment.id}`
@@ -312,63 +401,124 @@ async function loadArticle() {
                         let change_content = text.replace(/(\n|\r\n)/g, '<br>')
 
                         if (login_user == reply.author) {
-                            reply_temp = `
-                                <div class="card text-white bg-dark reply">
-                                    <div class="card-header d-flex justify-content-between mb-0">
-                                        <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
-                                            <a href="/myroom/myroom.html?user=${reply.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
-                                            <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
-                                        </h5>
-
-                                    </div>
-                                    <!-- 가변 (보기모드) -->
-                                    <div class="collapse multi-collapse-${reply.id} show">
-                                        <div class="card-body pt-0">
-                                            <p class="card-text fs-6">
-                                            ${change_content}
-                                            </p>
-                                        </div>
-                                    <div class="card-footer d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                            data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
-                                        <button type="button" class="btn btn-outline-primary btn-sm"  onclick="deleteComment(this)">삭제</button>
-                                    </div>
-                                    </div>
-                                    <!-- 가변 (수정모드) -->
-                                    <div class="collapse multi-collapse-${reply.id}" id="commentEdit-${reply.id}">
-                                        <div class="card-body pt-0">
-                                            <input type="text" class="visually-hidden" id="reply-${reply.id}" value="${parent_comment.id}">
-                                            <textarea class="form-control" id="commentForm-${reply.id}" rows="3">${reply.content}</textarea>
-                                        </div>
-                                        <div class="card-footer d-flex justify-content-end">
-                                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                                data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
-                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
-                                        </div>
-                                    </div>`
+                            if (reply.moved) {
+                                // 이사완료
+                                reply_temp = `
+                                            <div class="card text-white bg-dark reply">
+                                                <div class="card-header d-flex justify-content-between mb-0">
+                                                    <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
+                                                        <a href="/myroom/myroom.html?user=${reply.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
+                                                        <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
+                                                    </h5>
+    
+                                                </div>
+                                                <!-- 가변 (보기모드) -->
+                                                <div class="collapse multi-collapse-${reply.id} show">
+                                                    <div class="card-body pt-0">
+                                                        <p class="card-text fs-6">
+                                                        ${change_content}
+                                                        </p>
+                                                    </div>
+                                                <div class="card-footer d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                        data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm"  onclick="deleteComment(this)">삭제</button>
+                                                </div>
+                                                </div>
+                                                <!-- 가변 (수정모드) -->
+                                                <div class="collapse multi-collapse-${reply.id}" id="commentEdit-${reply.id}">
+                                                    <div class="card-body pt-0">
+                                                        <input type="text" class="visually-hidden" id="reply-${reply.id}" value="${parent_comment.id}">
+                                                        <textarea class="form-control" id="commentForm-${reply.id}" rows="3">${reply.content}</textarea>
+                                                    </div>
+                                                    <div class="card-footer d-flex justify-content-end">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                            data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
+                                                    </div>
+                                                </div>`
+                            } else {
+                                // 이사중
+                                reply_temp = `
+                                            <div class="card text-white bg-dark reply">
+                                                <div class="card-header d-flex justify-content-between mb-0">
+                                                    <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
+                                                        <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
+                                                    </h5>
+    
+                                                </div>
+                                                <!-- 가변 (보기모드) -->
+                                                <div class="collapse multi-collapse-${reply.id} show">
+                                                    <div class="card-body pt-0">
+                                                        <p class="card-text fs-6">
+                                                        ${change_content}
+                                                        </p>
+                                                    </div>
+                                                <div class="card-footer d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                        data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm"  onclick="deleteComment(this)">삭제</button>
+                                                </div>
+                                                </div>
+                                                <!-- 가변 (수정모드) -->
+                                                <div class="collapse multi-collapse-${reply.id}" id="commentEdit-${reply.id}">
+                                                    <div class="card-body pt-0">
+                                                        <input type="text" class="visually-hidden" id="reply-${reply.id}" value="${parent_comment.id}">
+                                                        <textarea class="form-control" id="commentForm-${reply.id}" rows="3">${reply.content}</textarea>
+                                                    </div>
+                                                    <div class="card-footer d-flex justify-content-end">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                            data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
+                                                    </div>
+                                                </div>`
+                            }
                         } else {
-                            reply_temp = `
-                            <div class="card text-white bg-dark reply">
-                                    <div class="card-header d-flex justify-content-between mb-0">
-                                        <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
-                                            <a href="/myroom/myroom.html?user=${reply.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
-                                            <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
-                                        </h5>
-
-                                    </div>
-                                    <!-- 가변 (보기모드) -->
-                                    <div class="collapse multi-collapse-${reply.id} show">
-                                        <div class="card-body pt-0">
-                                            <p class="card-text fs-6">
-                                            ${change_content}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>`
+                            if (reply.moved) {
+                                // 이사완료
+                                reply_temp = `
+                                        <div class="card text-white bg-dark reply">
+                                                <div class="card-header d-flex justify-content-between mb-0">
+                                                    <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
+                                                        <a href="/myroom/myroom.html?user=${reply.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>
+                                                        <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
+                                                    </h5>
+    
+                                                </div>
+                                                <!-- 가변 (보기모드) -->
+                                                <div class="collapse multi-collapse-${reply.id} show">
+                                                    <div class="card-body pt-0">
+                                                        <p class="card-text fs-6">
+                                                        ${change_content}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                                        } else {
+                                            // 이사중
+                                            reply_temp = `
+                                                    <div class="card text-white bg-dark reply">
+                                                            <div class="card-header d-flex justify-content-between mb-0">
+                                                                <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
+                                                                    <span id="date" class="text-primary text-end fs-6 ms-4">${reply.create_date}</span>
+                                                                </h5>
+                
+                                                            </div>
+                                                            <!-- 가변 (보기모드) -->
+                                                            <div class="collapse multi-collapse-${reply.id} show">
+                                                                <div class="card-body pt-0">
+                                                                    <p class="card-text fs-6">
+                                                                    ${change_content}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>`
+                            }
                         }
                         $(`#${replyBox}`).append(reply_temp)
                     }
                 }
+
             }
         })
 }
