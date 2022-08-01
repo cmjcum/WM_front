@@ -106,7 +106,7 @@ async function loadNavbar() {
                     // 시민증 발급 완료
                     console.log("OK")
                     let my_planet_url = data["planet_data"][2]
-                    let user_id = data["planet_data"][1]
+                    let user_id = data["user_id"]
                     let nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
                     let nav_my_home_temp = `<a class="nav-link" href="/myroom/myroom.html?user=${user_id}"><i class="bi bi-house-heart-fill"></i> My
                     home</a>`
