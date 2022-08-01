@@ -2,14 +2,14 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 const planet_names = {
-    'mercury': '수성',
-    'venus': '금성',
-    'earth': '지구',
-    'mars': '화성',
-    'jupiter': '목성',
-    'saturn': '토성',
-    'uranus': '천왕성',
-    'neptune': '해왕성'
+    'Mercury': '수성',
+    'Venus': '금성',
+    'Earth': '지구',
+    'Mars': '화성',
+    'Jupiter': '목성',
+    'Saturn': '토성',
+    'Uranus': '천왕성',
+    'Neptune': '해왕성'
 }
 
 let planet_infos = {}
