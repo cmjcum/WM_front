@@ -25,19 +25,6 @@
     <script src="static/js/myroom.js"></script>
     <script src="static/js/myroom_furniture.js"></script>
 
-    <!--  loading  -->
-    <script>
-        $(document).ready(function () {
-            loadNavbar()
-            if (searchParam('search')) {
-                loadSearchData()
-            } else {
-                loadBoard()
-            }
-        }
-        );
-
-    </script>
     <title>myroom</title>
 </head>
 
@@ -60,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item" id="solarSystem">
-                        <a class="nav-link" href="board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar
+                        <a class="nav-link" href="/board/board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar
                             system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">

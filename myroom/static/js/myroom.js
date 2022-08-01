@@ -98,7 +98,8 @@ async function show_guest_book() {
                             <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
-                    </div>`
+                    </div>
+                    `
                     $("#guest_book").append(content_temp)
                 } else {
                     content_temp = `
@@ -107,7 +108,8 @@ async function show_guest_book() {
                             <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
-                    </div>`
+                    </div>
+                    `
                     $("#guest_book").append(content_temp)
                 }
                 if (i == 4) break;
