@@ -237,15 +237,14 @@ body {
     background-color: rgb(104, 74, 179, 0.3);
     border: solid 2px rgb(107 70 186);
     border-radius: 10px;
-    ;
 }
 
 .follow_profile_wrap {
-    width: 190px;
+    width: 100%;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     border: solid 2px rgb(107 70 186);
-    margin: auto auto 10px 10px;
+    margin: 5px auto auto auto;
 }
 
 .follow_profile_portrait {
@@ -293,42 +292,33 @@ body {
     box-sizing: border-box
 }
 
-.clearfix:after,
-.clearfix:before {
-    content: '';
-    display: table
-}
-
-.clearfix:after {
-    clear: both;
-    display: block
-}
-
-a {
-    color: inherit;
-    text-decoration: none
-}
-
-.login-wrap {
+.tag_user_wrap {
     width: 100%;
+    height: 350px;
     margin: auto;
-    max-width: 525px;
-    min-height: 670px;
+    overflow: auto;
     position: relative;
-    background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+    background: rgb(104, 74, 179, 0.3);
+    border: solid 2px rgb(107 70 186);
+    border-radius: 30px;
 }
 
-.login-html {
+.tag_user_wrap::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+.tag-html {
     width: 100%;
     height: 100%;
     position: absolute;
-    padding: 90px 70px 50px 70px;
-    background: rgba(40, 57, 101, .9);
+    padding: 10px;
 }
 
-.login-html .sign-in-htm,
-.login-html .sign-up-htm {
+.tag-html .like_user_htm,
+.tag-html .follower_user_htm,
+.tag-html .follow_user_htm {
     top: 0;
     left: 0;
     right: 0;
@@ -339,20 +329,23 @@ a {
     transition: all .4s linear;
 }
 
-.login-html .sign-in,
-.login-html .sign-up,
-.login-form .group .check {
+.tag-html .like,
+.tag-html .follower,
+.tag-html .follow,
+.tag-form .check {
     display: none;
 }
 
-.login-html .tab,
-.login-form .group .label,
-.login-form .group .button {
+.tag-html .tab,
+.tag-form .label,
+.tag-form .button {
     text-transform: uppercase;
 }
 
-.login-html .tab {
-    font-size: 22px;
+/* 폰트 색상 */
+.tag-html .tab {
+    font-size: 12px;
+    color: #fff;
     margin-right: 15px;
     padding-bottom: 5px;
     margin: 0 15px 10px 0;
@@ -360,54 +353,50 @@ a {
     border-bottom: 2px solid transparent;
 }
 
-.login-html .sign-in:checked+.tab,
-.login-html .sign-up:checked+.tab {
+.tag-html .like:checked+.tab,
+.tag-html .follower:checked+.tab,
+.tag-html .follow:checked+.tab {
     color: #fff;
     border-color: #1161ee;
 }
 
-.login-form {
+.tag-form {
     min-height: 345px;
     position: relative;
     perspective: 1000px;
     transform-style: preserve-3d;
 }
 
-.login-form .group {
+.tag-form {
     margin-bottom: 15px;
 }
 
-.login-form .group .label,
-.login-form .group .input,
-.login-form .group .button {
+.tag-form .label,
+.tag-form .input,
+.tag-form .button {
     width: 100%;
     color: #fff;
     display: block;
 }
 
-.login-form .group .input,
-.login-form .group .button {
+.tag-form .input,
+.tag-form .button {
     border: none;
     padding: 15px 20px;
     border-radius: 25px;
     background: rgba(255, 255, 255, .1);
 }
 
-.login-form .group input[data-type="password"] {
-    text-security: circle;
-    -webkit-text-security: circle;
-}
-
-.login-form .group .label {
+.tag-form .label {
     color: #aaa;
     font-size: 12px;
 }
 
-.login-form .group .button {
+.tag-form .button {
     background: #1161ee;
 }
 
-.login-form .group label .icon {
+.tag-form label .icon {
     width: 15px;
     height: 15px;
     border-radius: 2px;
@@ -416,8 +405,8 @@ a {
     background: rgba(255, 255, 255, .1);
 }
 
-.login-form .group label .icon:before,
-.login-form .group label .icon:after {
+.tag-form label .icon:before,
+.tag-form label .icon:after {
     content: '';
     width: 10px;
     height: 2px;
@@ -426,42 +415,50 @@ a {
     transition: all .2s ease-in-out 0s;
 }
 
-.login-form .group label .icon:before {
+.tag-form label .icon:before {
     left: 3px;
     width: 5px;
     bottom: 6px;
     transform: scale(0) rotate(0);
 }
 
-.login-form .group label .icon:after {
+.tag-form label .icon:after {
     top: 6px;
     right: 0;
     transform: scale(0) rotate(0);
 }
 
-.login-form .group .check:checked+label {
+.tag-form .check:checked+label {
     color: #fff;
 }
 
-.login-form .group .check:checked+label .icon {
+.tag-form .check:checked+label .icon {
     background: #1161ee;
 }
 
-.login-form .group .check:checked+label .icon:before {
+.tag-form .check:checked+label .icon:before {
     transform: scale(1) rotate(45deg);
 }
 
-.login-form .group .check:checked+label .icon:after {
+.tag-form .check:checked+label .icon:after {
     transform: scale(1) rotate(-45deg);
 }
 
-.login-html .sign-in:checked+.tab+.sign-up+.tab+.login-form .sign-in-htm {
+
+
+.tag-html .like:checked+.tab+.follower+.tab+.follow+.tab+.tag-form .like_user_htm {
     transform: rotate(0);
 }
 
-.login-html .sign-up:checked+.tab+.login-form .sign-up-htm {
+.tag-html .follower:checked+.tab+.follow+.tab+.tag-form .follower_user_htm {
     transform: rotate(0);
 }
+
+.tag-html .follow:checked+.tab+.tag-form .follow_user_htm {
+    transform: rotate(0);
+}
+
+
 
 .hr {
     height: 2px;
