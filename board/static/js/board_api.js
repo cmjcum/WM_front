@@ -74,7 +74,6 @@ function makePagenation(board_id, current_page, total_data) {
 // method GET
 // 메인 페이지 로딩
 async function loadMain() {
-    console.log("load main")
     const response = await fetch(`${backend_base_url}/board/`, {
         method: 'GET',
         headers: {
@@ -106,8 +105,6 @@ async function loadMain() {
 
                 if (data["planet_data"]) {
                     // 시민증 발급 완료
-                    console.log("OK")
-                    console.log(data["planet_data"])
                     let my_planet_url = data["planet_data"][2]
                     let my_planet_name = data["planet_data"][0]
                     let my_planet_name_lower = my_planet_name.toLowerCase()
@@ -125,7 +122,6 @@ async function loadMain() {
 
                 } else {
                     // 시민증 발급중
-                    console.log("null")
                 }
             }
 
@@ -149,10 +145,11 @@ async function loadBoard() {
     })
         .then(response => response.json())
         .then(data => {
+            
+            if (Object.keys(data) == "detail") {
+                window.location.replace(`${frontend_base_url}/board/error.html`);
 
-            console.log(data)
-
-            if (Object.keys(data) == "message") {
+            } else if (Object.keys(data) == "message") {
                 let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
                                                         <div class="card-body">
                                                         <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
@@ -161,9 +158,8 @@ async function loadBoard() {
                                                     </div>`
                 $("#alert").append(alert_temp)
 
-            } else {
+            }  else {
                 let total_data = data[0]["count"];
-                console.log("load board", board_id, current_page, total_data)
                 makePagenation(board_id, current_page, total_data)
 
                 for (let i = 0; i < Object.keys(data).length; i++) {
@@ -244,7 +240,6 @@ function postButtonClick() {
 function searchButtonClick() {
     let board_id = searchParam('board');
     let searchData = document.getElementById('searchInput').value
-    console.log(board_id, searchData)
     if (searchData.length == 0) {
         let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -262,7 +257,6 @@ async function loadSearchData() {
     let keyword = searchParam('search');
     let board_id = searchParam('board');
     let current_page = searchParam('page');
-    console.log("load search data", board_id, keyword)
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/search/${keyword}/${current_page}/`, {
         method: 'GET',
