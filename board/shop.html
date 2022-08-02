@@ -32,9 +32,9 @@
     <script>
         $(document).ready(function () {
             loadNavbar()
-            loadMain()
         }
         );
+
     </script>
 
     <!-- title -->
@@ -84,29 +84,39 @@
     <!-- 상단바 끝 -->
 
     <section class="main">
-        <div class="container my-5 board-wrap">
+        <div class="container my-5 board-wrap text-center">
             <!-- 본문 시작 -->
 
-            <div class="logo">
-                <img src="../images/logo1.png">
-            </div>
-
-            <div id="boardList" class="text-center">
-
-                <div class="board">
-                    <a href="board.html?board=8&page=1">
-                        <img class="icon" src="/images/icon/solar.png">
-                        <div>
-                                <h2 class="text-primary">Solar system</h2>
-                                <p class="text-primary">지금 태양계에서는 어떤 이야기가 화제일까요?</p>
-                        </div>
-                    </a>
+            <!-- 상단 배너 시작 -->
+            <div class="row">
+                <div class="col banner">
+                    <img src="/images/shop-banner.png">
                 </div>
+            </div>
+            <!-- 상단 배너 끝 -->
 
-                <!-- 거주 행성 아이콘 로딩 -->
+            <div class="row row-cols-3" id="goods">
+                <!-- 상품 정보 컬럼 출력 영역 -->
+
+                <!-- 상품 시작 -->
+                <div class="col">
+                    <div class="card border-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header text-primary">책장</div>
+                        <div class="card-body pt-0">
+                            <figure class="d-flex">
+                                <img class=" mx-auto"
+                                    src="https://mysparta84.s3.ap-northeast-2.amazonaws.com/5220802203222.png">
+                            </figure>
+                            <h5 class="card-title text-primary">400 coin</h5>
+                            <p class="card-text text-primary mt-4"><button type="button"
+                                    class="btn btn-secondary">구입하기</button></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 상품 끝 -->
+                
 
             </div>
-
             <!-- 본문 끝 -->
         </div>
     </section>

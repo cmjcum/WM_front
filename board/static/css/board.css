@@ -103,5 +103,7 @@ figure > img {
     height: 40px;
 }
 
-
-
+.banner > img {
+    width: 100%;
+    margin-bottom: 30px;
+}
