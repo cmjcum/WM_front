@@ -6,7 +6,6 @@ function searchParam(key) {
 // method GET
 // 상단바 로딩
 async function loadNavbar() {
-    console.log("load navbar")
     const response = await fetch(`${backend_base_url}/board/`, {
         method: 'GET',
         headers: {
@@ -26,8 +25,6 @@ async function loadNavbar() {
                 window.location.replace(`${frontend_base_url}/login/login.html`);
             };
 
-            console.log(data)
-
             if (data["admin_data"]) {
                 // is_admin
                 let login_user_temp = `<span class="text-warning vertical-middle me-3"><i class="bi bi-cone-striped"></i> 관리자로 접속중</span>`
@@ -36,7 +33,6 @@ async function loadNavbar() {
             } else {
                 if (data["planet_data"]) {
                     // 시민증 발급 완료
-                    console.log("OK")
                     let my_planet_url = data["planet_data"][2]
                     let user_id = data["user_id"]
                     let nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
@@ -65,7 +61,6 @@ async function loadNavbar() {
                     }
                 } else if (searchParam('user')) {
                     // 마이홈에 액티브
-                    console.log("myHome")
                     $( '#myHome' ).children().addClass( 'active' )
                 } else {
                     // 메인 페이지에 액티브
