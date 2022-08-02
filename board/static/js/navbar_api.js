@@ -38,8 +38,10 @@ async function loadNavbar() {
                     let nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
                     let nav_my_home_temp = `<a class="nav-link" href="/myroom/myroom.html?user=${user_id}"><i class="bi bi-house-heart-fill"></i> My
                     home</a>`
+                    let nav_shop_temp = `<a class="nav-link" href="/board/"><i class="bi bi-shop me-1"></i>Market</a>`
                     $("#myPlanet").append(nav_my_planet_temp)
                     $("#myHome").append(nav_my_home_temp)
+                    $("#coinShop").append(nav_shop_temp)
                 } else {
                     // 시민증 발급중
                     console.log("null")
@@ -52,16 +54,17 @@ async function loadNavbar() {
                     let board_id = searchParam('board');
                     if (board_id==8) {
                         // 솔라에 액티브
-                        console.log("solarSystem")
                         $( '#solarSystem' ).children().addClass( 'active' )
                     } else {
                         // 마이플래닛에 액티브
-                        console.log("myPlanet")
                         $( '#myPlanet' ).children().addClass( 'active' )
                     }
                 } else if (searchParam('user')) {
                     // 마이홈에 액티브
                     $( '#myHome' ).children().addClass( 'active' )
+                } else if (pass) {
+                    // 마켓에 액티브 
+                    $( '#coinShop' ).children().addClass( 'active' )
                 } else {
                     // 메인 페이지에 액티브
                 }
