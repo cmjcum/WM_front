@@ -147,7 +147,8 @@ async function show_profile() {
                 // Plant.data
                 const planet = data[i]["planet"]["name"]
                 // 태그한 유저의 정보의 변수
-                const follow_user_data = data[i]["user"]["follow"]
+                const follower_user_data = data[i]["user"]["follow"]
+                const follow_users_data = data[i]["user"]["follow_users"]
                 const like_user_data = data[i]["user"]["like"]
 
 
@@ -265,27 +266,27 @@ async function show_profile() {
                     `
                         $("#show_profile").append(content_temp)
                     }
-                    // 팔로우한 유저의 프로필
-                    for (let i = 0; i < follow_user_data.length; i++) {
-                        const follow_user_nickname = follow_user_data[i]["follow_user_nickname"]
-                        const follow_user_portrait = follow_user_data[i]["portrait"]
-                        const follow_user_id = follow_user_data[i]["id"]
+                    // 팔로워한 유저의 프로필
+                    for (let i = 0; i < follower_user_data.length; i++) {
+                        const follower_user_nickname = follower_user_data[i]["follower_user_nickname"]
+                        const follower_user_portrait = follower_user_data[i]["portrait"]
+                        const follower_user_id = follower_user_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}">
-                            <div class="follow_profile_wrap" style="display:flex;">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}">
+                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
-                                    <img class="follow_profile_portrait" src="${follow_user_portrait}">
+                                    <img class="follow_profile_portrait" src="${follower_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follow_user_nickname}</div>
+                                    <div style="font-size: 13px;">${follower_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
                         `
-                    $("#follower_info").append(content_temp)
+                        $("#follower_info").append(content_temp)
                     }
                     // 좋아요한 유저의 프로필
                     for (let i = 0; i < like_user_data.length; i++) {
@@ -295,7 +296,7 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}">
-                            <div class="follow_profile_wrap" style="display:flex;">
+                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${like_user_portrait}">
@@ -307,9 +308,30 @@ async function show_profile() {
                             </div>
                         </a>
                         `
-                    $("#like_info").append(content_temp)
+                        $("#like_info").append(content_temp)
                     }
+                    // 팔로우한 유저의 프로필
+                    for (let i = 0; i < follow_users_data.length; i++) {
+                        const follow_user_nickname = follow_users_data[i]["follower_user_nickname"]
+                        const follow_user_portrait = follow_users_data[i]["portrait"]
+                        const follow_user_id = follow_users_data[i]["id"]
 
+                        content_temp = `
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}">
+                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                        
+                                <div class="follow_profile_portrait">
+                                    <img class="follow_profile_portrait" src="${follow_user_portrait}">
+                                </div>
+                                
+                                <div class="follow_profile_name">
+                                    <div style="font-size: 13px;">${follow_user_nickname}</div>
+                                </div>
+                            </div>
+                        </a>
+                        `
+                        $("#follow_info").append(content_temp)
+                    }
                 }
             }
         })

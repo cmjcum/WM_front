@@ -87,16 +87,15 @@
                 <div id="show_profile"></div>
                 <!-- 좋아요, 팔로우, 팔로잉 정보 -->
                 <div class="tag_user_wrap">
-                    <div class="tag-html" style="text-align: center;">
-                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1"
-                            class="tab">좋아요</label>
-                        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2"
-                            class="tab">팔로워</label>
-                        <!-- <input id="tab-3" type="radio" name="tab" class="sign-up"><label for="tab-3"
-                            class="tab">팔로우</label> -->
+                    <div class="tag-html">
+                        <input id="tab-1" type="radio" name="tab" class="like" checked>
+                        <label for="tab-1" class="tab" style="margin: 0px 0px 10px 15px;">좋아요</label>
+                        <input id="tab-2" type="radio" name="tab" class="follower">
+                        <label for="tab-2" class="tab" style="margin: 0px 0px 10px 15px;">팔로워</label>
+                        <input id="tab-3" type="radio" name="tab" class="follow">
+                        <label for="tab-3" class="tab" style="margin: 0px 0px 10px 15px;">팔로우</label>
 
                         <div class="tag-form">
-
                             <!-- 좋아요 유저 정보 -->
                             <div class="like_user_htm">
                                 <div id="like_info"></div>
@@ -106,12 +105,10 @@
                                 <div id="follower_info"></div>
                             </div>
                             <!-- 팔로워 유저 정보 (마이룸을 팔로우 하는 유저) -->
-                            <!-- <div class="sign-up-htm">
+                            <div class="follow_user_htm">
                                 <div id="follow_info"></div>
-                            </div> -->
-    
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>

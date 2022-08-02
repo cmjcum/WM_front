@@ -318,7 +318,8 @@ body {
 }
 
 .tag-html .like_user_htm,
-.tag-html .follower_user_htm {
+.tag-html .follower_user_htm,
+.tag-html .follow_user_htm {
     top: 0;
     left: 0;
     right: 0;
@@ -329,8 +330,9 @@ body {
     transition: all .4s linear;
 }
 
-.tag-html .sign-in,
-.tag-html .sign-up,
+.tag-html .like,
+.tag-html .follower,
+.tag-html .follow,
 .tag-form .check {
     display: none;
 }
@@ -352,8 +354,9 @@ body {
     border-bottom: 2px solid transparent;
 }
 
-.tag-html .sign-in:checked+.tab,
-.tag-html .sign-up:checked+.tab {
+.tag-html .like:checked+.tab,
+.tag-html .follower:checked+.tab,
+.tag-html .follow:checked+.tab {
     color: #fff;
     border-color: #1161ee;
 }
@@ -442,13 +445,21 @@ body {
     transform: scale(1) rotate(-45deg);
 }
 
-.tag-html .sign-in:checked+.tab+.sign-up+.tab+.tag-form .like_user_htm {
+
+
+.tag-html .like:checked+.tab+.follower+.tab+.follow+.tab+.tag-form .like_user_htm {
     transform: rotate(0);
 }
 
-.tag-html .sign-up:checked+.tab+.tag-form .follower_user_htm {
+.tag-html .follower:checked+.tab+.follow+.tab+.tag-form .follower_user_htm {
     transform: rotate(0);
 }
+
+.tag-html .follow:checked+.tab+.tag-form .follow_user_htm {
+    transform: rotate(0);
+}
+
+
 
 .hr {
     height: 2px;
