@@ -98,7 +98,8 @@ async function show_guest_book() {
                             <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
-                    </div>`
+                    </div>
+                    `
                     $("#guest_book").append(content_temp)
                 } else {
                     content_temp = `
@@ -107,10 +108,10 @@ async function show_guest_book() {
                             <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
-                    </div>`
+                    </div>
+                    `
                     $("#guest_book").append(content_temp)
                 }
-                if (i == 4) break;
             }
         })
 }
@@ -149,7 +150,24 @@ async function show_profile() {
                 // 팔로우한 유저의 정보의 변수
                 const follow_user_data = data[i]["user"]["follow"]
 
+                console.log(data[i]["user"])
+
+
                 if (login_user_id == user_id) {
+                    content_temp = `
+                    <div id="buttons_div">
+                        <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse"
+                        type="button" onclick="click_edit_button(event)">방꾸미기</button>
+                    </div>
+                    <div class="collapse" id="collapseExample"style="width: 200px;">
+                        <div class="card card-body" style="border: 0;">
+                            <div id="furniture_div" class="furniture_div" style="float: right;"></div>
+                        </div>
+                    </div>
+                    `
+                    $("#show_furniture").append(content_temp)
+
                     content_temp = `
                 <div class="profile-wrap" style="display:flex;">
                     <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
@@ -172,20 +190,35 @@ async function show_profile() {
                         </div>
                     </div>
                 </div>
-            
-                <!-- 방 꾸미기 -->
-                <div id="buttons_div" style="text-align: center;">
-                    <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
-                        onclick="click_edit_button(event)">방꾸미기</button>
-                </div>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <div id="furniture_div" class="furniture_div" style="float: right;"></div>
-                    </div>
-                </div>
+                <div style="height: 20px ;"></div>
+
                 `
                     $("#show_profile").append(content_temp)
+
+                    // 팔로우한 유저의 프로필
+                    for (let i = 0; i < follow_user_data.length; i++) {
+                        // const random = Math.floor(Math.random() * follow_user_data.length)
+
+                        const follow_user_nickname = follow_user_data[i]["follow_user_nickname"]
+                        const follow_user_portrait = follow_user_data[i]["portrait"]
+                        const follow_user_id = follow_user_data[i]["id"]
+
+                        content_temp = `
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}">
+                            <div class="follow_profile_wrap" style="display:flex;">
+                        
+                                <div class="follow_profile_portrait">
+                                    <img class="follow_profile_portrait" src="${follow_user_portrait}">
+                                </div>
+                                
+                                <div class="follow_profile_name">
+                                    <div>${follow_user_nickname}</div>
+                                </div>
+                            </div>
+                        </a>
+                        `
+                        $("#show_profile").append(content_temp)
+                    }
                 } else {
                     content_temp = `
                 <div class="profile-wrap" style="display:flex;">
@@ -278,13 +311,12 @@ async function show_profile() {
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follow_user_nickname}</div>
+                                    <div>${follow_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
                         `
-                    if (i == 6) break;
-                    $("#show_profile").append(content_temp)
+                        $("#show_profile").append(content_temp)
                     }
                 }
             }

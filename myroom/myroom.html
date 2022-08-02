@@ -5,14 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myroom</title>
-    <link rel="stylesheet" href="static/css/myroom.css" />
 
+    <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
-    <script src="static/js/myroom.js"></script>
-    <script src="static/js/myroom_furniture.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
         crossorigin="anonymous"></script>
@@ -20,17 +16,25 @@
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
 
+    <!-- css -->
+    <link rel="stylesheet" href="static/css/myroom.css" />
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+    <!-- js -->
+    <script src="static/js/myroom.js"></script>
+    <script src="static/js/myroom_furniture.js"></script>
+    <script src="/board/static/js/navbar_api.js"></script>
+
+    <title>myroom</title>
 </head>
 
-
-
 <body>
-    <!-- 네비게이션바 -->
+    <!-- 상단바 시작 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="../images/rocket.png" height="30px"> Make Migrations</a>
+            <a class="navbar-brand" href="/board"><img src="../images/rocket.png" height="30px"> Make
+                Migrations</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,37 +43,46 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-signpost-fill"></i> Main
+                        <a class="nav-link active" id="mainPage" href="/board"><i class="bi bi-signpost-fill"></i> Main
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="bi bi-stars"></i> Solar system</a>
+                    <li class="nav-item" id="solarSystem">
+                        <a class="nav-link" href="/board/board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar
+                            system</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-stars"></i> My planet</a>
+                    <li class="nav-item" id="myPlanet">
+                        <!-- 소속 행성 전용 게시판 -->
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-house-heart-fill"></i> My home</a>
+                    <li class="nav-item" id="myHome">
+                        <!-- 개인 페이지로 이동 -->
                     </li>
                 </ul>
+                <div class="d-flex" id="username">
+                    <!-- 로그인 정보 표시 -->
+                </div>
                 <div class="d-flex">
-                    <a href="#"><i class="bi bi-power"></i></a>
+                    <a href="" onclick="logout()"><i class="bi bi-power"></i></a>
                 </div>
             </div>
         </div>
     </nav>
+    <!-- 상단바 끝 -->
+
 
     <!-- 방 꾸미기 -->
     <div class="main-box">
         <div class="main-data-box">
             <section id="main">
-                <div class=" board-wrap">
+                <div class=" board-wrap" style="display: flex;">
+                    <!-- 방 꾸미기 -->
                     <div id="room" class="furniture profile-data"></div>
+                    <!-- furniture 버튼 -->
+                    <div id="show_furniture"></div>
                 </div>
             </section>
 
-            <div id="show_profile" style="margin-left: auto;"></div>
+            <div id="show_profile" style="margin-left: 20px;"></div>
         </div>
         <!-- 방명록 -->
         <div class="guestbook_text">
@@ -89,10 +102,72 @@
                     </div>
                 </div>
             </div>
-            <!-- 방명록 -->
+        </div>
+        <!-- 방명록 -->
+        <div class="guest_book_box">
             <div id="guest_book"></div>
         </div>
-    </div
+    </div>
+
+
+
+
+    <!-- =================================================== -->
+    <!-- <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
+                In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <input id="user" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="sign-up-htm">
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <input id="user" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Repeat Password</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Email Address</label>
+                        <input id="pass" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign Up">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <label for="tab-1">Already Member?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </body>
 
 </html>
