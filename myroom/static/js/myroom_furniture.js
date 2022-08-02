@@ -25,7 +25,7 @@ function add_furniture_position(myfurniture, pos_x, pos_y, is_left) {
 
 
 function change_cursor(e) {
-    if(is_clicked) {
+    if (is_clicked) {
         cursor.setAttribute('src', img.getAttribute('src'))
 
         cursor.style.left = `${e.offsetX - img.naturalWidth / 2}px`;
@@ -37,7 +37,7 @@ function change_cursor(e) {
 
 
 function add_new_furniture(e) {
-    if(is_clicked) {
+    if (is_clicked) {
         cursor.remove();
 
         let left = e.offsetX - img.naturalWidth / 2;
@@ -75,7 +75,7 @@ async function get_my_furniture() {
     })
         .then(response => response.json())
         .then(data => {
-            for(let i = 0; i < data.my_furniture.length; i++) {
+            for (let i = 0; i < data.my_furniture.length; i++) {
                 let cur_furniture = data.my_furniture[i]['furniture']
 
                 let furniture_img = document.createElement('img')
@@ -94,13 +94,13 @@ async function get_my_furniture() {
 
                     document.getElementById('remove_button').innerHTML = '지우기';
                     let room_childs = document.getElementById('room').childNodes
-                    for(i=0; i<room_childs.length; i++)
+                    for (i = 0; i < room_childs.length; i++)
                         room_childs[i].style.pointerEvents = 'none';
                 })
 
                 document.getElementById('furniture_div').appendChild(furniture_img)
 
-                my_furniture_img_urls[i] = {'url_left': cur_furniture['url_left'], 'url_right': cur_furniture['url_right']}
+                my_furniture_img_urls[i] = { 'url_left': cur_furniture['url_left'], 'url_right': cur_furniture['url_right'] }
             }
         });
 
@@ -110,7 +110,7 @@ async function get_my_furniture() {
 function click_edit_button(e) {
     let buttons_div = document.getElementById('buttons_div')
 
-    if(e.target.innerHTML == '방꾸미기') {
+    if (e.target.innerHTML == '방꾸미기') {
         e.target.innerHTML = '완료'
 
         let rotate_button = document.createElement('button')
@@ -124,13 +124,13 @@ function click_edit_button(e) {
 
             let furniture_div_childs = document.getElementById('furniture_div').childNodes
 
-            if(is_left) {
-                for(let i=0; i<furniture_div_childs.length; i++)
+            if (is_left) {
+                for (let i = 0; i < furniture_div_childs.length; i++)
                     furniture_div_childs[i].setAttribute('src', my_furniture_img_urls[i]['url_right'])
                 is_left = false
             }
             else {
-                for(let i=0; i<furniture_div_childs.length; i++)
+                for (let i = 0; i < furniture_div_childs.length; i++)
                     furniture_div_childs[i].setAttribute('src', my_furniture_img_urls[i]['url_left'])
                 is_left = true
             }
@@ -147,16 +147,16 @@ function click_edit_button(e) {
         remove_button.innerHTML = '지우기'
         remove_button.addEventListener('click', (e) => {
             let room_childs = document.getElementById('room').childNodes
-            if(e.target.innerHTML == '지우기') {
+            if (e.target.innerHTML == '지우기') {
                 cursor.remove();
                 is_clicked = false;
                 e.target.innerHTML = '배치하기';
-                for(i=0; i<room_childs.length; i++)
+                for (i = 0; i < room_childs.length; i++)
                     room_childs[i].style.pointerEvents = 'auto';
             }
             else {
                 e.target.innerHTML = '지우기';
-                for(i=0; i<room_childs.length; i++)
+                for (i = 0; i < room_childs.length; i++)
                     room_childs[i].style.pointerEvents = 'none';
             }
         })
@@ -173,10 +173,10 @@ function click_edit_button(e) {
         buttons_div.appendChild(remove_button)
         buttons_div.appendChild(cancel_button)
         buttons_div.appendChild(rotate_button)
-    
+
         get_my_furniture()
     }
-    else {        
+    else {
         save_room()
     }
 }
@@ -193,9 +193,9 @@ async function load_room() {
         .then(data => {
             const room = document.getElementById('room');
             let receive_furniture_positions = data['furniture_positions']
-            for(let i=0; i<receive_furniture_positions.length; i++) {
+            for (let i = 0; i < receive_furniture_positions.length; i++) {
                 let cur_furniture = receive_furniture_positions[i]
-                
+
                 let furniture = document.createElement('img');
 
                 furniture.style.position = 'absolute';
@@ -203,7 +203,7 @@ async function load_room() {
                 furniture.style.top = `${cur_furniture['pos_y']}px`
 
                 furniture.style.pointerEvents = 'none'
-                
+
                 furniture.addEventListener('click', (e) => { remove_furniture(e) })
 
                 furniture.setAttribute('src', cur_furniture['myfurniture_url'])
@@ -225,15 +225,16 @@ async function save_room() {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
             Accept: "application/json",
-            'Content-type': 'application/json'},
+            'Content-type': 'application/json'
+        },
         withCredentials: true,
-        body: JSON.stringify({'furniture_positions': furniture_positions})
+        body: JSON.stringify({ 'furniture_positions': furniture_positions })
     })
         .then(response => {
             if (response.status == 200) {
                 window.location.reload()
             }
-            
+
             if (response.status == 400) {
                 alert(response.status)
             }
