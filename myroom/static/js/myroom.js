@@ -110,7 +110,6 @@ async function show_guest_book() {
                     </div>`
                     $("#guest_book").append(content_temp)
                 }
-                if (i == 4) break;
             }
         })
 }
@@ -150,7 +149,6 @@ async function show_profile() {
                 const follower_user_data = data[i]["user"]["follow"]
                 const follow_users_data = data[i]["user"]["follow_users"]
                 const like_user_data = data[i]["user"]["like"]
-
 
                 if (login_user_id == user_id) {
                     content_temp = `
