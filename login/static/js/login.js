@@ -93,17 +93,23 @@ async function handleLogin() {
         const user_id = JSON.parse(localStorage.getItem("payload")).user_id
         const user_name = JSON.parse(localStorage.getItem("payload")).username
         const user_planet = JSON.parse(localStorage.getItem("payload")).planet
-        
-        console.log('user_id:', user_id, 'username:', user_name, 'planet_id:', user_planet)
+        const today_pt = JSON.parse(localStorage.getItem("payload")).today_pt
+
+        console.log('user_id:', user_id, 'username:', user_name, 'planet_id:', user_planet, 'today_pt:', today_pt)
         
         if (user_planet == null) {
             alert("아직 이주할 행성을 선택하지 않으셨네요! 이주신청서를 작성해주세요 :)")
             window.location.replace(`${frontend_base_url}/user_info/user_info.html`)
         } else {
-            alert("안녕하세요 :) ")
-            window.location.replace(`${frontend_base_url}/board/index.html`)
+            // 오늘 로그인 했는지 안했는지 분기로 출첵 보상 주기
+            if (today_pt == true) { // 오늘 첫 로그인
+                alert("안녕하세요 :) 오늘도 출첵 보상 100pt !!")
+                window.location.replace(`${frontend_base_url}/board/index.html`)
+            } else { // 오늘 두번 이상 로그인
+                alert("얼굴 자주보니 좋네요!!")
+                window.location.replace(`${frontend_base_url}/board/index.html`)
+            }
         }})
-    
     } else {
         alert("일치하지 않는 아이디나 비밀번호입니다.")
     }
