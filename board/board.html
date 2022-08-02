@@ -62,7 +62,7 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link"  href="/board"><i class="bi bi-signpost-fill"></i> Main
+                        <a class="nav-link" href="/board"><i class="bi bi-signpost-fill"></i> Main
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
@@ -93,11 +93,12 @@
             <!-- 본문 시작 -->
 
             <div class="d-flex justify-content-between mb-2">
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="제목 + 본문 + 작성자 검색">
+                <div class="d-flex">
+                    <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="제목 + 본문 + 작성자 검색"
+                        onkeyup="if(window.event.keyCode==13){searchButtonClick()}">
                     <button class="btn btn-secondary my-2 my-sm-0" type="button" onclick="searchButtonClick()"><i
                             class="bi bi-search"></i></button>
-                </form>
+                </div>
                 <div id="postBtn">
                     <a class="btn btn-secondary" onclick="postButtonClick()"><i class="bi bi-pencil-square"></i> 글쓰기</a>
                 </div>

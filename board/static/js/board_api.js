@@ -17,9 +17,9 @@ function makePagenation(board_id, current_page, total_data) {
     const data_per_page = 20; // 페이지 당 출력할 글 수
     const page_cnt = 5; // 출력할 페이지네이션 링크 수
 
-    const total_pages = Math.ceil(total_data/data_per_page) // 총 페이지 수
-    const page_group = Math.ceil(current_page/page_cnt) // 페이지 그룹
-    
+    const total_pages = Math.ceil(total_data / data_per_page) // 총 페이지 수
+    const page_group = Math.ceil(current_page / page_cnt) // 페이지 그룹
+
     // console.log("total_data : ", total_data)
     // console.log("total_pages : ", total_pages)
     // console.log("page_group : ", page_group)
@@ -28,9 +28,9 @@ function makePagenation(board_id, current_page, total_data) {
     if (last > total_pages) {
         last = total_pages;
     }
-    let first = last - (page_cnt-1) // 화면에 보여질 첫번째 페이지 번호
-    const next = last +1
-    const prev = first -1
+    let first = last - (page_cnt - 1) // 화면에 보여질 첫번째 페이지 번호
+    const next = last + 1
+    const prev = first - 1
 
     if (total_pages < 1) {
         first = last
@@ -61,87 +61,13 @@ function makePagenation(board_id, current_page, total_data) {
             )
         }
     }
-        if (next > 5 && next < total_pages) {
-            pages.append(
-                `<li class="page-item">
+    if (next > 5 && next < total_pages) {
+        pages.append(
+            `<li class="page-item">
                 <a class="page-link" href="/board/board.html?board=${board_id}&page=${next}"><i class="bi bi-chevron-double-right"></i></a>
                 </li>`
-                )
-        }
+        )
     }
-
-
-// method GET
-// 상단바 로딩
-async function loadNavbar() {
-    console.log("load navbar")
-    const response = await fetch(`${backend_base_url}/board/`, {
-        method: 'GET',
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem("access")
-        },
-        withCredentials: true,
-    })
-        .then(response => response.json())
-        .then(data => {
-
-            const payload = JSON.parse(localStorage.getItem("payload"));
-            if (!payload) {
-                // 토큰이 없을 시 로그인 페이지로 replace
-                window.location.replace(`${frontend_base_url}/login/login.html`);
-            } else if (payload.exp < (Date.now() / 1000)) {
-                // 토큰의 유효기간 만료 시 로그인 페이지로 replace
-                window.location.replace(`${frontend_base_url}/login/login.html`);
-            };
-
-            console.log(data)
-
-            if (data["admin_data"]) {
-                // is_admin
-                let login_user_temp = `<span class="text-warning vertical-middle me-3"><i class="bi bi-cone-striped"></i> 관리자로 접속중</span>`
-                $("#username").append(login_user_temp)
-
-            } else {
-                if (data["planet_data"]) {
-                    // 시민증 발급 완료
-                    console.log("OK")
-                    let my_planet_url = data["planet_data"][2]
-                    let user_id = data["planet_data"][1]
-                    let nav_my_planet_temp = `<a class="nav-link" href="${my_planet_url}"><i class="bi bi-stars"></i> My planet</a>`
-                    let nav_my_home_temp = `<a class="nav-link" href="/myroom/myroom.html?user=${user_id}"><i class="bi bi-house-heart-fill"></i> My
-                    home</a>`
-                    $("#myPlanet").append(nav_my_planet_temp)
-                    $("#myHome").append(nav_my_home_temp)
-                } else {
-                    // 시민증 발급중
-                    console.log("null")
-                }
-
-                let login_user_temp = `<span class="text-success vertical-middle me-3">${data["nickname"]} 님</span>`
-                $("#username").append(login_user_temp)
-
-                if (searchParam('board')) {
-                    let board_id = searchParam('board');
-                    if (board_id==8) {
-                        // 솔라에 액티브
-                        console.log("solarSystem")
-                        $( '#solarSystem' ).children().addClass( 'active' )
-                    } else {
-                        // 마이플래닛에 액티브
-                        console.log("myPlanet")
-                        $( '#myPlanet' ).children().addClass( 'active' )
-                    }
-                } else if (searchParam('user')) {
-                    // 마이홈에 액티브
-                    console.log("myHome")
-                    $( '#myHome' ).children().addClass( 'active' )
-                } else {
-                    // 메인 페이지에 액티브
-                }
-
-            }
-
-        })
 }
 
 
@@ -164,7 +90,7 @@ async function loadMain() {
                 for (let i = 0; i < Object.keys(data["admin_data"]).length; i++) {
                     let planet_name = Object.keys(data["admin_data"])[i]
                     let planet_name_lower = planet_name.toLocaleLowerCase()
-                    let planet_url =  Object.values(data["admin_data"])[i]
+                    let planet_url = Object.values(data["admin_data"])[i]
                     let planet_temp = `
                     <div class="board">
                         <img class="icon" src="/images/icon/${planet_name_lower}.png">
@@ -212,7 +138,7 @@ async function loadMain() {
 async function loadBoard() {
 
     let board_id = searchParam('board');
-    let current_page = searchParam('page');    
+    let current_page = searchParam('page');
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/list/${current_page}/`, {
         method: 'GET',
@@ -236,7 +162,7 @@ async function loadBoard() {
                 $("#alert").append(alert_temp)
 
             } else {
-                let total_data = data[0]["articles"];
+                let total_data = data[0]["count"];
                 console.log("load board", board_id, current_page, total_data)
                 makePagenation(board_id, current_page, total_data)
 
@@ -295,10 +221,10 @@ async function loadBoard() {
                         }
                     }
                     $("#boardItems").append(list_temp)
-            }  
+                }
             }
         }
-    )
+        )
 }
 
 // logoutbutton click
@@ -326,7 +252,7 @@ function searchButtonClick() {
                                         </div>`
         $("#alert").append(alert_temp)
     } else {
-        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&search=${searchData}`);
+        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&search=${searchData}&page=1`);
     }
 }
 
@@ -335,9 +261,10 @@ function searchButtonClick() {
 async function loadSearchData() {
     let keyword = searchParam('search');
     let board_id = searchParam('board');
+    let current_page = searchParam('page');
     console.log("load search data", board_id, keyword)
 
-    const response = await fetch(`${backend_base_url}/board/${board_id}/search/${keyword}/`, {
+    const response = await fetch(`${backend_base_url}/board/${board_id}/search/${keyword}/${current_page}/`, {
         method: 'GET',
         headers: {
             Authorization: "Bearer " + localStorage.getItem("access")
@@ -357,9 +284,12 @@ async function loadSearchData() {
                 $("#alert").append(alert_temp)
 
             } else {
+                let total_data = data[0]["count"];
+                makePagenation(board_id, current_page, total_data)
+
                 for (let i = 0; i < Object.keys(data).length; i++) {
 
-                    let num = i + 1
+                    let num = data[0]["num"][i]
                     let title = data[i]["title"]
                     let detail_url = data[i]["detail_url"]
                     let author = data[i]["author_name"]
@@ -368,29 +298,53 @@ async function loadSearchData() {
                     let comments = data[i]["comments"]
                     let likes = data[i]["likes"]
 
-                    if (data[i]["newest"]) {
-                        list_temp = `<tr>
-                                                        <th scope="row">${num}</th>
-                                                        <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
-                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                        <td>${create_date}</td>
-                                                        <td>${comments}</td>
-                                                        <td>${likes}</td>
-                                                    </tr>`
+                    if (data[i]["moved"]) {
+                        // 이사완료
+                        if (data[i]["newest"]) {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        } else {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        }
                     } else {
-                        list_temp = `<tr>
-                                                        <th scope="row">${num}</th>
-                                                        <td><a href="${detail_url}">${title}</a></th>
-                                                        <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                        <td>${create_date}</td>
-                                                        <td>${comments}</td>
-                                                        <td>${likes}</td>
-                                                    </tr>`
+                        // 이사중
+                        if (data[i]["newest"]) {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a>${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        } else {
+                            list_temp = `<tr>
+                                                            <th scope="row">${num}</th>
+                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a>${author}</a></td>
+                                                            <td>${create_date}</td>
+                                                            <td>${comments}</td>
+                                                            <td>${likes}</td>
+                                                        </tr>`
+                        }
                     }
-                    
                     $("#boardItems").append(list_temp)
                 }
-            }
 
-        })
+            }
+        }
+        )
 }
