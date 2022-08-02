@@ -112,7 +112,6 @@ async function show_guest_book() {
                     `
                     $("#guest_book").append(content_temp)
                 }
-                if (i == 4) break;
             }
         })
 }
@@ -150,6 +149,9 @@ async function show_profile() {
                 const planet = data[i]["planet"]["name"]
                 // 팔로우한 유저의 정보의 변수
                 const follow_user_data = data[i]["user"]["follow"]
+
+                console.log(data[i]["user"])
+
 
                 if (login_user_id == user_id) {
                     content_temp = `
@@ -215,7 +217,6 @@ async function show_profile() {
                             </div>
                         </a>
                         `
-                        if (i == 6) break;
                         $("#show_profile").append(content_temp)
                     }
                 } else {
@@ -315,7 +316,6 @@ async function show_profile() {
                             </div>
                         </a>
                         `
-                        if (i == 6) break;
                         $("#show_profile").append(content_temp)
                     }
                 }
