@@ -22,15 +22,15 @@
     <div class="login-html">
         <div class="profile"></div>
         <!-- 로그인 -->
-        <div class="sign-in-htm">
+        <div class="sign-in-htm" id="login">
             <div class="group">
                 <label for="user" class="label"></label>
-                <input type="text" class="input login-form-margin" id="login_id" placeholder="User ID">
+                <input type="text" class="input login-form-margin" id="login_id" placeholder="User ID" onkeyup="login_enter()">
             </div>
             <div class="group">
                 <label for="pass" class="label"></label>
                 <input type="password" class="input login-form-margin" data-type="password" id="login_pw"
-                       placeholder="Password">
+                       placeholder="Password" onkeyup="login_enter()">
             </div>
             <p class="signup-phrase" onclick="go_signup()">Do you want to be an alien?</p>
             <div class="group">
