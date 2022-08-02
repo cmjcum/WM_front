@@ -44,7 +44,6 @@ async function loadNavbar() {
                     $("#coinShop").append(nav_shop_temp)
                 } else {
                     // 시민증 발급중
-                    console.log("null")
                 }
 
                 let login_user_temp = `<span class="text-success vertical-middle me-3">${data["nickname"]} 님</span>`

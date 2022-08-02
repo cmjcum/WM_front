@@ -101,8 +101,6 @@ async function deleteComment(obj) {
     let article_id = searchParam('article');
     let comment_id = $(obj).prev().attr('data-bs-target').split('-')[2];
 
-    // console.log("comment_id: ", comment_id)
-
     const response = await fetch(`${backend_base_url}/board/${board_id}/${article_id}/del/${comment_id}/`, {
         method: 'DELETE',
         headers: {
