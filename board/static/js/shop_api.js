@@ -17,20 +17,14 @@ async function buyFurniture(furniture_id) {
         body: JSON.stringify(contentData)
     }
     )
+    response_json = await response.json()
+
     if (response.status == 200) {
-        response.json().then(
-            data => {
-                alert(data['msg'])
-            }
-        )
+        alert(response_json['msg'])
         window.location.reload();
     }
     else if (response.status == 400) {
-        response.json().then(
-            data => {
-                alert(data['error'])
-            }
-        )
+        alert(response_json['error'])
         window.location.reload();
     }
     else {
