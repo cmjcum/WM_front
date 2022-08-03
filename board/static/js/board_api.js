@@ -139,10 +139,10 @@ async function loadBoard() {
                 window.location.replace(`${frontend_base_url}/board/error.html`);
 
             } else if (Object.keys(data) == "message") {
-                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
+                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem; height: auto;">
                                                         <div class="card-body">
-                                                        <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
-                                                        <p class="card-text">글을 작성해보세요!</p>
+                                                            <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
+                                                            <p class="card-text">글을 작성해보세요!</p>
                                                         </div>
                                                     </div>`
                 $("#alert").append(alert_temp)
