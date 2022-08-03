@@ -2,33 +2,27 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- fonts -->
+    
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap Core CSS -->
-    <!-- JavaScript Bundle with Popper -->
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-    <!-- jquery -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- JS, CSS -->
+    
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/board.css">
     <script src="static/js/board_api.js"></script>
     <script src="static/js/article_api.js"></script>
     <script src="static/js/comment_api.js"></script>
     <script src="static/js/navbar_api.js"></script>
-
-    <!--  loading  -->
+    
     <script>
         $(document).ready(function () {
             loadNavbar()
@@ -42,14 +36,12 @@
 
     </script>
 
-    <!-- title -->
+    
     <title>MakeMigrations | 태양계이주센터</title>
 
 </head>
 
 <body>
-
-    <!-- 상단바 시작 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/board"><img src="../images/rocket.png" height="30px"> Make
@@ -58,7 +50,6 @@
                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -67,18 +58,14 @@
                     <li class="nav-item"  id="solarSystem" >
                         <a class="nav-link" href="/board/board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
-                    <li class="nav-item" id="myPlanet">
-                        <!-- 소속 행성 전용 게시판 -->
+                    <li class="nav-item" id="myPlanet">                        
                     </li>
-                    <li class="nav-item" id="myHome">
-                        <!-- 개인 페이지로 이동 -->
+                    <li class="nav-item" id="myHome">                        
                     </li>
-                    <li class="nav-item"  id="coinShop">
-                        <!-- 마켓으로 이동 -->
+                    <li class="nav-item"  id="coinShop">                        
                     </li>
                 </ul>
-                <div class="d-flex" id="username">
-                    <!-- 로그인 정보 표시 -->
+                <div class="d-flex" id="username">                    
                 </div>
                 <div class="d-flex">
                     <a href="" onclick="logout()"><i class="bi bi-power"></i></a>
@@ -86,12 +73,9 @@
             </div>
         </div>
     </nav>
-    <!-- 상단바 끝 -->
 
     <section class="main">
-        <div class="container my-5 board-wrap position-relative">
-            <!-- 본문 시작 -->
-
+        <div class="container my-5 board-wrap position-relative">           
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex">
                     <input class="form-control me-sm-2" id="searchInput" type="text" placeholder="제목 + 본문 + 작성자 검색"
@@ -103,11 +87,8 @@
                     <a class="btn btn-secondary" onclick="postButtonClick()"><i class="bi bi-pencil-square"></i> 글쓰기</a>
                 </div>
             </div>
-
             <div id="alert">
-
             </div>
-
             <table class="table table-hover">
                 <thead>
                     <tr class="table-primary">
@@ -120,21 +101,15 @@
                     </tr>
                 </thead>
                 <tbody id="boardItems">
-                    <!-- 게시글 리스트 로딩 영역 -->
                 </tbody>
-            </table>
-
-            <!-- 페이지네이션 시작 -->
+            </table>            
             <div class="position-absolute my-0 mp-0 bottom-0 start-50 translate-middle-x">
                 <ul class="pagination pagination justify-content-center" id="pages">
-                    <!-- 페이지네이션 출력 -->
+                    
                 </ul>
-            </div>
-            <!-- 페이지네이션 끝 -->
-            <!-- 본문 끝 -->
+            </div>           
         </div>
     </section>
-
 </body>
 
 </html>

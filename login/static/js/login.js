@@ -28,7 +28,7 @@ async function handleSignup() {
         return false;
     }
 
-    //비밀번호 영문, 숫자, 특수조합 (8자리이상 입력) 정규식
+    
     var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
     if (!pwdCheck.test(signupData.password)) {
@@ -37,7 +37,7 @@ async function handleSignup() {
         return false;
     }
 
-    // const response = await fetch('url 작성')
+    
     const response = await fetch(`${backend_base_url}/user/`, {
             headers: {
                 Accept: "application/json",
@@ -47,7 +47,7 @@ async function handleSignup() {
             body: JSON.stringify(signupData)
         }
     )
-    // signupData 를 json화 해준다.
+
     response_json = await response.json()
 
     if (response.status == 200) {
@@ -78,11 +78,9 @@ async function handleLogin() {
 
     if (response.status == 200) {
         response.json().then(data => {
-        // jwt token 의 access, refresh 값을 각각의 이름으로 저장한다.
         localStorage.setItem("access", data.access)
         localStorage.setItem("refresh", data.refresh)
         
-        // access 값 파싱 작업
         const base64Url = data.access.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
@@ -101,11 +99,10 @@ async function handleLogin() {
             alert("아직 이주할 행성을 선택하지 않으셨네요! 이주신청서를 작성해주세요 :)")
             window.location.replace(`${frontend_base_url}/user_info/user_info.html`)
         } else {
-            // 오늘 로그인 했는지 안했는지 분기로 출첵 보상 주기
-            if (today_pt == true) { // 오늘 첫 로그인
+            if (today_pt == true) {
                 alert("안녕하세요 :) 오늘도 출첵 보상 100pt !!")
                 window.location.replace(`${frontend_base_url}/board/index.html`)
-            } else { // 오늘 두번 이상 로그인
+            } else {
                 alert("얼굴 자주보니 좋네요!!")
                 window.location.replace(`${frontend_base_url}/board/index.html`)
             }
@@ -115,19 +112,23 @@ async function handleLogin() {
     }
 }
 
+
 function go_signup() {
     window.location.replace(`${frontend_base_url}/login/signup.html`)
 }
 
+
 function go_login() {
     window.location.replace(`${frontend_base_url}/login/login.html`)
 }
+
 
 function signup_enter() {
     if (window.event.keyCode === 13) {
         handleSignup()
     }
 }
+
 
 function login_enter() {
     if (window.event.keyCode === 13) {

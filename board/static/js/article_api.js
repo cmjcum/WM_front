@@ -1,16 +1,12 @@
-// content URL a tag add
 function linkify(inputText) {
     var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
-    //URLs starting with http://, https://, or ftp://
     replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
     replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
 
-    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
     replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
     replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
 
-    //Change email addresses to mailto:: links.
     replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
     replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
 
@@ -18,8 +14,6 @@ function linkify(inputText) {
 }
 
 
-// method POST
-// 게시글 작성하기
 async function postArticle() {
     let board_id = searchParam('board');
 
@@ -52,13 +46,12 @@ async function postArticle() {
 }
 
 
-// article edit button click
 function editButtonClick() {
     let edit_link = window.location.search.split('?')[1]
     window.location.replace(`${frontend_base_url}/board/article_edit.html?${edit_link}`);
 }
 
-// article edit page load
+
 async function loadArticleData() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -79,8 +72,7 @@ async function loadArticleData() {
         })
 }
 
-// method PUT
-// 게시글 수정하기
+
 async function putArticle() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -107,8 +99,6 @@ async function putArticle() {
 }
 
 
-// method DELETE
-// 게시글 삭제하기
 async function deleteArticle() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -128,8 +118,6 @@ async function deleteArticle() {
 }
 
 
-// method GET
-// 게시글 상세 페이지
 async function loadArticle() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -149,11 +137,7 @@ async function loadArticle() {
                 window.location.replace(`${frontend_base_url}/board/error.html`);
 
             } else {
-
-                // content의 url을 하이퍼링크화
                 let content = linkify(data.content)
-    
-                // content의 개행문자를 <br>로 변경
                 let change_content = content.replace(/(\n|\r\n)/g, '<br>')
     
                 $("#articleTitle").append(data.title)
@@ -163,17 +147,12 @@ async function loadArticle() {
                 $("#commentCount").append(data.comments_cnt)
                 $("#likeCount").append(data.likes_cnt)
     
-                // 좋아요 버튼
                 if (data.liked_this) {
-                    // 좋아요 눌렀음
                     temp = `<span class="fs-6"><a class="text-primary no-deco" onclick="undoLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up-fill  me-1"></i>좋아요!</a></span>`
                 } else {
-                    // 좋아요 안 눌렀음
                     temp = `<span class="fs-6"><a class="text-primary  no-deco" onclick="doLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up  me-1"></i>좋아요</a></span>`
                 }
                 $("#articleLikeBtn").append(temp)
-    
-                // 목록으로 돌아가기 버튼
                 let btn_temp = `<div class="position-absolute top-0 end-0 mt-3 me-3">
                                                 <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-primary">
                                                     목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i>
@@ -182,12 +161,10 @@ async function loadArticle() {
                 $("#goToList").append(btn_temp)
     
                 if (data.moved) {
-                    // 이사완료
                     author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
                     $("#articleAuthorLink").append(author_link_temp)
                 }
-    
-                // 이미지가 있는가? > 없으면 이미지 영역 출력x
+
                 if (data.picture_url) {
                     let pic_temp = `<figure>
                                                 <img src="${data.picture_url}">
@@ -198,7 +175,6 @@ async function loadArticle() {
                 const login_user = JSON.parse(localStorage.getItem("payload")).user_id
                 const author_id = data.author
     
-                // 게시글 작성자인가? > 맞으면 수정/삭제 버튼 출력
                 if (login_user == author_id) {
                     let edit_btn_temp = `
                         <span class="text-secondary fs-6 me-2">이 게시글을</span>
@@ -207,7 +183,6 @@ async function loadArticle() {
                     $("#authorEditBtn").append(edit_btn_temp)
                 }
     
-                // 댓글이 있는가? > 없으면 댓글 영역 출력x
                 for (let i = 0; i < data['comments'].length; i++) {
                     let parent_comment = data['comments'][i]
                     let change_content = parent_comment.content.replace(/(\n|\r\n)/g, '<br>')
@@ -215,7 +190,6 @@ async function loadArticle() {
                     if (login_user == parent_comment.author) {
     
                         if (parent_comment.moved) {
-                            // 이사완료
                             comment_temp = `
                             <div class="card text-white bg-dark my-2">
                                     <div class="card-header d-flex justify-content-between mb-0">
@@ -265,7 +239,6 @@ async function loadArticle() {
                                 </div>
                                 `
                         } else {
-                            // 이사중
                             comment_temp = `
                                 <div class="card text-white bg-dark my-2">
                                         <div class="card-header d-flex justify-content-between mb-0">
@@ -317,7 +290,6 @@ async function loadArticle() {
     
                     } else {
                         if (parent_comment.moved) {
-                            // 이사완료
                             comment_temp = `
                                     <div class="card text-white bg-dark my-2">
                                         <div class="card-header d-flex justify-content-between mb-0">
@@ -348,7 +320,6 @@ async function loadArticle() {
                                         <div id="replyBox-${parent_comment.id}"></div>
                                     </div>`
                                 } else {
-                                    // 이사중
                                     comment_temp = `
                                             <div class="card text-white bg-dark my-2">
                                                 <div class="card-header d-flex justify-content-between mb-0">
@@ -386,14 +357,11 @@ async function loadArticle() {
     
                         for (let i = 0; i < parent_comment.reply_cnt; i++) {
                             let reply = parent_comment.reply[i]
-                            // content의 url을 하이퍼링크화
                             let text = linkify(reply.content)
-                            // content의 개행문자를 <br>로 변경
                             let change_content = text.replace(/(\n|\r\n)/g, '<br>')
     
                             if (login_user == reply.author) {
                                 if (reply.moved) {
-                                    // 이사완료
                                     reply_temp = `
                                                 <div class="card text-white bg-dark reply">
                                                     <div class="card-header d-flex justify-content-between mb-0">
@@ -429,7 +397,6 @@ async function loadArticle() {
                                                         </div>
                                                     </div>`
                                 } else {
-                                    // 이사중
                                     reply_temp = `
                                                 <div class="card text-white bg-dark reply">
                                                     <div class="card-header d-flex justify-content-between mb-0">
@@ -466,7 +433,6 @@ async function loadArticle() {
                                 }
                             } else {
                                 if (reply.moved) {
-                                    // 이사완료
                                     reply_temp = `
                                             <div class="card text-white bg-dark reply">
                                                     <div class="card-header d-flex justify-content-between mb-0">
@@ -486,7 +452,6 @@ async function loadArticle() {
                                                     </div>
                                                 </div>`
                                             } else {
-                                                // 이사중
                                                 reply_temp = `
                                                         <div class="card text-white bg-dark reply">
                                                                 <div class="card-header d-flex justify-content-between mb-0">
@@ -517,7 +482,7 @@ async function loadArticle() {
         })
 }
 
-// 좋아요 등록
+
 async function doLike() {
     let article_id = searchParam('article');
 
@@ -533,7 +498,7 @@ async function doLike() {
     }
 }
 
-// 좋아요 삭제
+
 async function undoLike() {
     let article_id = searchParam('article');
 

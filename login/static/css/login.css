@@ -1,4 +1,3 @@
-/*  fonts  */
 @font-face {
     font-family: "EduQLDBeginner";
     src: url("../../../static/fonts/EduQLDBeginner-Regular.ttf") format("truetype");
@@ -72,10 +71,6 @@ body {
     border-bottom: 1px solid white;
 }
 
-.input::placeholder {
-
-}
-
 .input:focus {
     outline: none;
 }
@@ -102,8 +97,6 @@ body {
     cursor: pointer;
 }
 
-
-/*  planets  */
 .sun {
     background-image: url("../../../images/sun.png");
     background-size: cover;

@@ -31,21 +31,21 @@ async function click_submit_button() {
         withCredentials: true,
         method: 'POST',
         body: JSON.stringify(info_data)
+    }
+    ).then(response => {
+        if (response.status == 200) {
+            alert('Solar System 게시판에 가입인사를 남겨보세요!')
+            window.location.replace(`${frontend_base_url}/board/index.html`)
+        }
+        if (response.status == 400) {
+            response.json().then(
+                data => {
+                    alert(data['error'])
+                }
+            )
+            window.location.reload()
+        }
     })
-
-    let response_json = await response.json()
-
-    if (response.status == 200) {
-        alert('Solar System 게시판에 가입인사를 남겨보세요!')
-         window.location.replace(`${frontend_base_url}/board/index.html`)    
-    }
-    else if (response.status == 400) {
-        response_json['error']
-    }
-    else {
-        alert('권한이 없습니다.')
-        window.location.replace(`${frontend_base_url}/board/index.html`)
-    }
 }
 
 

@@ -1,5 +1,3 @@
-// method POST
-// 가구 구매하기
 async function buyFurniture(furniture_id) {
 
     const contentData = {
@@ -35,8 +33,6 @@ async function buyFurniture(furniture_id) {
 }
 
 
-// method GET
-// 메인 페이지 로딩
 async function loadFurniture() {
     const response = await fetch(`${backend_base_url}/myroom/shop/`, {
         method: 'GET',

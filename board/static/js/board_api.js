@@ -1,34 +1,29 @@
-// url matching
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
-// data type check
+
 function jsType(data) {
     return Object.prototype.toString.call(data).slice(8, -1)
 };
 
-// URLSearchParams
+
 function searchParam(key) {
     return new URLSearchParams(location.search).get(key);
 };
 
-// pagenation
+
 function makePagenation(board_id, current_page, total_data) {
-    const data_per_page = 20; // 페이지 당 출력할 글 수
-    const page_cnt = 5; // 출력할 페이지네이션 링크 수
+    const data_per_page = 20;
+    const page_cnt = 5;
 
-    const total_pages = Math.ceil(total_data / data_per_page) // 총 페이지 수
-    const page_group = Math.ceil(current_page / page_cnt) // 페이지 그룹
+    const total_pages = Math.ceil(total_data / data_per_page)
+    const page_group = Math.ceil(current_page / page_cnt)
 
-    // console.log("total_data : ", total_data)
-    // console.log("total_pages : ", total_pages)
-    // console.log("page_group : ", page_group)
-
-    let last = page_group * page_cnt; // 화면에 보여질 마지막 페이지 번호
+    let last = page_group * page_cnt;
     if (last > total_pages) {
         last = total_pages;
     }
-    let first = last - (page_cnt - 1) // 화면에 보여질 첫번째 페이지 번호
+    let first = last - (page_cnt - 1)
     const next = last + 1
     const prev = first - 1
 
@@ -71,8 +66,6 @@ function makePagenation(board_id, current_page, total_data) {
 }
 
 
-// method GET
-// 메인 페이지 로딩
 async function loadMain() {
     const response = await fetch(`${backend_base_url}/board/`, {
         method: 'GET',
@@ -85,7 +78,6 @@ async function loadMain() {
         .then(data => {
 
             if (data["admin_data"]) {
-                // is_admin
                 for (let i = 0; i < Object.keys(data["admin_data"]).length; i++) {
                     let planet_name = Object.keys(data["admin_data"])[i]
                     let planet_name_lower = planet_name.toLocaleLowerCase()
@@ -104,7 +96,6 @@ async function loadMain() {
             } else {
 
                 if (data["planet_data"]) {
-                    // 시민증 발급 완료
                     let my_planet_url = data["planet_data"][2]
                     let my_planet_name = data["planet_data"][0]
                     let my_planet_name_lower = my_planet_name.toLowerCase()
@@ -128,8 +119,6 @@ async function loadMain() {
     }
 
 
-// method GET
-// 게시판 목록 로딩
 async function loadBoard() {
 
     let board_id = searchParam('board');
@@ -173,7 +162,6 @@ async function loadBoard() {
                     let likes = data[i]["likes"]
 
                     if (data[i]["moved"]) {
-                        // 이사완료
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
@@ -194,7 +182,6 @@ async function loadBoard() {
                                                         </tr>`
                         }
                     } else {
-                        // 이사중
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
@@ -222,20 +209,20 @@ async function loadBoard() {
         )
 }
 
-// logoutbutton click
+
 function logout() {
     window.localStorage.clear();
     window.location.replace(`${frontend_base_url}/login/login.html`);
     alert('logout success')
 }
 
-// post button click
+
 function postButtonClick() {
     let board_id = searchParam('board');
     window.location.replace(`${frontend_base_url}/board/article_write.html?board=${board_id}`);
 }
 
-// search button click
+
 function searchButtonClick() {
     let board_id = searchParam('board');
     let searchData = document.getElementById('searchInput').value
@@ -251,7 +238,6 @@ function searchButtonClick() {
 }
 
 
-// 게시글 검색 결과 로딩
 async function loadSearchData() {
     let keyword = searchParam('search');
     let board_id = searchParam('board');
@@ -292,7 +278,6 @@ async function loadSearchData() {
                     let likes = data[i]["likes"]
 
                     if (data[i]["moved"]) {
-                        // 이사완료
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
@@ -313,7 +298,6 @@ async function loadSearchData() {
                                                         </tr>`
                         }
                     } else {
-                        // 이사중
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
