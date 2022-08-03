@@ -443,18 +443,22 @@ body {
 .foot-lnk {
     text-align: center;
 }
-
-.resident_card_wrap {
-    width: 250px;
-    height: 380px;
-    background-color: #503b81;
-    border: solid 3px rgb(107 70 186);
-    border-radius: 20px;
+.card {
+    border: none;
 }
 
-.resident_card_profile {
-    height: 113px;
-    display: flex;
+.resident_card_wrap {
+    width: 516px;
+    height: 324px;
+    border-radius: 10px !important;
+}
+
+.resident_profile_portrait {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 }
 
 .resident_card_modal {
@@ -472,18 +476,4 @@ body {
     background-color: transparent;
     border: 0;
     float: right;
-    font-size: 20px;
-    margin: 5px 8px 5px 5px;
-}
-
-.resident_text {
-    margin-left: 20px;
-    font-size: 15px;
-    color: #2249a8;
-    font-weight: 900;
-    background-color: #e0dde5;
-    border-radius: 10px;
-    margin: 6px auto auto auto;
-    padding: 5px;
-    width: 80%;
 }

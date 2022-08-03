@@ -143,7 +143,11 @@ async function show_profile() {
                 const login_user_id = JSON.parse(localStorage.getItem("payload")).user_id
                 const user_id = data[i].user_id
 
+                console.log(data)
+
                 // UserInfo.data
+                const name = data[i]["name"]
+                const name_eng = data[i]["name_eng"]
                 const birthday = data[i]["birthday"]
                 const portrait = data[i]["portrait"]
                 const coin = data[i]["coin"]
@@ -174,6 +178,7 @@ async function show_profile() {
                                 <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
                                     <div class="my_profile">행성:&nbsp;${planet}</div>
                                     <div class="my_profile">생일:&nbsp;${birthday}</div>
+                                    <div class="my_profile">${coin}  coin</div>
                                 </div>
                         </div>
                     </div>
@@ -182,31 +187,47 @@ async function show_profile() {
 
                     // 시민증 모달
                     content_temp = `
-                    <button class="open resident_card_btn" onclick="guest_modal()"><i class="bi bi-star-fill" style="color: yellow;"></i></button>
+                    <button class="open resident_card_btn fs-6" onclick="guest_modal()"  style="color: yellow;"><i class="bi bi-star-fill me-1"></i>ID card</button>
                     <div class="resident_card_modal">
-                        <div class="resident_card_wrap text-white mb-3">
-                            <div class="card-header" style="text-align: center; width: 100px; margin: 10px auto auto auto;">시민증</div>
-                            <div>
-                                <div class="resident_card_profile">
-                                    <div class="profile_portrait" style="margin: auto 0px auto auto;">
-                                        <img class="profile_portrait" src="${portrait}">
-                                    </div>
-                                    <div style="margin: auto;">
-                                        <div style="text-align: center; margin-buttom: 7px; color: rgb(0 255 234); font-weight: bold;">${nickname}</div>
-                                        <div style="font-size:13px;">행성:&nbsp;${planet}</div>
-                                        <div style="font-size:13px;">생일:&nbsp;${birthday}</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="resident_text">층수:&nbsp;${floor}</div>
-                                    <div class="resident_text">호수:&nbsp;${room_number}</div>
-                                    <div class="resident_text">코인:&nbsp;${coin}</div>
-                                    <div class="resident_text">고유번호:&nbsp;${identification_number}</div>
-                                </div>
+                        <div class="card bg-primary resident_card_wrap">
+                            <div class="card-header d-flex justify-content-between px-4">
+                                <h3 style="letter-spacing: 11px;">IdentityCard</h3>
+                                <h6 class="pt-2">ID : ${identification_number}</h6>
                             </div>
-                            <div class="btn_set" style="margin: 10px auto auto auto;">
-                                <button class="modal_btn close btn btn-primary"
-                                    style="border: solid 1px; margin: 3px; font-size: 12px; font-weight: bold;">닫기</button>
+
+                            <div class="card-body d-flex justify-content-between">
+
+                                <div class="resident_profile_portrait ps-3">
+                                    <img class="resident_profile_portrait" src="${portrait}">
+                                </div>
+
+                                <div class="ps-3 py-2 ms-4 w-75">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h2 class="card-title">${name}</h2>
+                                        <h2 class="card-title">${name_eng}</h2>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text">Birthday</p>
+                                        <p class="card-text">${birthday}</p>
+                                    </div>
+      
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text">Adress</p>
+                                        <p class="card-text">Solar System-${planet}-${floor*100 + room_number}</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer pb-1">
+                                <p class="card-text text-center lh-sm" style="letter-spacing: 8px;">2022.08.04<br><span class="fs-5">Make Migrations In ${planet}</span></p>
+                            </div>
+
+                            <div class="btn_set position-absolute top-0 start-100 translate-middle">
+                                <button class="modal_btn close btn fs-4 text-primary"><i class="bi bi-x-lg" style="background-color:#fff; border-radius:30%;"></i></button>
                             </div>
                         </div>
                     </div>
