@@ -122,11 +122,6 @@ function go_login() {
     window.location.replace(`${frontend_base_url}/login/login.html`)
 }
 
-function go_board() {
-    window.location.replace(`${frontend_base_url}/board/index.html`)
-}
-
-
 
 function signup_enter() {
     if (window.event.keyCode === 13) {
