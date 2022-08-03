@@ -40,7 +40,7 @@ async function write_guest_book() {
 
     if (response.status == 200) {
         alert('방명록이 작성됐습니다.')
-        window.location.reload();
+        window.location.reload(true);
     } else {
         alert('다시 작성해 주세요')
     }
@@ -61,7 +61,7 @@ async function delete_guest(book_id) {
 
     if (response.status == 200) {
         alert('삭제 되었습니다.')
-        window.location.reload();
+        window.location.reload(true);
     } else {
         alert('권한이 없습니다.')
     }
@@ -152,7 +152,7 @@ async function show_profile() {
 
                 if (login_user_id == user_id) {
                     content_temp = `
-                    <div class="profile-wrap" style="display:flex;">
+                    <div class="profile-wrap" style="display:flex; margin-bottom: 10px;">
                         <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
                         <!-- 유저 정보 -->
                         <div class="profile-name" id="profile_name">
@@ -165,16 +165,24 @@ async function show_profile() {
                                 </div>
                         </div>
                     </div>
-
-                    <div class="likes_follows_wrap" style="display:flex; margin-bottom: 10px;">
-                        <div class="profile-name" id="profile_name">
-                            <div class="likes_follows">
-                                좋아요:${like_count} &nbsp 팔로워:${follower_count} &nbsp 팔로우:${follow_count}
-                            </div>
-                        </div>
-                    </div>
                     `
                     $("#show_profile").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${like_count}명</div>
+                    `
+                    $("#like_count").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${follower_count}명</div>
+                    `
+                    $("#follower_count").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${follow_count}명</div>
+                    `
+                    $("#follow_count").append(content_temp)
+
                     // 방꾸미기 버튼
                     content_temp = `
                     <div id="buttons_div" style="text-align: center;">
@@ -197,7 +205,7 @@ async function show_profile() {
                         const follower_user_id = follower_user_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -219,7 +227,7 @@ async function show_profile() {
                         const like_user_id = like_user_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -241,7 +249,7 @@ async function show_profile() {
                         const follow_user_id = follow_users_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -270,15 +278,24 @@ async function show_profile() {
                                 </div>
                         </div>
                     </div>
-                    <div class="likes_follows_wrap" style="display:flex;">
-                        <div class="profile-name" id="profile_name">
-                            <div class="likes_follows">
-                                좋아요:${like_count} &nbsp 팔로워:${follower_count} &nbsp 팔로우:${follow_count}
-                            </div>
-                        </div>
-                    </div>
                     `
                     $("#show_profile").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${like_count}명</div>
+                    `
+                    $("#like_count").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${follower_count}명</div>
+                    `
+                    $("#follower_count").append(content_temp)
+
+                    content_temp = `
+                    <div style="float: right; font-size:12px; color:white; margin-bottom: 10px;">${follow_count}명</div>
+                    `
+                    $("#follow_count").append(content_temp)
+
                     // 좋아요 팔로우
                     if (follow_user == true) {
                         content_temp = `
@@ -316,7 +333,7 @@ async function show_profile() {
                         <div id="buttons_div" style="float:right;">
                             <button class="fs-5 btn_like badge rounded-pill" onclick="like()" style="color: inherit;"><i class="bi bi-heart"></i></button>
                         </div>
-                        <div style='height: 50px;'></div>
+                        <div style='height: 000px;'></div>
                         `
                         $("#show_profile").append(content_temp)
                     } else {
@@ -329,7 +346,7 @@ async function show_profile() {
                         <div id="buttons_div" style="float:right;">
                             <button class="fs-5 btn_like badge rounded-pill" onclick="like()"><i class="bi bi-heart"></i></button>
                         </div>
-                        <div style='height: 50px;'></div>
+                        <div style='height: 000px;'></div>
                         `
                         $("#show_profile").append(content_temp)
                     }
@@ -340,7 +357,7 @@ async function show_profile() {
                         const follower_user_id = follower_user_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -362,7 +379,7 @@ async function show_profile() {
                         const like_user_id = like_user_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -384,7 +401,7 @@ async function show_profile() {
                         const follow_user_id = follow_users_data[i]["id"]
 
                         content_temp = `
-                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}">
+                        <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}" style="text-decoration: none;">
                             <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
                         
                                 <div class="follow_profile_portrait">
@@ -425,7 +442,7 @@ async function like() {
     }
     )
     response_json = await response.json()
-    window.location.reload();
+    window.location.reload(true);
 }
 
 
@@ -448,7 +465,7 @@ async function follow() {
     }
     )
     response_json = await response.json()
-    window.location.reload();
+    window.location.reload(true);
 }
 
 
@@ -472,5 +489,5 @@ async function follow_follow() {
     }
     )
     response_json = await response.json()
-    window.location.reload();
+    window.location.reload(true);
 }
