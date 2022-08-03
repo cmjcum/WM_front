@@ -24,14 +24,14 @@
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/board.css">
     <script src="static/js/board_api.js"></script>
-    <script src="static/js/article_api.js"></script>
-    <script src="static/js/comment_api.js"></script>
     <script src="static/js/navbar_api.js"></script>
+    <script src="static/js/shop_api.js"></script>
 
     <!--  loading  -->
     <script>
         $(document).ready(function () {
             loadNavbar()
+            loadFurniture()
         }
         );
 
@@ -95,28 +95,10 @@
             </div>
             <!-- 상단 배너 끝 -->
 
-            <div class="row row-cols-3" id="goods">
+            <div class="row row-cols-3" id="goodsList">
                 <!-- 상품 정보 컬럼 출력 영역 -->
-
-                <!-- 상품 시작 -->
-                <div class="col">
-                    <div class="card border-primary mb-3" style="max-width: 20rem;">
-                        <div class="card-header text-primary">책장</div>
-                        <div class="card-body pt-0">
-                            <figure class="d-flex">
-                                <img class=" mx-auto"
-                                    src="https://mysparta84.s3.ap-northeast-2.amazonaws.com/5220802203222.png">
-                            </figure>
-                            <h5 class="card-title text-primary">400 coin</h5>
-                            <p class="card-text text-primary mt-4"><button type="button"
-                                    class="btn btn-secondary">구입하기</button></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- 상품 끝 -->
-                
-
             </div>
+            
             <!-- 본문 끝 -->
         </div>
     </section>
