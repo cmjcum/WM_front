@@ -3,7 +3,7 @@
 async function buyFurniture(furniture_id) {
 
     const contentData = {
-        id: furniture_id,
+        furniture: furniture_id,
     }
 
     const response = await fetch(`${backend_base_url}/myroom/shop/`, {
