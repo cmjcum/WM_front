@@ -20,6 +20,32 @@ body {
     user-select: none;
 }
 
+.welcome-phrase{
+    font-family: 'EduQLDBeginner', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 6px white;
+    letter-spacing: 2px;
+    line-height: 110%;
+}
+
+.gogo{
+    font-family: 'EduQLDBeginner', sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    color: red;
+    text-shadow: 2px 2px 6px red;
+    text-align: center;
+    text-decoration: underline 2px rgba(255, 0, 0, 0.425);
+    margin-top: 70px;
+    cursor: pointer;
+}
+
+.gogo:hover{
+    color:blue;
+    text-shadow: 2px 2px 6px blue;
+    text-decoration: underline 2px rgba(0, 0, 255, 0.404);
+}
+
 .login-wrap {
     width: 250px;
     height: 350px;
