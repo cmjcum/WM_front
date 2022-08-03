@@ -264,7 +264,7 @@ body {
 }
 
 .guest_book_box {
-    height: 700px;
+    max-height: 700px;
     width: 940px;
     overflow: auto;
     margin: auto;
