@@ -112,6 +112,10 @@ figure > img {
     min-height: 280px;
 }
 
+#goodsList {
+    min-height: 400px;
+}
+
 .card {
     height: 100%;
 }
