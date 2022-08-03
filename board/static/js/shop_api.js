@@ -46,15 +46,15 @@ async function loadFurniture() {
                 let img_url = data[i].url_left
                 let price = data[i].price
                 let html_temp = `<div class="col goods mb-3">
-                                                        <div class="card border-primary" style="max-width: 20rem;">
+                                                        <div class="card border-primary position-relative" style="max-width: 20rem;">
                                                             <div class="card-header text-primary">${name}</div>
                                                             <div class="card-body pt-0">
-                                                                <figure class="d-flex">
+                                                                <figure class="d-flex furniture-container">
                                                                     <img class=" mx-auto"
                                                                         src="${img_url}">
                                                                 </figure>
                                                                 <h5 class="card-title text-primary">${price} coin</h5>
-                                                                <p class="card-text text-primary mt-4"><button type="button"
+                                                                <p class="card-text text-primary mb-3 position-absolute bottom-0 start-50 translate-middle-x"><button type="button"
                                                                         class="btn btn-secondary" onclick="buyFurniture(${furniture_id})">구입하기</button></p>
                                                             </div>
                                                         </div>

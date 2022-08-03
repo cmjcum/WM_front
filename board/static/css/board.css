@@ -115,3 +115,7 @@ figure > img {
 .card {
     height: 100%;
 }
+
+.furniture-container {
+    height: 115px;
+}
