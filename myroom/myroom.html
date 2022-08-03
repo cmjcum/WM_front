@@ -89,23 +89,26 @@
                 <div class="tag_user_wrap">
                     <div class="tag-html">
                         <input id="tab-1" type="radio" name="tab" class="like" checked>
-                        <label for="tab-1" class="tab" style="margin: 0px 0px 10px 15px;">좋아요</label>
+                        <label for="tab-1" class="tab" style="margin: 0px 0px 5px 15px;">좋아요</label>
                         <input id="tab-2" type="radio" name="tab" class="follower">
-                        <label for="tab-2" class="tab" style="margin: 0px 0px 10px 15px;">팔로워</label>
+                        <label for="tab-2" class="tab" style="margin: 0px 0px 5px 15px;">팔로워</label>
                         <input id="tab-3" type="radio" name="tab" class="follow">
-                        <label for="tab-3" class="tab" style="margin: 0px 0px 10px 15px;">팔로우</label>
+                        <label for="tab-3" class="tab" style="margin: 0px 0px 5px 15px;">팔로우</label>
 
                         <div class="tag-form">
                             <!-- 좋아요 유저 정보 -->
                             <div class="like_user_htm">
+                                <div id="like_count"></div>
                                 <div id="like_info"></div>
                             </div>
                             <!-- 팔로우 유저 정보(해당 마이룸의 주인이 팔로워 하고 있는 유저) -->
                             <div class="follower_user_htm">
+                                <div id="follower_count"></div>
                                 <div id="follower_info"></div>
                             </div>
                             <!-- 팔로워 유저 정보 (마이룸을 팔로우 하는 유저) -->
                             <div class="follow_user_htm">
+                                <div id="follow_count"></div>
                                 <div id="follow_info"></div>
                             </div>
                         </div>
@@ -141,3 +144,12 @@
 </body>
 
 </html>
+
+<!-- js.167, 281 -->
+<!-- <div class="likes_follows_wrap" style="display:flex; margin-bottom: 10px;">
+    <div class="profile-name" id="profile_name">
+        <div class="likes_follows">
+            좋아요:${like_count} &nbsp 팔로워:${follower_count} &nbsp 팔로우:${follow_count}
+        </div>
+    </div>
+</div> -->
