@@ -17,19 +17,25 @@ async function buyFurniture(furniture_id) {
         body: JSON.stringify(contentData)
     }
     )
-        .then(response => response.json())
-        .then(data => {
-        if (response.status == 200) {
-            alert(data['msg'])
-            window.location.reload();
-        }
-        else if(response.stauts == 400) {
-            alert(data['error'])
-        }
-        else {
-            alert('권한이 없습니다.')
-        }
-    })
+    if (response.status == 200) {
+        response.json().then(
+            data => {
+                alert(data['msg'])
+            }
+        )
+        window.location.reload();
+    }
+    else if (response.status == 400) {
+        response.json().then(
+            data => {
+                alert(data['error'])
+            }
+        )
+        window.location.reload();
+    }
+    else {
+        alert('권한이 없습니다.')
+    }
 }
 
 
