@@ -76,7 +76,7 @@ async function get_my_furniture() {
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.my_furniture.length; i++) {
-                let cur_furniture = data.my_furniture[i]['furniture']
+                let cur_furniture = data.my_furniture[i]['furniture_info']
 
                 let furniture_img = document.createElement('img')
                 furniture_img.setAttribute('src', cur_furniture['url_left'])
