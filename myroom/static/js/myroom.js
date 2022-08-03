@@ -2,19 +2,33 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
-// 모달창 띄우기
-$(document).ready(function() {
+// 방명록 모달창 띄우기
+$(document).ready(function () {
     const open = () => {
-        document.body.classList.add("stop-scroll");
+        document.body.classList.add("stop_scroll");
         document.querySelector(".modal").style.display = "flex";
     }
     const close = () => {
-        document.body.classList.remove("stop-scroll");
+        document.body.classList.remove("stop_scroll");
         document.querySelector(".modal").style.display = "none";
     }
     document.querySelector(".openBtn").addEventListener("click", open);
     document.querySelector(".closeBtn").addEventListener("click", close);
 });
+
+// 주민증 모달창 띄우기
+function guest_modal() {
+    const open = () => {
+        document.body.classList.add("stop_scroll");
+        document.querySelector(".resident_card_modal").style.display = "flex";
+    }
+    const close = () => {
+        document.body.classList.remove("stop_scroll");
+        document.querySelector(".resident_card_modal").style.display = "none";
+    }
+    document.querySelector(".open").addEventListener("click", open);
+    document.querySelector(".close").addEventListener("click", close);
+}
 
 
 // 방명록 작성
@@ -135,6 +149,7 @@ async function show_profile() {
                 const coin = data[i]["coin"]
                 const floor = data[i]["floor"]
                 const room_number = data[i]["room_number"]
+                const identification_number = data[i]["identification_number"]
                 // User.data
                 const like_count = data[i]["user"]["like_count"]
                 const follower_count = data[i]["user"]["follower_count"]
@@ -151,17 +166,48 @@ async function show_profile() {
 
                 if (login_user_id == user_id) {
                     content_temp = `
-                    <div class="profile-wrap" style="display:flex; margin-bottom: 10px;">
-                        <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
+                    <div class="profile_wrap" style="display:flex;">
+                        <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
                         <!-- 유저 정보 -->
-                        <div class="profile-name" id="profile_name">
+                        <div class="profile_name" id="profile_name">
                             <div class="my_profile_name" style="font-size: 12px;">${nickname}</div>
                                 <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
-                                    <div class="my-profile">행성:&nbsp;${planet}</div>
-                                    <div class="my-profile">층수:&nbsp;${room_number} &nbsp; 호수:&nbsp;${floor}</div>
-                                    <div class="my-profile">생일:&nbsp;${birthday}</div>
-                                    <div class="my-profile"; style="margin-bottom: 5px;">코인:&nbsp;${coin}</div>
+                                    <div class="my_profile">행성:&nbsp;${planet}</div>
+                                    <div class="my_profile">생일:&nbsp;${birthday}</div>
                                 </div>
+                        </div>
+                    </div>
+                    `
+                    $("#show_profile").append(content_temp)
+
+                    // 시민증 모달
+                    content_temp = `
+                    <button class="open resident_card_btn" onclick="guest_modal()"><i class="bi bi-star-fill" style="color: yellow;"></i></button>
+                    <div class="resident_card_modal">
+                        <div class="resident_card_wrap text-white mb-3">
+                            <div class="card-header" style="text-align: center; width: 100px; margin: 10px auto auto auto;">시민증</div>
+                            <div>
+                                <div class="resident_card_profile">
+                                    <div class="profile_portrait" style="margin: auto 0px auto auto;">
+                                        <img class="profile_portrait" src="${portrait}">
+                                    </div>
+                                    <div style="margin: auto;">
+                                        <div style="text-align: center; margin-buttom: 7px; color: rgb(0 255 234); font-weight: bold;">${nickname}</div>
+                                        <div style="font-size:13px;">행성:&nbsp;${planet}</div>
+                                        <div style="font-size:13px;">생일:&nbsp;${birthday}</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="resident_text">층수:&nbsp;${floor}</div>
+                                    <div class="resident_text">호수:&nbsp;${room_number}</div>
+                                    <div class="resident_text">코인:&nbsp;${coin}</div>
+                                    <div class="resident_text">고유번호:&nbsp;${identification_number}</div>
+                                </div>
+                            </div>
+                            <div class="btn_set" style="margin: 10px auto auto auto;">
+                                <button class="modal_btn close btn btn-primary"
+                                    style="border: solid 1px; margin: 3px; font-size: 12px; font-weight: bold;">닫기</button>
+                            </div>
                         </div>
                     </div>
                     `
@@ -265,15 +311,14 @@ async function show_profile() {
                     }
                 } else {
                     content_temp = `
-                    <div class="profile-wrap" style="display:flex;">
-                        <div class="profile-portrait"><img class="profile-portrait" src="${portrait}"></div>
+                    <div class="profile_wrap" style="display:flex;">
+                        <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
                         <!-- 유저 정보 -->
-                        <div class="profile-name" id="profile_name">
+                        <div class="profile_name" id="profile_name">
                             <div class="my_profile_name" style="font-size: 12px;">${nickname}</div>
                                 <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
-                                    <div class="my-profile">행성:&nbsp;${planet}</div>
-                                    <div class="my-profile">층수:&nbsp;${room_number} &nbsp; 호수:&nbsp;${floor}</div>
-                                    <div class="my-profile">생일:&nbsp;${birthday}</div>
+                                    <div class="my_profile">행성:&nbsp;${planet}</div>
+                                    <div class="my_profile">생일:&nbsp;${birthday}</div>
                                 </div>
                         </div>
                     </div>
@@ -304,7 +349,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 0px 0px; color: inherit;"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 5px 0px; color: inherit;"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -317,7 +362,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 0px 0px;"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 5px 0px;"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
