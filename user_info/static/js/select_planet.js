@@ -42,6 +42,10 @@ async function click_submit_button() {
     else if (response.status == 400) {
         response_json['error']
     }
+    else {
+        alert('권한이 없습니다.')
+        window.location.replace(`${frontend_base_url}/board/index.html`)
+    }
 }
 
 
