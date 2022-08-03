@@ -2,33 +2,27 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- fonts -->
+    
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap Core CSS -->
-    <!-- JavaScript Bundle with Popper -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-    <!-- jquery -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- JS, CSS -->
+    
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/board.css">
     <script src="static/js/board_api.js"></script>
     <script src="static/js/article_api.js"></script>
     <script src="static/js/comment_api.js"></script>
     <script src="static/js/navbar_api.js"></script>
-
-    <!--  loading  -->
+    
     <script>
         $(document).ready(function () {
             loadNavbar()
@@ -36,15 +30,13 @@
         }
         );
     </script>
-
-    <!-- title -->
+    
     <title>MakeMigrations | 태양계이주센터</title>
 
 </head>
 
 <body>
-
-    <!-- 상단바 시작 -->
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/board"><img src="../images/rocket.png" height="30px"> Make
@@ -53,7 +45,6 @@
                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -63,17 +54,15 @@
                         <a class="nav-link" href="/board/board.html?board=8&page=1"><i class="bi bi-stars"></i> Solar system</a>
                     </li>
                     <li class="nav-item" id="myPlanet">
-                        <!-- 소속 행성 전용 게시판 -->
+                        
                     </li>
                     <li class="nav-item" id="myHome">
-                        <!-- 개인 페이지로 이동 -->
+                        
                     </li>
                     <li class="nav-item"  id="coinShop">
-                        <!-- 마켓으로 이동 -->
                     </li>
                 </ul>
                 <div class="d-flex" id="username">
-                    <!-- 로그인 정보 표시 -->
                 </div>
                 <div class="d-flex">
                     <a href="" onclick="logout()"><i class="bi bi-power"></i></a>
@@ -81,11 +70,9 @@
             </div>
         </div>
     </nav>
-    <!-- 상단바 끝 -->
 
     <section class="main">
         <div class="container my-5 board-wrap">
-            <!-- 본문 시작 -->
 
             <div class="logo">
                 <img src="../images/logo1.png">
@@ -102,12 +89,7 @@
                         </div>
                     </a>
                 </div>
-
-                <!-- 거주 행성 아이콘 로딩 -->
-
             </div>
-
-            <!-- 본문 끝 -->
         </div>
     </section>
 

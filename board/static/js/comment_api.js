@@ -1,5 +1,3 @@
-// method POST
-// 댓글 작성하기
 async function postComment() {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -22,7 +20,7 @@ async function postComment() {
     }
 }
 
-// 대댓글 작성하기
+
 async function postReply(obj) {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -57,8 +55,7 @@ async function postReply(obj) {
     }
 }
 
-// method PUT
-// 댓글 수정하기
+
 async function editComment(obj) {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
@@ -94,8 +91,6 @@ async function editComment(obj) {
 }
 
 
-// method DELETE
-// 댓글 삭제하기
 async function deleteComment(obj) {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
