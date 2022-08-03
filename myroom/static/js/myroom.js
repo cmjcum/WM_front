@@ -143,8 +143,6 @@ async function show_profile() {
                 const login_user_id = JSON.parse(localStorage.getItem("payload")).user_id
                 const user_id = data[i].user_id
 
-                console.log(data)
-
                 // UserInfo.data
                 const name = data[i]["name"]
                 const name_eng = data[i]["name_eng"]
@@ -154,6 +152,7 @@ async function show_profile() {
                 const floor = data[i]["floor"]
                 const room_number = data[i]["room_number"]
                 const identification_number = data[i]["identification_number"]
+                const create_date = data[i]["create_date"]
                 // User.data
                 const like_count = data[i]["user"]["like_count"]
                 const follower_count = data[i]["user"]["follower_count"]
@@ -197,7 +196,7 @@ async function show_profile() {
 
                             <div class="card-body d-flex justify-content-between">
 
-                                <div class="resident_profile_portrait ps-3">
+                                <div class="resident_profile_portrait ps-1">
                                     <img class="resident_profile_portrait" src="${portrait}">
                                 </div>
 
@@ -222,8 +221,8 @@ async function show_profile() {
 
                             </div>
 
-                            <div class="card-footer pb-1">
-                                <p class="card-text text-center lh-sm" style="letter-spacing: 8px;">2022.08.04<br><span class="fs-5">Make Migrations In ${planet}</span></p>
+                            <div class="card-footer py-1">
+                                <p class="card-text text-center lh-sm" style="letter-spacing: 8px;">${create_date}<br><span class="fs-5">Make Migrations In ${planet}</span></p>
                             </div>
 
                             <div class="btn_set position-absolute top-0 start-100 translate-middle">
