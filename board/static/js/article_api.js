@@ -212,14 +212,6 @@ async function loadArticle() {
                     let parent_comment = data['comments'][i]
                     let change_content = parent_comment.content.replace(/(\n|\r\n)/g, '<br>')
     
-                    // 수정 버튼 작용 
-                    // <div class="collapse multi-collapse-${parent_comment.id} show" ...>
-                    // (data-bs-target=".multi-collapse-${parent_comment.id}")
-    
-                    // 대댓글 작성창
-                    // <div class="collapse" id="reply-${parent_comment.id}">
-                    // (data-bs-target="#reply-${parent_comment.id}")
-    
                     if (login_user == parent_comment.author) {
     
                         if (parent_comment.moved) {

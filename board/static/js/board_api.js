@@ -120,13 +120,12 @@ async function loadMain() {
                     </div>`
                     $("#boardList").append(my_planet_temp)
 
-                } else {
-                    // 시민증 발급중
                 }
-            }
 
-        })
-}
+            }
+        }) 
+        
+    }
 
 
 // method GET
