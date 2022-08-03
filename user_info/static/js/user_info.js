@@ -72,9 +72,12 @@ async function click_submit_button() {
         if (response.status == 200) {
             window.location.replace(`${frontend_base_url}/user_info/select_planet.html`)
         }
-        
-        if (response.status == 400) {
+        else if (response.status == 400) {
             alert(response.status)
+        }
+        else {
+            alert('권한이 없습니다.')
+            window.location.replace(`${frontend_base_url}/board/index.html`)
         }
     })
 

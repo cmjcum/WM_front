@@ -3,11 +3,10 @@ const frontend_base_url = "http://127.0.0.1:5500"
 
 
 // 모달창 띄우기
-function show_modal() {
+$(document).ready(function() {
     const open = () => {
         document.body.classList.add("stop-scroll");
         document.querySelector(".modal").style.display = "flex";
-        console.log(document.querySelector(".modal").classList)
     }
     const close = () => {
         document.body.classList.remove("stop-scroll");
@@ -15,7 +14,7 @@ function show_modal() {
     }
     document.querySelector(".openBtn").addEventListener("click", open);
     document.querySelector(".closeBtn").addEventListener("click", close);
-}
+});
 
 
 // 방명록 작성
