@@ -1,5 +1,5 @@
 // url matching
-const backend_base_url = "https://3.38.60.68"
+const backend_base_url = "https://coumi.makmigrations.click"
 const frontend_base_url = "https://d26fccab8r7c47.cloudfront.net"
 
 
