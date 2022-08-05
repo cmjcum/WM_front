@@ -34,7 +34,7 @@ async function click_submit_button() {
     }
     ).then(response => {
         if (response.status == 200) {
-            alert('Solar System 게시판에 가입인사를 남겨보세요!')
+            alert('이주를 환영합니다! 사진이 만들어지는 동안 태양계를 둘러보세요:)')
             window.location.replace(`${frontend_base_url}/board/index.html`)
         }
         if (response.status == 400) {
