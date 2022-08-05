@@ -1,8 +1,3 @@
-// url matching
-const backend_base_url = "https://coumi.makemigrations.click"
-const frontend_base_url = "https://d26fccab8r7c47.cloudfront.net"
-
-
 function jsType(data) {
     return Object.prototype.toString.call(data).slice(8, -1)
 };

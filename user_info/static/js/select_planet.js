@@ -1,6 +1,3 @@
-const backend_base_url = "https://coumi.makemigrations.click"
-const frontend_base_url = "https://d26fccab8r7c47.cloudfront.net"
-
 const planet_names = {
     'Mercury': '수성',
     'Venus': '금성',
