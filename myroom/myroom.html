@@ -69,27 +69,27 @@
     <!-- 방 꾸미기 -->
     <div class="main_box">
         <div class="main_data_box">
-            <section id="main">
-                <div class=" board_wrap" style="display: flex;">
-                    <!-- 방 꾸미기 -->
+            <div id="main">
+                <div class="board_wrap">
+                    <!-- 방 Fq -->
                     <div id="room" class="furniture profile_data"></div>
                     <!-- furniture 버튼 -->
                     <div id="show_furniture"></div>
                 </div>
-            </section>
-
-            <div style="margin-left: 20px;">
+            </div>
+            <!-- 유저 정보 wrap div -->
+            <div style="margin: 0px 0px auto auto;">
                 <!-- 유저 정보와 좋아요, 팔로우 버튼 -->
                 <div id="show_profile"></div>
-                <!-- 좋아요, 팔로우, 팔로잉 정보 -->
                 <div class="tag_user_wrap">
+                <!-- 좋아요, 팔로우, 팔로잉 정보 -->
                     <div class="tag_html">
                         <input id="tab_1" type="radio" name="tab" class="like" checked>
-                        <label for="tab_1" class="tab" style="margin: 0px 0px 5px 15px;">좋아요</label>
+                        <label for="tab_1" class="tab" style="margin: 0px 0px 5px 16px;">좋아요</label>
                         <input id="tab_2" type="radio" name="tab" class="follower">
-                        <label for="tab_2" class="tab" style="margin: 0px 0px 5px 15px;">팔로워</label>
+                        <label for="tab_2" class="tab" style="margin: 0px 0px 5px 16px;">팔로워</label>
                         <input id="tab_3" type="radio" name="tab" class="follow">
-                        <label for="tab_3" class="tab" style="margin: 0px 0px 5px 15px;">팔로우</label>
+                        <label for="tab_3" class="tab" style="margin: 0px 0px 5px 16px;">팔로우</label>
 
                         <div class="tag_form">
                             <!-- 좋아요 유저 정보 -->
@@ -113,11 +113,11 @@
             </div>
 
         </div>
-        <!-- 방명록 -->
+        <!-- 방명록 모달 부분 -->
         <div class="guestbook_text">
-            <b style="color: rgba(255, 255, 255, 0.937);">방명록</b>
+            <b class="openBtn fs-4" style="color: rgba(255, 255, 255, 0.937);">방명록</b>
             <!-- modal -->
-            <button class="openBtn fs-6 guestbook_button badge rounded-pill bg-primary">방명록
+            <button class="openBtn fs-5 guestbook_button badge rounded-pill bg-primary">방명록
                 작성</button>
             <div class="modal">
                 <div class="modal_box card text-white bg-primary mb-3" style="border-radius: 15px;">
@@ -133,7 +133,7 @@
             </div>
         </div>
         <!-- 방명록 -->
-        <div class="guest_book_box">
+        <div class="guest_book_box" style="margin: auto; width:100%;">
             <div id="guest_book"></div>
         </div>
     </div>

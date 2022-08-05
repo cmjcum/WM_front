@@ -80,7 +80,8 @@ async function get_my_furniture() {
 
                 let furniture_img = document.createElement('img')
                 furniture_img.setAttribute('src', cur_furniture['url_left'])
-                furniture_img.style.width = '50px'
+                furniture_img.style.height = '80px'
+                furniture_img.style.margin = '5px'
                 furniture_img.style.aspectRatio = `${furniture_img.naturalWidth}/${furniture_img.naturalHeight}`
 
                 let id = data.my_furniture[i]['id']
@@ -110,13 +111,18 @@ async function get_my_furniture() {
 function click_edit_button(e) {
     let buttons_div = document.getElementById('buttons_div')
 
-    if (e.target.innerHTML == '방꾸미기') {
+    if (e.target.innerHTML == '꾸미기') {
         e.target.innerHTML = '완료'
+        e.target.style.backgroundColor = '#ea39b8'
+        e.target.style.border = '0'
 
         let rotate_button = document.createElement('button')
         rotate_button.setAttribute('id', 'rotate_button')
         rotate_button.setAttribute('class', 'btn_furniture badge')
         rotate_button.style.margin = '10px 1px 1px 1px';
+        rotate_button.style.borderRadius = '10px';
+        rotate_button.style.fontSize = '14px';
+        
 
         rotate_button.innerHTML = '회전'
         rotate_button.addEventListener('click', () => {
@@ -142,6 +148,8 @@ function click_edit_button(e) {
         remove_button.setAttribute('id', 'remove_button')
         remove_button.setAttribute('class', 'btn_furniture badge')
         remove_button.style.margin = '10px 1px 1px -1px';
+        remove_button.style.borderRadius = '10px';
+        remove_button.style.fontSize = '14px';
 
 
         remove_button.innerHTML = '지우기'
@@ -165,6 +173,8 @@ function click_edit_button(e) {
         cancel_button.setAttribute('id', 'cancel_button')
         cancel_button.setAttribute('class', 'btn_furniture badge')
         cancel_button.style.margin = '10px 1px 1px 1px';
+        cancel_button.style.borderRadius = '10px';
+        cancel_button.style.fontSize = '14px';
 
 
         cancel_button.innerHTML = '취소'
