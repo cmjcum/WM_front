@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 const backend_base_url = "https://coumi.makemigrations.click"
 const frontend_base_url = "https://makemigrations.click"
 
 
+=======
+>>>>>>> origin/board
 async function handleSignup() {
     
     const signupData = {

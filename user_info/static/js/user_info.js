@@ -1,7 +1,3 @@
-const backend_base_url = "https://coumi.makemigrations.click"
-const frontend_base_url = "https://makemigrations.click"
-
-
 async function click_submit_button() {
     const file = document.getElementById('face_picture').files[0]
     if(!file) {

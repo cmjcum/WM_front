@@ -17,33 +17,70 @@ function linkify(inputText) {
 async function postArticle() {
     let board_id = searchParam('board');
 
-    const title = document.getElementById("inputTitle").value
-    const content = document.getElementById("inputContent").value
-    const image = document.getElementById("inputFile").files[0]
+    $("#alert").empty()
 
     const formdata = new FormData();
 
-    if (typeof (image) == "undefined") {
+    const title = document.getElementById("inputTitle").value
+    const content = document.getElementById("inputContent").value
+    const image = document.getElementById("inputFile").files[0]
+    
+    if ($('#inputTitle').val() == "" | $('#inputContent').val() == "") {
+        alert_temp = `<div class="alert alert-dismissible alert-secondary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <p class="mb-0">제목과 내용은 비워둘 수 없어요!</p>
+        </div>`
+        $("#alert").append(alert_temp)
+        return;
+    }
+
+    let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+    if (!$('#inputFile').val().match(fileForm)) {
+        alert_temp = `<div class="alert alert-dismissible alert-secondary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <p class="mb-0">이미지 파일이 아니에요!</p>
+        </div>`
+        $("#alert").append(alert_temp)
+        return;
+    }
+    
+    let maxSize = 5 * 1024 * 1024;
+    let fileSize = image.size;
+    if (fileSize >= maxSize) {
+        alert_temp = `<div class="alert alert-dismissible alert-secondary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <p class="mb-0">파일의 용량이 5MB보다 커요!</p>
+        </div>`
+        $("#alert").append(alert_temp)
+        return;
+    }
+    
+    if ($('#inputFile').val() == "") {
         formdata.append('title', title)
         formdata.append('content', content)
     } else {
-        formdata.append('title', title)
-        formdata.append('content', content)
-        formdata.append('pic', image)
+            formdata.append('title', title)
+            formdata.append('content', content)
+            formdata.append('pic', image)
     }
 
-    const response = await fetch(`${backend_base_url}/board/${board_id}/post/`, {
-        method: 'POST',
-        headers: { Authorization: "Bearer " + localStorage.getItem("access"), },
-        body: formdata
-    })
+        const response = await fetch(`${backend_base_url}/board/${board_id}/post/`, {
+            method: 'POST',
+            headers: { Authorization: "Bearer " + localStorage.getItem("access"), },
+            body: formdata
+        })
 
-    if (response.status == 200) {
-        window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&page=1`);
-    } else {
-        alert("작성 실패")
+        if (response.status == 200) {
+            window.location.replace(`${frontend_base_url}/board/board.html?board=${board_id}&page=1`);
+        } else {
+            alert_temp = `<div class="alert alert-dismissible alert-secondary">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <p class="mb-0">게시글 작성에 실패했어요!</p>
+                                        </div>`
+            $("#alert").append(alert_temp)
+        }
     }
-}
+
 
 
 function editButtonClick() {
@@ -139,14 +176,14 @@ async function loadArticle() {
             } else {
                 let content = linkify(data.content)
                 let change_content = content.replace(/(\n|\r\n)/g, '<br>')
-    
+
                 $("#articleTitle").append(data.title)
                 $("#articleAuthor").append(data.author_name)
                 $("#articleContent").append(change_content)
                 $("#articleDate").append(data.create_date)
                 $("#commentCount").append(data.comments_cnt)
                 $("#likeCount").append(data.likes_cnt)
-    
+
                 if (data.liked_this) {
                     temp = `<span class="fs-6"><a class="text-primary no-deco" onclick="undoLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up-fill  me-1"></i>좋아요!</a></span>`
                 } else {
@@ -159,7 +196,7 @@ async function loadArticle() {
                                                 </a>
                                             </div>`
                 $("#goToList").append(btn_temp)
-    
+
                 if (data.moved) {
                     author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
                     $("#articleAuthorLink").append(author_link_temp)
@@ -171,10 +208,10 @@ async function loadArticle() {
                                             </figure>`
                     $("#articlePic").append(pic_temp)
                 }
-    
+
                 const login_user = JSON.parse(localStorage.getItem("payload")).user_id
                 const author_id = data.author
-    
+
                 if (login_user == author_id) {
                     let edit_btn_temp = `
                         <span class="text-secondary fs-6 me-2">이 게시글을</span>
@@ -182,13 +219,13 @@ async function loadArticle() {
                         <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">삭제</button>`
                     $("#authorEditBtn").append(edit_btn_temp)
                 }
-    
+
                 for (let i = 0; i < data['comments'].length; i++) {
                     let parent_comment = data['comments'][i]
                     let change_content = parent_comment.content.replace(/(\n|\r\n)/g, '<br>')
-    
+
                     if (login_user == parent_comment.author) {
-    
+
                         if (parent_comment.moved) {
                             comment_temp = `
                             <div class="card text-white bg-dark my-2">
@@ -287,7 +324,7 @@ async function loadArticle() {
                                     </div>
                                     `
                         }
-    
+
                     } else {
                         if (parent_comment.moved) {
                             comment_temp = `
@@ -319,8 +356,8 @@ async function loadArticle() {
                                         </div>
                                         <div id="replyBox-${parent_comment.id}"></div>
                                     </div>`
-                                } else {
-                                    comment_temp = `
+                        } else {
+                            comment_temp = `
                                             <div class="card text-white bg-dark my-2">
                                                 <div class="card-header d-flex justify-content-between mb-0">
                                                     <h5 id="commentAuthor-${parent_comment.id}" class="text-secondary">${parent_comment.author_name}
@@ -352,14 +389,14 @@ async function loadArticle() {
                     }
                     $("#commentList").append(comment_temp)
                     let replyBox = `replyBox-${parent_comment.id}`
-    
+
                     if (parent_comment.reply_cnt) {
-    
+
                         for (let i = 0; i < parent_comment.reply_cnt; i++) {
                             let reply = parent_comment.reply[i]
                             let text = linkify(reply.content)
                             let change_content = text.replace(/(\n|\r\n)/g, '<br>')
-    
+
                             if (login_user == reply.author) {
                                 if (reply.moved) {
                                     reply_temp = `
@@ -451,8 +488,8 @@ async function loadArticle() {
                                                         </div>
                                                     </div>
                                                 </div>`
-                                            } else {
-                                                reply_temp = `
+                                } else {
+                                    reply_temp = `
                                                         <div class="card text-white bg-dark reply">
                                                                 <div class="card-header d-flex justify-content-between mb-0">
                                                                     <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
@@ -474,7 +511,7 @@ async function loadArticle() {
                             $(`#${replyBox}`).append(reply_temp)
                         }
                     }
-    
+
                 }
 
             }

@@ -1,7 +1,3 @@
-const backend_base_url = "https://coumi.makemigrations.click"
-const frontend_base_url = "https://makemigrations.click"
-
-
 // 방명록 모달창 띄우기
 $(document).ready(function () {
     const open = () => {
