@@ -16,18 +16,16 @@ $(document).ready(function () {
     document.querySelector(".closeBtn").addEventListener("click", close);
 });
 
-// 주민증 모달창 띄우기
-function guest_modal() {
-    const open = () => {
-        document.body.classList.add("stop_scroll");
-        document.querySelector(".resident_card_modal").style.display = "flex";
-    }
-    const close = () => {
-        document.body.classList.remove("stop_scroll");
-        document.querySelector(".resident_card_modal").style.display = "none";
-    }
-    document.querySelector(".open").addEventListener("click", open);
-    document.querySelector(".close").addEventListener("click", close);
+function open_card_modal() {
+    document.body.classList.add("stop_scroll");
+    document.querySelector(".resident_card_modal").style.display = "flex";
+    guest_modal.ClassList.call("open")
+}
+
+function close_card_modal() {
+    document.body.classList.add("stop_scroll");
+    document.querySelector(".resident_card_modal").style.display = "none";
+    guest_modal.ClassList.call("close")
 }
 
 
@@ -107,7 +105,7 @@ async function show_guest_book() {
                     <div class="guestbook">
                         <button type="button" class="fs-6 guestbook_delete badge rounded-pill bg-primary" onclick="delete_guest(this)"
                             value=${data[i]["id"]}>삭제</button>
-                        <div class="guestbook_user">
+                        <div class="guestbook_user fs-6">
                             <p class="guestbook_nickname"><b>${nickname}</b><span>&nbsp| ${create_date}</span></p>
                         </div>
                         <div class="guestbook_data">${content}</div>
@@ -173,7 +171,7 @@ async function show_profile() {
                         <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
                         <!-- 유저 정보 -->
                         <div class="profile_name" id="profile_name">
-                            <div class="my_profile_name" style="font-size: 12px;">${nickname}</div>
+                            <div class="my_profile_name" style="font-size: 15px;">${nickname}</div>
                                 <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
                                     <div class="my_profile">행성:&nbsp;${planet}</div>
                                     <div class="my_profile">생일:&nbsp;${birthday}</div>
@@ -186,7 +184,7 @@ async function show_profile() {
 
                     // 시민증 모달
                     content_temp = `
-                    <button class="open resident_card_btn fs-6" onclick="guest_modal()"  style="color: yellow;"><i class="bi bi-star-fill me-1"></i>ID card</button>
+                    <button class="open resident_card_btn" onclick="open_card_modal()" style="color: yellow;"><i class="bi bi-star-fill me-1"></i>ID card</button>
                     <div class="resident_card_modal">
                         <div class="card bg-primary resident_card_wrap">
                             <div class="card-header d-flex justify-content-between px-4">
@@ -214,7 +212,7 @@ async function show_profile() {
       
                                     <div class="d-flex justify-content-between">
                                         <p class="card-text">Adress</p>
-                                        <p class="card-text">Solar System-${planet}-${floor*100 + room_number}</p>
+                                        <p class="card-text">Solar System-${planet}-${floor * 100 + room_number}</p>
                                     </div>
 
                                 </div>
@@ -226,7 +224,7 @@ async function show_profile() {
                             </div>
 
                             <div class="btn_set position-absolute top-0 start-100 translate-middle">
-                                <button class="modal_btn close btn fs-4 text-primary"><i class="bi bi-x-lg" style="background-color:#fff; border-radius:30%;"></i></button>
+                                <button onclick="close_card_modal()" class="modal_btn close btn fs-4 text-primary"><i class="bi bi-x-lg" style="background-color:#fff; border-radius:30%;"></i></button>
                             </div>
                         </div>
                     </div>
@@ -250,14 +248,16 @@ async function show_profile() {
 
                     // 방꾸미기 버튼
                     content_temp = `
-                    <div id="buttons_div" style="text-align: center;">
-                        <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
-                            onclick="click_edit_button(event)">방꾸미기</button>
-                    </div>
-                    <div class="collapse" id="collapseExample" style="width: 200px;">
-                        <div class="card card-body" style="border: 0;">
-                            <div id="furniture_div" class="furniture_div" style="float: right;"></div>
+                    <div style="text-align: right;">
+                        <div id="buttons_div" style="position:absolute; right:35px; top:520px;">
+                            <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
+                                aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
+                                onclick="click_edit_button(event)" style="font-size:16px; border-radius:10px;">꾸미기</button>
+                        </div>
+                        <div class="collapse furniture_wrap" id="collapseExample">
+                            <div class="card card-body" style="border: 0; margin-top: 40px;">
+                                <div id="furniture_div" class="furniture_div" style="float: right;"></div>
+                            </div>
                         </div>
                     </div>
                     `
@@ -271,14 +271,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${follower_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follower_user_nickname}</div>
+                                    <div style="font-size: 15px;">${follower_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
@@ -293,14 +293,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${like_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${like_user_nickname}</div>
+                                    <div style="font-size: 15px;">${like_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
@@ -315,14 +315,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${follow_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follow_user_nickname}</div>
+                                    <div style="font-size: 15px;">${follow_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
@@ -335,7 +335,7 @@ async function show_profile() {
                         <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
                         <!-- 유저 정보 -->
                         <div class="profile_name" id="profile_name">
-                            <div class="my_profile_name" style="font-size: 12px;">${nickname}</div>
+                            <div class="my_profile_name" style="font-size: 15px;">${nickname}</div>
                                 <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
                                     <div class="my_profile">행성:&nbsp;${planet}</div>
                                     <div class="my_profile">생일:&nbsp;${birthday}</div>
@@ -369,7 +369,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 5px 0px; color: inherit;"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()" style="color: inherit;"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -382,7 +382,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="follow()" style="margin: -1px 15px 5px 0px;"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -395,9 +395,8 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-5 btn_like badge rounded-pill" onclick="like()" style="color: inherit;"><i class="bi bi-heart"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="color: inherit; margin-top:5px;"><i class="bi bi-heart"></i></button>
                         </div>
-                        <div style='height: 000px;'></div>
                         `
                         $("#show_profile").append(content_temp)
                     } else {
@@ -408,9 +407,8 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-5 btn_like badge rounded-pill" onclick="like()"><i class="bi bi-heart"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="margin-top:5px;"><i class="bi bi-heart"></i></button>
                         </div>
-                        <div style='height: 000px;'></div>
                         `
                         $("#show_profile").append(content_temp)
                     }
@@ -422,14 +420,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${follower_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${follower_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follower_user_nickname}</div>
+                                    <div style="font-size: 15px;">${follower_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
@@ -444,14 +442,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${like_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${like_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${like_user_nickname}</div>
+                                    <div style="font-size: 15px;">${like_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
@@ -466,14 +464,14 @@ async function show_profile() {
 
                         content_temp = `
                         <a href="${frontend_base_url}/myroom/myroom.html?user=${follow_user_id}" style="text-decoration: none;">
-                            <div class="follow_profile_wrap" style="display:flex; margin-left:4px;">
+                            <div class="follow_profile_wrap" style="display:flex;">
                         
                                 <div class="follow_profile_portrait">
                                     <img class="follow_profile_portrait" src="${follow_user_portrait}">
                                 </div>
                                 
                                 <div class="follow_profile_name">
-                                    <div style="font-size: 13px;">${follow_user_nickname}</div>
+                                    <div style="font-size: 15px;">${follow_user_nickname}</div>
                                 </div>
                             </div>
                         </a>
