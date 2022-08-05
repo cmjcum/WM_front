@@ -95,12 +95,17 @@ async function handleLogin() {
         const user_name = JSON.parse(localStorage.getItem("payload")).username
         const user_planet = JSON.parse(localStorage.getItem("payload")).planet
         const today_pt = JSON.parse(localStorage.getItem("payload")).today_pt
+        const has_user_info = JSON.parse(localStorage.getItem("payload")).has_user_info
 
         console.log('user_id:', user_id, 'username:', user_name, 'planet_id:', user_planet, 'today_pt:', today_pt)
-        
-        if (user_planet == null) {
-            alert("아직 이주할 행성을 선택하지 않으셨네요! 이주신청서를 작성해주세요 :)")
+
+        if (!has_user_info) {
+            alert("아직 이주신청서를 작성하지 않으셨네요! 이주신청서를 작성해주세요 :)")
             window.location.replace(`${frontend_base_url}/user_info/user_info.html`)
+        }
+        else if (user_planet == null) {
+            alert("아직 이주할 행성을 선택하지 않으셨네요! 행성을 선택해주세요 :)")
+            window.location.replace(`${frontend_base_url}/user_info/select_planet.html`)
         } else {
             if (today_pt == true) {
                 alert("안녕하세요 :) 오늘도 출첵 보상 100pt !!")
