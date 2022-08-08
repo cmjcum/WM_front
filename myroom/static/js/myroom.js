@@ -365,7 +365,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()" style="color: inherit;"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()" style="color: inherit; padding: 7px;"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -378,7 +378,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()"><i class="bi bi-person-plus"></i></button>
+                            <button class="fs-3 btn_like badge rounded-pill" onclick="follow()" style="padding: 7px;"><i class="bi bi-person-plus"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -391,7 +391,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="color: inherit; margin-top:5px;"><i class="bi bi-heart"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="color: inherit; margin: 5px 0px 10px 0px; padding: 5px;"><i class="bi bi-heart"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
@@ -403,7 +403,7 @@ async function show_profile() {
                             })
                         </script>
                         <div id="buttons_div" style="float:right;">
-                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="margin-top:5px;"><i class="bi bi-heart"></i></button>
+                            <button class="fs-4 btn_like badge rounded-pill" onclick="like()" style="margin: 5px 0px 10px 0px; padding: 5px;"><i class="bi bi-heart"></i></button>
                         </div>
                         `
                         $("#show_profile").append(content_temp)
