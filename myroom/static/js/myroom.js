@@ -15,13 +15,11 @@ $(document).ready(function () {
 function open_card_modal() {
     document.body.classList.add("stop_scroll");
     document.querySelector(".resident_card_modal").style.display = "flex";
-    guest_modal.ClassList.call("open")
 }
 
 function close_card_modal() {
-    document.body.classList.add("stop_scroll");
+    document.body.classList.remove("stop_scroll");
     document.querySelector(".resident_card_modal").style.display = "none";
-    guest_modal.ClassList.call("close")
 }
 
 
