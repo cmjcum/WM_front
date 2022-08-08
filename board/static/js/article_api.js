@@ -33,35 +33,36 @@ async function postArticle() {
         $("#alert").append(alert_temp)
         return;
     }
-
-    let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
-    if (!$('#inputFile').val().match(fileForm)) {
-        alert_temp = `<div class="alert alert-dismissible alert-secondary">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <p class="mb-0">이미지 파일이 아니에요!</p>
-        </div>`
-        $("#alert").append(alert_temp)
-        return;
-    }
-    
-    let maxSize = 5 * 1024 * 1024;
-    let fileSize = image.size;
-    if (fileSize >= maxSize) {
-        alert_temp = `<div class="alert alert-dismissible alert-secondary">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <p class="mb-0">파일의 용량이 5MB보다 커요!</p>
-        </div>`
-        $("#alert").append(alert_temp)
-        return;
-    }
     
     if ($('#inputFile').val() == "") {
         formdata.append('title', title)
         formdata.append('content', content)
     } else {
-            formdata.append('title', title)
-            formdata.append('content', content)
-            formdata.append('pic', image)
+
+        let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+        if (!$('#inputFile').val().match(fileForm)) {
+            alert_temp = `<div class="alert alert-dismissible alert-secondary">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <p class="mb-0">이미지 파일이 아니에요!</p>
+            </div>`
+            $("#alert").append(alert_temp)
+            return;
+        }
+        
+        let maxSize = 5 * 1024 * 1024;
+        let fileSize = image.size;
+        if (fileSize >= maxSize) {
+            alert_temp = `<div class="alert alert-dismissible alert-secondary">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <p class="mb-0">파일의 용량이 5MB보다 커요!</p>
+            </div>`
+            $("#alert").append(alert_temp)
+            return;
+        }
+
+        formdata.append('title', title)
+        formdata.append('content', content)
+        formdata.append('pic', image)
     }
 
         const response = await fetch(`${backend_base_url}/board/${board_id}/post/`, {
