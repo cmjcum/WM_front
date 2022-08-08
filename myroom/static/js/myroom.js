@@ -8,7 +8,7 @@ $(document).ready(function () {
         document.body.classList.remove("stop_scroll");
         document.querySelector(".modal").style.display = "none";
     }
-    document.querySelector(".openBtn").addEventListener("click", open);
+    document.getElementById("guestbook_modal_button").addEventListener("click", open);
     document.querySelector(".closeBtn").addEventListener("click", close);
 });
 
