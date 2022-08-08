@@ -6,15 +6,15 @@
 }
 
 .board-wrap {
-    padding: 50px;
-    width: 1000px;
+    padding: 20px;
+    width: 1200px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .img {
-    width: 550px;
+    width: 700px;
     margin-right: 15px;
 }
 
@@ -25,8 +25,5 @@ img {
 
 .msg {
     font-family: Lato;
-    font-size: large;
     padding: 10px;
-    height: 500px;
-    vertical-align: bottom;
 }
