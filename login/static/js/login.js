@@ -51,8 +51,13 @@ async function handleSignup() {
         window.location.reload();
         window.location.replace(`${frontend_base_url}/login/login.html`);
 
-    } else {
-        alert('다시 입력해 주세요')
+    } else if (response.status == 400) {
+        console.log(response_json)
+        if (response_json['nickname'] != null) {
+            alert('이미 존재하는 닉네임입니다')
+        } else {
+            alert('이미 존재하는 아이디입니다')
+        }
     }
 }
 
