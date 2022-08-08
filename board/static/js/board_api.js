@@ -209,7 +209,6 @@ async function loadBoard() {
 function logout() {
     window.localStorage.clear();
     window.location.replace(`${frontend_base_url}/login/login.html`);
-    alert('logout success')
 }
 
 
