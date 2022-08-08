@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    /* min-width: max-content; */
 }
 
 .wrap {
@@ -25,7 +26,7 @@
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     min-height: 600px;
-    max-width: 1000px;
+    width: 1000px;
 }
 
 .logo {

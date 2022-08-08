@@ -162,19 +162,19 @@ async function loadBoard() {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
                                                             <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
-                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                            <td>${create_date}</td>
-                                                            <td>${comments}</td>
-                                                            <td>${likes}</td>
+                                                            <td class="d-none d-sm-table-cell"><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td class="d-none d-md-table-cell">${create_date}</td>
+                                                            <td class="d-none d-md-table-cell">${comments}</td>
+                                                            <td class="d-none d-md-table-cell">${likes}</td>
                                                         </tr>`
                         } else {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
                                                             <td><a href="${detail_url}">${title}</a></th>
-                                                            <td><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
-                                                            <td>${create_date}</td>
-                                                            <td>${comments}</td>
-                                                            <td>${likes}</td>
+                                                            <td class="d-none d-sm-table-cell"><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
+                                                            <td class="d-none d-md-table-cell">${create_date}</td>
+                                                            <td class="d-none d-md-table-cell">${comments}</td>
+                                                            <td class="d-none d-md-table-cell">${likes}</td>
                                                         </tr>`
                         }
                     } else {
@@ -182,19 +182,19 @@ async function loadBoard() {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
                                                             <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
-                                                            <td><a>${author}</a></td>
-                                                            <td>${create_date}</td>
-                                                            <td>${comments}</td>
-                                                            <td>${likes}</td>
+                                                            <td class="d-none d-sm-table-cell"><a>${author}</a></td>
+                                                            <td class="d-none d-md-table-cell">${create_date}</td>
+                                                            <td class="d-none d-md-table-cell">${comments}</td>
+                                                            <td class="d-none d-md-table-cell">${likes}</td>
                                                         </tr>`
                         } else {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
                                                             <td><a href="${detail_url}">${title}</a></th>
-                                                            <td><a>${author}</a></td>
-                                                            <td>${create_date}</td>
-                                                            <td>${comments}</td>
-                                                            <td>${likes}</td>
+                                                            <td class="d-none d-sm-table-cell"><a>${author}</a></td>
+                                                            <td class="d-none d-md-table-cell">${create_date}</td>
+                                                            <td class="d-none d-md-table-cell">${comments}</td>
+                                                            <td class="d-none d-md-table-cell">${likes}</td>
                                                         </tr>`
                         }
                     }
