@@ -447,7 +447,8 @@ async function loadArticle() {
                                                     <div class="card-footer d-flex justify-content-end">
                                                         <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
                                                             data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
-                                                        <button type="button" class="btn btn-outline-primary btn-sm"  onclick="deleteComment(this)">삭제</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"  data-bs-toggle="collapse"
+                                                        data-bs-target="#del-${reply.id}" aria-expanded="false">삭제</button>
                                                     </div>
                                                     </div>
                                                     <!-- 가변 (수정모드) -->
@@ -461,41 +462,69 @@ async function loadArticle() {
                                                                 data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
                                                             <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
                                                         </div>
-                                                    </div>`
-                                } else {
-                                    reply_temp = `
-                                                <div class="card text-white bg-dark reply">
-                                                    <div class="card-header d-flex justify-content-between mb-0">
-                                                        <h5 id="commentAuthor-${reply.id}" class="text-secondary me-4">${reply.author_name}
-                                                            <span id="date" class="text-primary text-end fs-6 d-flex d-sm-inline">${reply.create_date}</span>
-                                                        </h5>
-        
                                                     </div>
-                                                    <!-- 가변 (보기모드) -->
-                                                    <div class="collapse multi-collapse-${reply.id} show">
-                                                        <div class="card-body pt-0">
-                                                            <p class="card-text fs-6">
-                                                            ${change_content}
-                                                            </p>
+                                                    <!-- 가변 (삭제모드) -->
+                                                    <div class="collapse" id="del-${reply.id}">
+                                                        <div class="card-body">
+                                                            <div class="form-group d-flex justify-content-center gap-3 align-items-center">
+                                                                <span class="text-danger">삭제하시겠습니까?</span>
+                                                                <input type="text" class="visually-hidden" value="${reply.id}">
+                                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteComment(this)">확인</button>
+                                                                <button type="button" class="btn btn-outline-primary btn-sm"  data-bs-toggle="collapse"
+                                                                data-bs-target="#del-${reply.id}" aria-expanded="false">취소</button>
+                                                            </div>
                                                         </div>
-                                                    <div class="card-footer d-flex justify-content-end">
-                                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                                            data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
-                                                        <button type="button" class="btn btn-outline-primary btn-sm"  onclick="deleteComment(this)">삭제</button>
                                                     </div>
-                                                    </div>
-                                                    <!-- 가변 (수정모드) -->
-                                                    <div class="collapse multi-collapse-${reply.id}" id="commentEdit-${reply.id}">
-                                                        <div class="card-body pt-0">
-                                                            <input type="text" class="visually-hidden" id="reply-${reply.id}" value="${parent_comment.id}">
-                                                            <textarea class="form-control" id="commentForm-${reply.id}" rows="3">${reply.content}</textarea>
-                                                        </div>
-                                                        <div class="card-footer d-flex justify-content-end">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
-                                                                data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
-                                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
-                                                        </div>
-                                                    </div>`
+                                                `
+                                            } else {
+                                                reply_temp = `
+                                                            <div class="card text-white bg-dark reply">
+                                                                <div class="card-header d-flex justify-content-between mb-0">
+                                                                    <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
+                                                                        <span id="date" class="text-primary text-end fs-6 d-flex d-sm-inline">${reply.create_date}</span>
+                                                                    </h5>
+                    
+                                                                </div>
+                                                                <!-- 가변 (보기모드) -->
+                                                                <div class="collapse multi-collapse-${reply.id} show">
+                                                                    <div class="card-body pt-0">
+                                                                        <p class="card-text fs-6">
+                                                                        ${change_content}
+                                                                        </p>
+                                                                    </div>
+                                                                <div class="card-footer d-flex justify-content-end">
+                                                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                                        data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">수정</button>
+                                                                    <button type="button" class="btn btn-outline-primary btn-sm"  data-bs-toggle="collapse"
+                                                                    data-bs-target="#del-${reply.id}" aria-expanded="false">삭제</button>
+                                                                </div>
+                                                                </div>
+                                                                <!-- 가변 (수정모드) -->
+                                                                <div class="collapse multi-collapse-${reply.id}" id="commentEdit-${reply.id}">
+                                                                    <div class="card-body pt-0">
+                                                                        <input type="text" class="visually-hidden" id="reply-${reply.id}" value="${parent_comment.id}">
+                                                                        <textarea class="form-control" id="commentForm-${reply.id}" rows="3">${reply.content}</textarea>
+                                                                    </div>
+                                                                    <div class="card-footer d-flex justify-content-end">
+                                                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                                                                            data-bs-target=".multi-collapse-${reply.id}" aria-expanded="false">취소</button>
+                                                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="editComment(this)">수정 완료</button>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- 가변 (삭제모드) -->
+                                                                <div class="collapse" id="del-${reply.id}">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group d-flex justify-content-center gap-3 align-items-center">
+                                                                            <span class="text-danger">삭제하시겠습니까?</span>
+                                                                            <input type="text" class="visually-hidden" value="${reply.id}">
+                                                                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteComment(this)">확인</button>
+                                                                            <button type="button" class="btn btn-outline-primary btn-sm"  data-bs-toggle="collapse"
+                                                                            data-bs-target="#del-${reply.id}" aria-expanded="false">취소</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            `
+                                    
                                 }
                             } else {
                                 if (reply.moved) {
