@@ -94,7 +94,7 @@ async function editComment(obj) {
 async function deleteComment(obj) {
     let board_id = searchParam('board');
     let article_id = searchParam('article');
-    let comment_id = $(obj).prev().attr('data-bs-target').split('-')[2];
+    let comment_id = $(obj).prev().attr('value');
 
     const response = await fetch(`${backend_base_url}/board/${board_id}/${article_id}/del/${comment_id}/`, {
         method: 'DELETE',
@@ -104,7 +104,6 @@ async function deleteComment(obj) {
     })
 
     if (response.status == 200) {
-        alert('삭제 되었습니다.')
         window.location.reload(true);
     } else {
         alert('권한이 없습니다.')

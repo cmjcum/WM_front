@@ -15,34 +15,21 @@ async function click_submit_button() {
     const name_eng = document.getElementById('name_eng')
     if(!name_eng.value) {
         alert('영문 이름을 입력해주세요!')
-        name_en.focus()
+        name_eng.focus()
         return
     }
 
-    const birthday = document.getElementById('birthday')
-    if(!birthday.value) {
-        alert('생년월일을 입력해주세요!')
-        birthday.focus()
+    const year = document.getElementById('year')
+    if(!year.value) {
+        alert('태어난 연도를 입력해주세요!')
+        year.focus()
         return
     }
 
-    let birthday_reg_ex = /^\d{4}-\d{2}-\d{2}$/
-    if(!birthday_reg_ex.test(birthday.value)) {
-        alert('생년월일을 형식에 맞게 입력해주세요!')
-        birthday.focus()
-        return
-    }
-
-    let birthday_split_list = birthday.value.split('-')
-    if(birthday_split_list[1]<1 && birthday_split_list[1]>12) {
-        alert('생년월일을 형식에 맞게 입력해주세요!')
-        birthday.focus()
-        return
-    }
-
-    if(birthday_split_list[2]<1 && birthday_split_list[2]>31) {
-        alert('생년월일을 형식에 맞게 입력해주세요!')
-        birthday.focus()
+    let year_reg_ex = /^\d{4}$/
+    if(!year_reg_ex.test(year.value)) {
+        alert('태어난 연도는 4자리 숫자로 입력해주세요!')
+        year.focus()
         return
     }
 
@@ -52,11 +39,26 @@ async function click_submit_button() {
         return
     }
 
+    const month = document.getElementById('month_select').value
+    const date = document.getElementById('date_select').value
+
+    birthday = `${year.value}-${month}-${date}`
+
+    let now = new Date()
+    let input_date = new Date(year.value, month-1, date)
+
+    if (input_date > now) {
+        alert('미래에서 오신 분은 이용할 수 없습니다!')
+        return
+    }
+    
     let form_data = new FormData()
     form_data.append('portrait', file)
     form_data.append('name', name_ko.value)
     form_data.append('name_eng', name_eng.value)
-    form_data.append('birthday', birthday.value)
+    form_data.append('birthday', birthday)
+
+    document.getElementById('loading').style.display = 'flex'
     
     const response = await fetch(`${backend_base_url}/user/user_info/`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
@@ -70,6 +72,7 @@ async function click_submit_button() {
         }
         else if (response.status == 400) {
             alert(response.status)
+            document.getElementById('loading').style.display = 'none'
         }
         else {
             alert('권한이 없습니다.')
@@ -95,7 +98,40 @@ function show_picture(e) {
 }
 
 
+function change_month() {
+    let month_select = document.getElementById('month_select')
+    let date_select = document.getElementById('date_select')
+
+    while(date_select.hasChildNodes()) {
+        date_select.removeChild(date_select.firstChild)
+    }
+
+    let month = month_select.value
+
+    let date = 30
+    if (month == 2)
+        date = 29
+    else if ((month <= 7 && month % 2 == 1) || (month >= 8 && month % 2 == 0))
+        date = 31
+
+    for(let i=1; i<=date; i++) {
+        let new_option = document.createElement('option')
+        new_option.innerHTML = `${i}일`
+        new_option.setAttribute('value', i)
+        date_select.appendChild(new_option)
+    }
+}
+
+
 window.onload = function() {
     document.getElementById('face_picture').addEventListener('change', (e) => { show_picture(e) })
     document.getElementById('submit_button').addEventListener('click', click_submit_button)
+    document.getElementById('month_select').addEventListener('change', change_month)
+
+    for(let i=1; i<=31; i++) {
+        let new_option = document.createElement('option')
+        new_option.innerHTML = `${i}일`
+        new_option.setAttribute('value', i)
+        date_select.appendChild(new_option)
+    }
 }

@@ -249,7 +249,7 @@ async function loadSearchData() {
         .then(data => {
 
             if (Object.keys(data) == "message") {
-                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 20rem;">
+                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 400px; height: auto;">
                                                     <div class="card-body">
                                                         <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
                                                         <p class="card-text"><a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-success no-deco">목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i></a></p>

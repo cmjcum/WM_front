@@ -206,9 +206,9 @@ async function show_profile() {
 
                                 <div class="ps-3 py-2 ms-4 w-75">
 
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <h2 class="card-title">${name}</h2>
-                                        <h2 class="card-title">${name_eng}</h2>
+                                    <div class="text-center gap-2 mb-3">
+                                        <h3 class="card-title">${name}</h3>
+                                        <h5 class="card-title">${name_eng}</h5>
                                     </div>
 
                                     <div class="d-flex justify-content-between">
