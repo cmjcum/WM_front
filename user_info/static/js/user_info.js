@@ -15,7 +15,7 @@ async function click_submit_button() {
     const name_eng = document.getElementById('name_eng')
     if(!name_eng.value) {
         alert('영문 이름을 입력해주세요!')
-        name_en.focus()
+        name_eng.focus()
         return
     }
 
