@@ -205,8 +205,8 @@ async function loadArticle() {
 
                 if (data.picture_url) {
                     let pic_temp = `<figure>
-                                                <img src="${data.picture_url}">
-                                            </figure>`
+                                                        <img src="${data.picture_url}">
+                                                    </figure>`
                     $("#articlePic").append(pic_temp)
                 }
 
@@ -217,8 +217,18 @@ async function loadArticle() {
                     let edit_btn_temp = `
                         <span class="text-secondary fs-6 me-2">이 게시글을</span>
                         <button type="button" class="btn btn-secondary btn-sm me-2" onclick="editButtonClick()">수정</button>
-                        <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">삭제</button>`
+                        <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deleteArticle">삭제</button>
+                        `
+                        let msg_temp = `<div class="collapse" id="deleteArticle">
+                        <div class="form-group d-flex justify-content-end gap-3 align-items-center mt-5">
+                            <span class="text-danger">이 글을 삭제하시겠습니까?</span>
+                            <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">확인</button>
+                            <button type="button" class="btn btn-secondary btn-sm"  data-bs-toggle="collapse"
+                            data-bs-target="#deleteArticle" aria-expanded="false">취소</button>
+                        </div>
+                    </div>`
                     $("#authorEditBtn").append(edit_btn_temp)
+                    $("#delMsg").append(msg_temp)
                 }
 
                 for (let i = 0; i < data['comments'].length; i++) {
