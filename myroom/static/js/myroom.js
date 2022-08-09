@@ -12,6 +12,7 @@ $(document).ready(function () {
     document.querySelector(".closeBtn").addEventListener("click", close);
 });
 
+// 주민증 모달창
 function open_card_modal() {
     document.body.classList.add("stop_scroll");
     document.querySelector(".resident_card_modal").style.display = "flex";
@@ -20,6 +21,17 @@ function open_card_modal() {
 function close_card_modal() {
     document.body.classList.remove("stop_scroll");
     document.querySelector(".resident_card_modal").style.display = "none";
+}
+
+// 방명록 설명 모달
+function open_furniture_manual_modal() {
+    document.body.classList.add("stop_scroll");
+    document.querySelector(".furniture_manual_modal").style.display = "flex";
+}
+
+function close_furniture_manual_modal() {
+    document.body.classList.remove("stop_scroll");
+    document.querySelector(".furniture_manual_modal").style.display = "none";
 }
 
 
@@ -243,19 +255,65 @@ async function show_profile() {
                     // 방꾸미기 버튼
                     content_temp = `
                     <div style="text-align: right;">
-                        <div id="buttons_div" style="position:absolute; right:35px; top:520px;">
+                        <div id="buttons_div" style="position:absolute; right:50px; top:520px;">
                             <button class="btn_furniture badge" id="edit_button" data-bs-target="#collapseExample"
                                 aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse" type="button"
                                 onclick="click_edit_button(event)" style="font-size:16px; border-radius:10px;">꾸미기</button>
                         </div>
                         <div class="collapse furniture_wrap" id="collapseExample">
-                            <div class="card card-body" style="border: 0; margin-top: 40px;">
+                            <div class="card card-body" style="border: 0; margin-top: 50px;">
                                 <div id="furniture_div" class="furniture_div" style="float: right;"></div>
                             </div>
                         </div>
                     </div>
                     `
                     $("#show_furniture").append(content_temp)
+
+                    // 도움말 버튼
+                    content_temp = `
+                    <div style="text-align: right;">
+                        <div style="position:absolute; right:18px; top:513px;">
+                            <button class="fs-3 btn_furniture_manual" onclick="open_furniture_manual_modal()"><i
+                                    class="bi bi-question-circle-fill"></i></button>
+                            <div class="furniture_manual_modal">
+                                <div class="furniture_manual_warp card text-white bg-primary mb-3" style="border-radius: 15px;">
+                                    <div class="card-header" style="margin: auto; font-size: 20px">꾸미기 사용법</div>
+                                    <div class="furniture_manual_content" style="border-radius: 15px;">
+                                        <div class="furniture_manual_text" style="text-align: left; margin: 20px 0px 0px 15px;">
+                                            <b>Q 가구는 어떻게 배치하나요?</b>
+                                            <ul>
+                                                <li>꾸미기 버튼을 누른다.</li>
+                                                <li>배치하고자 하는 가구를 마우스로 선택 후 배치합니다.</li>
+                                                <li>완료 버튼을 누릅니다.</li>
+                                            </ul>
+                                            <b>Q 가구를 지우고 싶어요</b>
+                                            <ul>
+                                                <li>꾸미기 버튼을 누른다.</li>
+                                                <li>지우기 버튼을 누른다.</li>
+                                                <li>지우기 하고자 하는 가구를 마우스로 선택합니다.</li>
+                                                <li>완료 버튼을 누릅니다.</li>
+                                            </ul>
+                                            <b>Q 가구를 다른 각도로도 배치하고 싶어요</b>
+                                            <ul>
+                                                <li>꾸미기 버튼을 누른다.</li>
+                                                <li>회전 버튼을 누른다.</li>
+                                                <li>원하는 각도로 가구를 배치한다.</li>
+                                                <li>완료 버튼을 누릅니다.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="btn_set" style="margin: auto;">
+                                        <button class="modal_btn fs-6 btn btn-primary" style="border: solid 1px; margin: 3px;"
+                                            onclick="close_furniture_manual_modal()">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                    $("#show_furniture").append(content_temp)
+
+
 
                     // 팔로워한 유저의 프로필
                     for (let i = 0; i < follower_user_data.length; i++) {
