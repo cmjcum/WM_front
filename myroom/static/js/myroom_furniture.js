@@ -119,7 +119,7 @@ function click_edit_button(e) {
         let rotate_button = document.createElement('button')
         rotate_button.setAttribute('id', 'rotate_button')
         rotate_button.setAttribute('class', 'btn_furniture badge')
-        rotate_button.style.margin = '10px 1px 1px 1px';
+        rotate_button.style.margin = '0px 1px 1px 1px';
         rotate_button.style.borderRadius = '10px';
         rotate_button.style.fontSize = '14px';
         
@@ -147,7 +147,7 @@ function click_edit_button(e) {
         let remove_button = document.createElement('button')
         remove_button.setAttribute('id', 'remove_button')
         remove_button.setAttribute('class', 'btn_furniture badge')
-        remove_button.style.margin = '10px 1px 1px -1px';
+        remove_button.style.margin = '0px 1px 1px -1px';
         remove_button.style.borderRadius = '10px';
         remove_button.style.fontSize = '14px';
 
@@ -172,7 +172,7 @@ function click_edit_button(e) {
         let cancel_button = document.createElement('button')
         cancel_button.setAttribute('id', 'cancel_button')
         cancel_button.setAttribute('class', 'btn_furniture badge')
-        cancel_button.style.margin = '10px 1px 1px 1px';
+        cancel_button.style.margin = '0px 1px 1px 1px';
         cancel_button.style.borderRadius = '10px';
         cancel_button.style.fontSize = '14px';
 
