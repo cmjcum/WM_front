@@ -15,7 +15,7 @@ async function click_submit_button() {
     const name_eng = document.getElementById('name_eng')
     if(!name_eng.value) {
         alert('영문 이름을 입력해주세요!')
-        name_en.focus()
+        name_eng.focus()
         return
     }
 
@@ -26,13 +26,31 @@ async function click_submit_button() {
         return
     }
 
+    let year_reg_ex = /^\d{4}$/
+    if(!year_reg_ex.test(year.value)) {
+        alert('태어난 연도는 4자리 숫자로 입력해주세요!')
+        year.focus()
+        return
+    }
+
     const agree_check = document.getElementById('agree_check')
     if(!agree_check.checked) {
         alert('동의 여부를 체크해주세요!')
         return
     }
 
-    birthday = `${year.value}-${document.getElementById('month_select').value}-${document.getElementById('date_select').value}`
+    const month = document.getElementById('month_select').value
+    const date = document.getElementById('date_select').value
+
+    birthday = `${year.value}-${month}-${date}`
+
+    let now = new Date()
+    let input_date = new Date(year.value, month-1, date)
+
+    if (input_date > now) {
+        alert('미래에서 오신 분은 이용할 수 없습니다!')
+        return
+    }
     
     let form_data = new FormData()
     form_data.append('portrait', file)
