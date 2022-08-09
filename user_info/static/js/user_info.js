@@ -57,6 +57,8 @@ async function click_submit_button() {
     form_data.append('name', name_ko.value)
     form_data.append('name_eng', name_eng.value)
     form_data.append('birthday', birthday.value)
+
+    document.getElementById('loading').style.display = 'flex'
     
     const response = await fetch(`${backend_base_url}/user/user_info/`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
@@ -70,6 +72,7 @@ async function click_submit_button() {
         }
         else if (response.status == 400) {
             alert(response.status)
+            document.getElementById('loading').style.display = 'none'
         }
         else {
             alert('권한이 없습니다.')
