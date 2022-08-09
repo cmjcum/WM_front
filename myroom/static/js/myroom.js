@@ -272,7 +272,7 @@ async function show_profile() {
                     // 도움말 버튼
                     content_temp = `
                     <div style="text-align: right;">
-                        <div style="position:absolute; right:20px; top:514px;">
+                        <div style="position:absolute; right:18px; top:513px;">
                             <button class="fs-3 btn_furniture_manual" onclick="open_furniture_manual_modal()"><i
                                     class="bi bi-question-circle-fill"></i></button>
                             <div class="furniture_manual_modal">
