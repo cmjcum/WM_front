@@ -193,7 +193,7 @@ async function loadArticle() {
                 $("#articleLikeBtn").append(temp)
                 let btn_temp = `<div class="position-absolute top-0 end-0 mt-3 me-3">
                                                 <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-primary">
-                                                    목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i>
+                                                    목록으로 돌아가기 <i class="bi bi-arrow-left-circle-fill"></i>
                                                 </a>
                                             </div>`
                 $("#goToList").append(btn_temp)
