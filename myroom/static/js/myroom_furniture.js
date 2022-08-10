@@ -9,6 +9,38 @@ let my_furniture_img_urls = [];
 const cursor = document.createElement('img');
 cursor.setAttribute('id', 'cursor');
 
+const cancel_modal = `
+                    <div id="cancel_modal" class="modal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">취소하시겠습니까?</h5>
+                                    <button type="button" class="btn-close" onclick="close_cancel_modal()" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                    <div class="modal-body">
+                                        <p>변경 내용이 전부 사라집니다.</p>
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="click_yes_cancel_modal()">네</button>
+                                    <button type="button" class="btn btn-secondary" onclick="close_cancel_modal()">아니오</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+
+
+function click_yes_cancel_modal() {
+    window.location.reload()
+}
+
+
+function close_cancel_modal() {
+    document.getElementById('cancel_modal').style.display = 'none'
+    document.body.classList.remove("stop_scroll")
+}
 
 function add_furniture_position(myfurniture, pos_x, pos_y, is_left) {
     let new_furniture = {
@@ -178,7 +210,12 @@ function click_edit_button(e) {
 
 
         cancel_button.innerHTML = '취소'
-        cancel_button.addEventListener('click', () => { window.location.reload() })
+        cancel_button.addEventListener('click', () => {
+            document.body.classList.add("stop_scroll")
+            document.getElementById('cancel_modal').style.display = "flex"
+        })
+
+        buttons_div.innerHTML = buttons_div.innerHTML + cancel_modal
 
         buttons_div.appendChild(remove_button)
         buttons_div.appendChild(cancel_button)

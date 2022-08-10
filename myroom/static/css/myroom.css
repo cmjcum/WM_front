@@ -535,3 +535,12 @@ body {
     margin: 5px 5px 15px auto;
     font-size: 18px;
 }
+
+.modal {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal-body {
+    text-align: center;
+    margin: 30px 50px 0 50px;
+}
