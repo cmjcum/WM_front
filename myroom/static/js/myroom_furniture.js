@@ -218,8 +218,8 @@ function click_edit_button(e) {
         buttons_div.innerHTML = buttons_div.innerHTML + cancel_modal
 
         buttons_div.appendChild(remove_button)
-        buttons_div.appendChild(cancel_button)
         buttons_div.appendChild(rotate_button)
+        buttons_div.appendChild(cancel_button)
 
         get_my_furniture()
     }
