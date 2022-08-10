@@ -20,7 +20,8 @@ async function buyFurniture(e, furniture_id) {
 
     if (response.status == 200) {
         alert(response_json['msg'])
-        e.target.parentNode.parentNode.parentNode.parentNode.remove()
+        if (response_json['flag'])
+            e.target.parentNode.parentNode.parentNode.parentNode.remove()
         document.getElementById('coin').innerHTML = response_json['coin']
 
         if (document.getElementById('goodsList').childElementCount <= 0) {
