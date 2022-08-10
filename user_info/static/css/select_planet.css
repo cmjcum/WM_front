@@ -7,6 +7,16 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    color: var(--bs-body-color);
+    text-align: var(--bs-body-text-align);
+    background-color: var(--bs-body-bg);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -26,9 +36,63 @@ body {
     color: #44d9e8;
 }
 
+.fs-7 {
+    font-size: 0.825rem !important;
+}
+
+.fixed-modal {
+    background-color: transeparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+
+    top: 2vh;
+    left: 50%;
+    
+    z-index: 1;
+    width: 800px;
+    height: 300px;
+    transform: translate(-50%, 0);
+}
+
+.fixed-modal-body {
+    width: 800px;
+    height: 300px;
+
+    position: relative;
+
+    background-color: rgba(6, 5, 53, 0.63);
+    box-shadow: 0 0.5rem 1rem rgba(20, 5, 87, 0.25);
+
+    border-radius: 10px;
+
+    font-size: large;
+
+    padding: 30px;
+}
+
+#click_planet {
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+
+    animation-name: arrow-animation;
+    animation-duration: 0.8s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+}
+
 .script-modal {
     background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -40,13 +104,13 @@ body {
 }
 
 .script-modal-body {
-    width: 800px;
+    width: 600px;
     height: 300px;
 
     position: relative;
 
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.25);
+    background-color: rgba(6, 5, 53, 0.63);
+    box-shadow: 0 0.5rem 1rem rgba(20, 5, 87, 0.25);
 
     border-radius: 10px;
 
@@ -56,6 +120,7 @@ body {
 }
 
 #click_arrow {
+    color: white;
     position: absolute;
     bottom: 15px;
     right: 30px;
@@ -75,13 +140,13 @@ body {
 
 @keyframes arrow-animation {
     0% {
-      bottom: 15px;
+        bottom: 15px;
     }
 
     100% {
         bottom: 25px;
     }
-  }
+}
 
 /*  planets  */
 .sun {
