@@ -6,8 +6,29 @@
 }
 
 .coin-remained {
+    text-align: left;
     color: #ea39b8;
     font-size: 20px;
     font-weight: 700;
     text-shadow: none;
+
+    flex-grow: 1;
+}
+
+#search_button {
+    width: 50px;
+}
+
+.search-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-div {
+    display: flex;
+    flex-direction: row;
+}
+
+#search_alert {
+    z-index: 1;
 }
