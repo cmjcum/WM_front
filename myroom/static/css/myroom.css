@@ -202,7 +202,7 @@ body {
 
 .main_data_box {
     max-width: 980px;
-    margin: 100px auto 100px auto;
+    margin: 50px auto 100px auto;
     display: flex;
 }
 
@@ -517,13 +517,14 @@ body {
     border-radius: 10px;
 }
 
-.furniture_manual_content{
+.furniture_manual_content {
     width: 650px;
     height: 500px;
     margin: auto;
     font-size: 20px;
     background-color: rgba(255, 255, 255, 0.9);
 }
+
 .furniture_manual_text {
     color: #684ab3;
 }
@@ -534,4 +535,50 @@ body {
     float: right;
     margin: 5px 5px 15px auto;
     font-size: 18px;
+}
+
+.status_message_box {
+    width: 950px;
+    margin: 60px auto auto auto;
+    font-size: 35px;
+    text-align: center;
+}
+
+.status_message_text {
+    width: 680px;
+    height: 80px;
+    margin-left: 9px;
+    resize: none;
+    overflow: auto;
+    font-size: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.status_message_modal {
+    position: absolute;
+    background-color: #fff;
+    width: 700px;
+    height: 200px;
+    border: solid 2px black;
+    border-radius: 10px;
+}
+
+.status_messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.status_messages_btn {
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #6b4cbf;
+    color:white;
+    margin: 6.5px 5px 15px 10px;
 }
