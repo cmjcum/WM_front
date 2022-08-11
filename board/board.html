@@ -89,8 +89,8 @@
                 </div>
                 <div class="form-group d-flex d-none d-sm-inline">
                     <div class="input-group mb-1">
-                        <input type="text" class="form-control form-control-sm" id="searchInput" placeholder="제목, 본문, 작성자에서 찾기"
-                            aria-describedby="button-addon2"
+                        <input type="text" class="form-control form-control-sm" id="searchInput"
+                            placeholder="제목, 본문, 작성자에서 찾기" aria-describedby="button-addon2"
                             onkeyup="if(window.event.keyCode==13){searchButtonClick()}">
                         <button class="btn btn-secondary btn-sm" type="button" id="button-addon2"
                             onclick="searchButtonClick()">검색</button>
@@ -98,20 +98,20 @@
                 </div>
             </div>
             <div id="alert"></div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="table-primary">
-                            <th class="d-table-cell" scope="col">#</th>
-                            <th class="d-table-cell" scope="col-6">제목</th>
-                            <th class="d-none d-sm-table-cell" scope="col">작성자</th>
-                            <th class="d-none d-md-table-cell" scope="col">작성일자</th>
-                            <th class="d-none d-md-table-cell" scope="col"><i class="bi bi-chat-dots"></i></th>
-                            <th class="d-none d-md-table-cell" scope="col"><i class="bi bi-hand-thumbs-up"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody id="boardItems">
-                    </tbody>
-                </table>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-primary">
+                        <th class="d-table-cell" scope="col">#</th>
+                        <th class="d-table-cell col-md" scope="col">제목</th>
+                        <th class="d-none d-sm-table-cell" scope="col">작성자</th>
+                        <th class="d-none d-md-table-cell" scope="col">작성일자</th>
+                        <th class="d-none d-md-table-cell" scope="col"><i class="bi bi-chat-dots"></i></th>
+                        <th class="d-none d-md-table-cell" scope="col"><i class="bi bi-hand-thumbs-up"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="boardItems">
+                </tbody>
+            </table>
             <div class="position-absolute my-0 mp-0 bottom-0 start-50 translate-middle-x">
                 <ul class="pagination pagination justify-content-center" id="pages"></ul>
             </div>
