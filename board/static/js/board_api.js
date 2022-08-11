@@ -223,7 +223,7 @@ function searchButtonClick() {
     let searchData = document.getElementById('searchInput').value
     if (searchData.length == 0) {
         $("#alert").empty()
-        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute top-0 end-0 translate-middle-y">
+        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                             <p class="mb-0">검색어를 입력해주세요!</p>
                                         </div>`
@@ -335,7 +335,6 @@ async function loadMyPage() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
 
             let total_data = data[0]["count"];
             $("#articleCnt").append(total_data)
@@ -401,7 +400,6 @@ async function loadMyPage() {
                 let comments = data[i]["comments"]
                 let likes = data[i]["likes"]
                 
-                // <td class="text-primary">${planet}</td>
                 let html_temp = `
                 <tr>
                     <th scope="row">${num}</th>
