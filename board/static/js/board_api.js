@@ -33,7 +33,7 @@ function makePagenation(board_id, current_page, total_data) {
     if (last > 5) {
         pages.append(
             `<li class="page-item">
-            <a class="page-link" href="/board/board.html?board=${board_id}&page=${prev}"><i class="bi bi-chevron-double-left"></i></a>
+            <a class="page-link  text-dark" href="/board/board.html?board=${board_id}&page=${prev}"><i class="bi bi-chevron-double-left"></i></a>
             </li>`
         )
     }
@@ -47,7 +47,7 @@ function makePagenation(board_id, current_page, total_data) {
         } else if (j > 0) {
             pages.append(
                 `<li class="page-item">
-                <a class="page-link" href="/board/board.html?board=${board_id}&page=${j}">${j}</a>
+                <a class="page-link  text-dark" href="/board/board.html?board=${board_id}&page=${j}">${j}</a>
             </li>`
             )
         }
@@ -55,7 +55,7 @@ function makePagenation(board_id, current_page, total_data) {
     if (next > 5 && next < total_pages) {
         pages.append(
             `<li class="page-item">
-                <a class="page-link" href="/board/board.html?board=${board_id}&page=${next}"><i class="bi bi-chevron-double-right"></i></a>
+                <a class="page-link  text-dark" href="/board/board.html?board=${board_id}&page=${next}"><i class="bi bi-chevron-double-right"></i></a>
                 </li>`
         )
     }
@@ -161,7 +161,7 @@ async function loadBoard() {
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
-                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}<span class="d-inline d-md-none ms-2 text-primary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></tdth>
                                                             <td class="d-none d-sm-table-cell"><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
                                                             <td class="d-none d-md-table-cell">${create_date}</td>
                                                             <td class="d-none d-md-table-cell">${comments}</td>
@@ -170,7 +170,7 @@ async function loadBoard() {
                         } else {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
-                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a href="${detail_url}">${title}<span class="d-inline d-md-none ms-2 text-primary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
                                                             <td class="d-none d-sm-table-cell"><a href="/myroom/myroom.html?user=${author_id}">${author}</a></td>
                                                             <td class="d-none d-md-table-cell">${create_date}</td>
                                                             <td class="d-none d-md-table-cell">${comments}</td>
@@ -181,7 +181,7 @@ async function loadBoard() {
                         if (data[i]["newest"]) {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
-                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}</a></tdth>
+                                                            <td><a href="${detail_url}"><i class="bi bi-stars text-secondary me-3"></i>${title}<span class="d-inline d-md-none ms-2 text-primary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></tdth>
                                                             <td class="d-none d-sm-table-cell"><a>${author}</a></td>
                                                             <td class="d-none d-md-table-cell">${create_date}</td>
                                                             <td class="d-none d-md-table-cell">${comments}</td>
@@ -190,7 +190,7 @@ async function loadBoard() {
                         } else {
                             list_temp = `<tr>
                                                             <th scope="row">${num}</th>
-                                                            <td><a href="${detail_url}">${title}</a></th>
+                                                            <td><a href="${detail_url}">${title}<span class="d-inline d-md-none ms-2 text-primary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
                                                             <td class="d-none d-sm-table-cell"><a>${author}</a></td>
                                                             <td class="d-none d-md-table-cell">${create_date}</td>
                                                             <td class="d-none d-md-table-cell">${comments}</td>
@@ -222,7 +222,8 @@ function searchButtonClick() {
     let board_id = searchParam('board');
     let searchData = document.getElementById('searchInput').value
     if (searchData.length == 0) {
-        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
+        $("#alert").empty()
+        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute top-0 end-0 translate-middle-y">
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                             <p class="mb-0">검색어를 입력해주세요!</p>
                                         </div>`
@@ -248,7 +249,7 @@ async function loadSearchData() {
         .then(response => response.json())
         .then(data => {
 
-            if (Object.keys(data) == "message") {
+            if (Object.keys(data) == "message") {     
                 let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 400px; height: auto;">
                                                     <div class="card-body">
                                                         <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
@@ -319,4 +320,99 @@ async function loadSearchData() {
             }
         }
         )
+}
+
+async function loadMyPage() {
+
+    let current_page = searchParam('page');
+
+    const response = await fetch(`${backend_base_url}/board/mypage/${current_page}/`, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("access")
+        },
+        withCredentials: true,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            let total_data = data[0]["count"];
+            $("#articleCnt").append(total_data)
+
+            const data_per_page = 20;
+            const page_cnt = 5;
+
+            const total_pages = Math.ceil(total_data / data_per_page)
+            const page_group = Math.ceil(current_page / page_cnt)
+
+            let last = page_group * page_cnt;
+            if (last > total_pages) {
+                last = total_pages;
+            }
+            let first = last - (page_cnt - 1)
+            const next = last + 1
+            const prev = first - 1
+
+            if (total_pages < 1) {
+                first = last
+            }
+
+            const pages = $("#pages")
+            pages.empty();
+
+            if (last > 5) {
+                pages.append(
+                    `<li class="page-item">
+                    <a class="page-link  text-dark" href="/board/mypage.html?page=${prev}"><i class="bi bi-chevron-double-left"></i></a>
+                    </li>`
+                )
+            }
+            for (let j = first; j <= last; j++) {
+                if (current_page == j) {
+                    pages.append(
+                        `<li class="page-item active">
+                        <a class="page-link" href="/board/mypage.html?page=${j}">${j}</a>
+                    </li>`
+                    )
+                } else if (j > 0) {
+                    pages.append(
+                        `<li class="page-item">
+                        <a class="page-link  text-dark" href="/board/mypage.html?page=${j}">${j}</a>
+                    </li>`
+                    )
+                }
+            }
+            if (next > 5 && next < total_pages) {
+                pages.append(
+                    `<li class="page-item">
+                        <a class="page-link  text-dark" href="/board/mypage.html?page=${next}"><i class="bi bi-chevron-double-right"></i></a>
+                        </li>`
+                )
+            }
+
+            for (let i = 0; i < Object.keys(data).length; i++) {
+
+                let num = data[0]["num"][i]
+                let planet = data[i]["planet"]
+                let title = data[i]["title"]
+                let detail_url = data[i]["detail_url"]
+                let create_date = data[i]["create_date"]
+                let comments = data[i]["comments"]
+                let likes = data[i]["likes"]
+                
+                // <td class="text-primary">${planet}</td>
+                let html_temp = `
+                <tr>
+                    <th scope="row">${num}</th>
+                    <td><a href="${detail_url}"><span class="text-secondary me-3">[${planet}]</span>${title}<span class="d-inline d-md-none ms-2 text-secondary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
+                    <td class="d-none d-md-table-cell">${create_date}</td>
+                    <td class="d-none d-md-table-cell">${comments}</td>
+                    <td class="d-none d-md-table-cell">${likes}</td>
+                </tr>
+                `
+                $("#boardItems").append(html_temp)
+            }
+
+        })
 }
