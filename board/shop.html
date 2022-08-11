@@ -85,6 +85,13 @@
                 <div class="coin-remained">
                     <span id="coin"></span> 코인 남았어요!
                 </div>
+                <div class="search-wrap">
+                    <div class="search-div">
+                        <input type="text" id="search_input" class="form-control form-control-sm" onkeyup="if(window.event.keyCode==13){click_search_button()}">
+                        <button id="search_button" class="btn btn-secondary btn-sm" onclick="click_search_button()">검색</button>
+                    </div>
+                    <div id="search_alert"></div>
+                </div>
             </div>      
             <div id="alert">                
             </div>            
