@@ -125,18 +125,29 @@ function change_floor(e) {
     }
 }
 
+function close_fixed_modal_button(){
+    let fixed_modal = document.getElementById('fixed-modal')
+    fixed_modal.style.display = 'none'
+}
+
+function open_script_modal_button(){
+    let script_modal = document.getElementById('script-modal')
+    script_modal.style.display = 'flex'
+}
+
 
 window.onload = function() {
     load_planet_info()
 
-    document.getElementById('click_arrow').addEventListener('click', (e) => { e.target.parentNode.parentNode.style.display = 'none' })
+    // document.getElementById('click_arrow').addEventListener('click', (e) => { e.target.parentNode.parentNode.style.display = 'none' })
     document.getElementById('floor_select').addEventListener('change', (e) => { change_floor(e) })
 
     planets = document.getElementsByClassName('scale')
     for(let i=0; i<planets.length; i++) {
         planets[i].addEventListener('click', (e) => {click_planet(e)})
     }
-
-    document.getElementById('submit_button').addEventListener('click', click_submit_button)
-
+    document.getElementById('submit_button').addEventListener('click', close_fixed_modal_button)
+    document.getElementById('submit_button').addEventListener('click', open_script_modal_button)
+    
+    document.getElementById('click_arrow').addEventListener('click', click_submit_button)
 }

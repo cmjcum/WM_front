@@ -537,6 +537,7 @@ body {
     font-size: 18px;
 }
 
+<<<<<<< HEAD
 .status_message_box {
     width: 950px;
     margin: 60px auto auto auto;
@@ -581,4 +582,13 @@ body {
     background-color: #6b4cbf;
     color:white;
     margin: 6.5px 5px 15px 10px;
+=======
+.modal {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal-body {
+    text-align: center;
+    margin: 30px 50px 0 50px;
+>>>>>>> 8714a275144b69ed1a2c1ce3fc0476c16e82b80d
 }
