@@ -83,7 +83,6 @@ async function loadMain() {
                         <img class="icon" src="/images/icon/${planet_name_lower}.png">
                         <div>
                             <a href="${planet_url}"><h2 class="text-primary">${planet_name}</h2></a>
-                            <p class="text-primary">당신의 행성의 이웃들이 무슨 이야기를 나누고 있을까요?</p>
                         </div>
                     </div>`
                     $("#boardList").append(planet_temp)
@@ -101,7 +100,7 @@ async function loadMain() {
                         <img class="icon" src="/images/icon/${my_planet_name_lower}.png">
                         <div>
                             <h2 class="text-primary">${my_planet_name}</h2>
-                            <p class="text-primary">당신의 행성의 이웃들이 무슨 이야기를 나누고 있을까요?</p>
+                            <p class="text-primary">My planet's people Only!<br>행성민만 쓸 수 있는 게시판입니다.</p>
                         </div>
                         </a>
                     </div>`
@@ -394,6 +393,7 @@ async function loadMyPage() {
 
                 let num = data[0]["num"][i]
                 let planet = data[i]["planet"]
+                let planet_url = `/board/mypage.html?search=${planet}&page=1`
                 let title = data[i]["title"]
                 let detail_url = data[i]["detail_url"]
                 let create_date = data[i]["create_date"]
@@ -403,7 +403,7 @@ async function loadMyPage() {
                 let html_temp = `
                 <tr>
                     <th scope="row">${num}</th>
-                    <td><a href="${detail_url}"><span class="text-secondary me-3">[${planet}]</span>${title}<span class="d-inline d-md-none ms-2 text-secondary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
+                    <td><a href="${planet_url}" class="text-secondary me-3">[${planet}]</a><a href="${detail_url}">${title}<span class="d-inline d-md-none ms-2 text-secondary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
                     <td class="d-none d-md-table-cell">${create_date}</td>
                     <td class="d-none d-md-table-cell">${comments}</td>
                     <td class="d-none d-md-table-cell">${likes}</td>
@@ -413,4 +413,126 @@ async function loadMyPage() {
             }
 
         })
+}
+
+
+function mypageSearchButtonClick() {
+    let searchData = document.getElementById('searchInput').value
+    if (searchData.length == 0) {
+        $("#alert").empty()
+        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <p class="mb-0">검색어를 입력해주세요!</p>
+                                        </div>`
+        $("#alert").append(alert_temp)
+    } else {
+        window.location.replace(`/board/mypage.html?search=${searchData}&page=1`);
+    }
+}
+
+
+async function loadMypageSearchData() {
+    let keyword = searchParam('search');
+    let current_page = searchParam('page');
+
+    const response = await fetch(`${backend_base_url}/board/mypage/${keyword}/${current_page}/`, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("access")
+        },
+        withCredentials: true,
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            if (Object.keys(data) == "message") {     
+                let alert_temp = `<div class="card bg-primary px-4 py-4 mt-5 position-absolute top-50 start-50 translate-middle" style="max-width: 400px; height: auto;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title"><i class="bi bi-emoji-dizzy"></i> ${Object.values(data)}</h4>
+                                                        <p class="card-text"><a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-success no-deco">목록으로 돌아가기 <i class="bi bi-arrow-counterclockwise"></i></a></p>
+                                                    </div>
+                                                </div>`
+                $("#alert").append(alert_temp)
+
+            } else {
+                let total_data = data[0]["count"];
+                $("#articleCnt").append(total_data)
+
+                const data_per_page = 20;
+                const page_cnt = 5;
+
+                const total_pages = Math.ceil(total_data / data_per_page)
+                const page_group = Math.ceil(current_page / page_cnt)
+
+                let last = page_group * page_cnt;
+                if (last > total_pages) {
+                    last = total_pages;
+                }
+                let first = last - (page_cnt - 1)
+                const next = last + 1
+                const prev = first - 1
+
+                if (total_pages < 1) {
+                    first = last
+                }
+
+                const pages = $("#pages")
+                pages.empty();
+
+                if (last > 5) {
+                    pages.append(
+                        `<li class="page-item">
+                        <a class="page-link  text-dark" href="/board/mypage.html?page=${prev}"><i class="bi bi-chevron-double-left"></i></a>
+                        </li>`
+                    )
+                }
+                for (let j = first; j <= last; j++) {
+                    if (current_page == j) {
+                        pages.append(
+                            `<li class="page-item active">
+                            <a class="page-link" href="/board/mypage.html?page=${j}">${j}</a>
+                        </li>`
+                        )
+                    } else if (j > 0) {
+                        pages.append(
+                            `<li class="page-item">
+                            <a class="page-link  text-dark" href="/board/mypage.html?page=${j}">${j}</a>
+                        </li>`
+                        )
+                    }
+                }
+                if (next > 5 && next < total_pages) {
+                    pages.append(
+                        `<li class="page-item">
+                            <a class="page-link  text-dark" href="/board/mypage.html?page=${next}"><i class="bi bi-chevron-double-right"></i></a>
+                            </li>`
+                    )
+                }
+
+                for (let i = 0; i < Object.keys(data).length; i++) {
+
+                    let num = data[0]["num"][i]
+                    let planet = data[i]["planet"]
+                     let planet_url = `/board/mypage.html?search=${planet}&page=1`
+                    let title = data[i]["title"]
+                    let detail_url = data[i]["detail_url"]
+                    let create_date = data[i]["create_date"]
+                    let comments = data[i]["comments"]
+                    let likes = data[i]["likes"]
+                    
+                    let html_temp = `
+                    <tr>
+                        <th scope="row">${num}</th>
+                        <td><a href="${planet_url}" class="text-secondary me-3">[${planet}]</a><a href="${detail_url}">${title}<span class="d-inline d-md-none ms-2 text-secondary no-deco"><small><i class="bi bi-chat-dots me-1"></i>${comments}</small></span></a></th>
+                        <td class="d-none d-md-table-cell">${create_date}</td>
+                        <td class="d-none d-md-table-cell">${comments}</td>
+                        <td class="d-none d-md-table-cell">${likes}</td>
+                    </tr>
+                    `
+                    $("#boardItems").append(html_temp)
+                }
+
+            }
+        }
+        )
 }

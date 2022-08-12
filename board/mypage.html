@@ -27,12 +27,11 @@
     <script>
         $(document).ready(function () {
             loadNavbar()
-            loadMyPage()
-            // if (searchParam('search')) {
-            //     loadSearchData()
-            // } else {
-            //     loadBoard()
-            // }
+            if (searchParam('search')) {
+                loadMypageSearchData()
+            } else {
+                loadMyPage()
+            }
         }
         );
 
@@ -54,7 +53,7 @@
                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-md-flex justify-content-between" id="navbarColor03">
+            <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" id="mainPage" href="/board/index.html"><i class="bi bi-signpost-fill"></i> Main</a>
@@ -89,13 +88,13 @@
                 <div>
                     <span class="text-primary">내가 작성한 글 : <span id="articleCnt"></span>개</span>
                 </div>
-                <div class="d-none">
+                <div class="d-inline">
                     <div class="input-group mb-1 d-flex">
                         <input type="text" class="form-control form-control-sm" id="searchInput"
                             placeholder="제목, 본문, 작성자에서 찾기" aria-describedby="button-addon2"
-                            onkeyup="if(window.event.keyCode==13){searchButtonClick()}">
+                            onkeyup="if(window.event.keyCode==13){mypageSearchButtonClick()}">
                         <button class="btn btn-secondary btn-sm" type="button" id="button-addon2"
-                            onclick="searchButtonClick()">검색</button>
+                            onclick="mypageSearchButtonClick()">검색</button>
                     </div>
                     <div id="alert"></div>
                 </div>
