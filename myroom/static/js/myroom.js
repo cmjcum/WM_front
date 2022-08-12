@@ -45,6 +45,45 @@ function close_status_message() {
     document.querySelector(".status_messages").style.display = "none";
 }
 
+// 프로필 사진 수정 모달
+function open_portrait_correction() {
+    document.body.classList.add("stop_scroll");
+    document.querySelector(".portrait_correction").style.display = "flex";
+}
+
+function close_portrait_correction() {
+    document.body.classList.remove("stop_scroll");
+    document.querySelector(".portrait_correction").style.display = "none";
+}
+
+
+// 프로필 사진 수정
+async function save_portrait_correction() {
+    let owner_id = window.location.search.split('=')[1]
+    const formdata = new FormData();
+    const portrait = document.getElementById('face_picture').files[0]
+    formdata.append('portrait', portrait)
+
+    const response = await fetch(`${backend_base_url}/user/${owner_id}/`, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("access"), },
+        body: formdata,
+        method: 'PUT',
+    }
+    )
+
+    if (response.status == 200) {
+        content_temp = `<p>프로필이 수정이 시작 되었습니다. 
+                        <br>적용까지는 시간이 조금 걸려요~
+                        <br>다른 곳에서 놀다 오세용~~</p>`
+        $("#portrait_message").empty()
+        $("#portrait_save_btn").remove()
+        $("#portrait_message").append(content_temp)
+    } else {
+        content_temp = `<p>사진을 다시 선택해 주세요.</p>`
+        $("#portrait_message").append(content_temp)
+    }
+}
+
 
 // 방명록 작성
 async function write_guest_book() {
@@ -243,15 +282,39 @@ async function show_profile() {
 
                     content_temp = `
                     <div class="profile_wrap" style="display:flex;">
-                        <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
+                        <div class="profile_portrait position-relative">
+                            <img class="profile_portrait" src="${portrait}">
+                            <button class="portrait_btn text-secondary position-absolute top-0 start-100 translate-middle"
+                                onclick="open_portrait_correction()"><i class="bi bi-gear-fill"></i></button>
+                        </div>
+                        <!-- 프로필 사진 수정 -->
+                        <div class="portrait_correction">
+                            <div class="portrait_correction_modal card text-white bg-primary mb-3" style="border-radius: 15px;">
+                                <div class="card-header" style="margin: auto;">프로필 사진 수정</div>
+                                <div class="input-div" id="portrait_message" style="margin: auto;">
+                                    <label class="face-picture-label" for="face_picture">
+                                        <div id="face_picture_div" class="face-picture-div">
+                                            <img class="profile_portrait" style="width: 150px; height: 150px;" src="${portrait}">
+                                        </div>
+                                    </label>
+                                </div>
+                                <input class="form-control d-block" type="file" accept=".jpg, .png, .jpeg, .bmp" id="face_picture">
+                                <div class="btn_set" style="margin: auto;">
+                                    <button type="button" id="portrait_save_btn" class="modal_btn fs-6 btn btn-primary"
+                                        style="border: solid 1px; margin: 3px;" onclick="save_portrait_correction()">저장</button>
+                                    <button class="modal_btn fs-6 close_status_message btn btn-primary"
+                                        style="border: solid 1px; margin: 3px;" onclick="close_portrait_correction()">닫기</button>
+                                </div>
+                            </div>
+                        </div>
                         <!-- 유저 정보 -->
                         <div class="profile_name" id="profile_name">
                             <div class="my_profile_name" style="font-size: 15px;">${nickname}</div>
-                                <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
-                                    <div class="my_profile">행성:&nbsp;${planet}</div>
-                                    <div class="my_profile">생일:&nbsp;${birthday}</div>
-                                    <div class="my_profile">${coin}  coin</div>
-                                </div>
+                            <div class="card card-body" style="border: 0; padding: 0px; margin: 5px auto auto auto">
+                                <div class="my_profile">행성:&nbsp;${planet}</div>
+                                <div class="my_profile">생일:&nbsp;${birthday}</div>
+                                <div class="my_profile">${coin} coin</div>
+                            </div>
                         </div>
                     </div>
                     `
