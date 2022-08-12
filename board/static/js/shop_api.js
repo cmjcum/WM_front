@@ -1,3 +1,32 @@
+async function click_search_button() {
+    let search_word = $('#search_input').val()
+
+    $('#search_alert').empty()
+    if (search_word.length == 0) {
+        let alert_temp = `<div class="alert alert-dismissible alert-secondary position-absolute">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <p class="mb-0">검색어를 입력해주세요!</p>
+                                        </div>`
+        $("#search_alert").append(alert_temp)
+        return
+    }
+    
+    const response = await fetch(`${backend_base_url}/myroom/shop/${search_word}`, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("access")
+        },
+        withCredentials: true,
+    })
+        .then(response => response.json())
+        .then(data => {
+            $('#alert').empty()
+            $('#goodsList').empty()
+            append_furnitures(data)
+        })
+}
+
+
 async function buyFurniture(e, furniture_id) {
 
     const contentData = {
@@ -20,7 +49,8 @@ async function buyFurniture(e, furniture_id) {
 
     if (response.status == 200) {
         alert(response_json['msg'])
-        e.target.parentNode.parentNode.parentNode.parentNode.remove()
+        if (response_json['flag'])
+            e.target.parentNode.parentNode.parentNode.parentNode.remove()
         document.getElementById('coin').innerHTML = response_json['coin']
 
         if (document.getElementById('goodsList').childElementCount <= 0) {
@@ -49,6 +79,41 @@ function show_alert() {
 }
 
 
+function append_furnitures(data) {
+    document.getElementById('coin').innerHTML = data['coin']
+
+    let shop_serializer = data['shop_serializer']
+
+    if (shop_serializer.length == 0) {
+        show_alert()
+    } else {
+
+        for (let i = 0; i < shop_serializer.length; i++) {
+            let furniture_info = shop_serializer[i]
+            let furniture_id = furniture_info.id
+            let name = furniture_info.name
+            let img_url = furniture_info.url_left
+            let price = furniture_info.price
+            let html_temp = `<div class="col goods mb-3">
+                                                    <div class="card border-primary position-relative" style="max-width: 20rem;">
+                                                        <div class="card-header text-primary">${name}</div>
+                                                        <div class="card-body pt-0">
+                                                            <figure class="d-flex furniture-container">
+                                                                <img class=" mx-auto"
+                                                                    src="${img_url}">
+                                                            </figure>
+                                                            <h5 class="card-title text-primary">${price} coin</h5>
+                                                            <p class="card-text text-primary mb-3 position-absolute bottom-0 start-50 translate-middle-x"><button type="button"
+                                                                    class="btn btn-secondary" onclick="buyFurniture(event, ${furniture_id})">구입하기</button></p>
+                                                        </div>
+                                                    </div>
+                                                </div>`
+            $("#goodsList").append(html_temp)
+        }
+    }
+}
+
+
 async function loadFurniture() {
     const response = await fetch(`${backend_base_url}/myroom/shop/`, {
         method: 'GET',
@@ -59,36 +124,6 @@ async function loadFurniture() {
     })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('coin').innerHTML = data['coin']
-
-            let shop_serializer = data['shop_serializer']
-
-            if (shop_serializer.length == 0) {
-                show_alert()
-            } else {
-
-                for (let i = 0; i < shop_serializer.length; i++) {
-                    let furniture_info = shop_serializer[i]
-                    let furniture_id = furniture_info.id
-                    let name = furniture_info.name
-                    let img_url = furniture_info.url_left
-                    let price = furniture_info.price
-                    let html_temp = `<div class="col goods mb-3">
-                                                            <div class="card border-primary position-relative" style="max-width: 20rem;">
-                                                                <div class="card-header text-primary">${name}</div>
-                                                                <div class="card-body pt-0">
-                                                                    <figure class="d-flex furniture-container">
-                                                                        <img class=" mx-auto"
-                                                                            src="${img_url}">
-                                                                    </figure>
-                                                                    <h5 class="card-title text-primary">${price} coin</h5>
-                                                                    <p class="card-text text-primary mb-3 position-absolute bottom-0 start-50 translate-middle-x"><button type="button"
-                                                                            class="btn btn-secondary" onclick="buyFurniture(event, ${furniture_id})">구입하기</button></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>`
-                    $("#goodsList").append(html_temp)
-            }
-        }
+            append_furnitures(data)
         })
 }

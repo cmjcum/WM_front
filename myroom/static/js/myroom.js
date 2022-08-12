@@ -34,6 +34,17 @@ function close_furniture_manual_modal() {
     document.querySelector(".furniture_manual_modal").style.display = "none";
 }
 
+// 상메 모달
+function open_status_message() {
+    document.body.classList.add("stop_scroll");
+    document.querySelector(".status_messages").style.display = "flex";
+}
+
+function close_status_message() {
+    document.body.classList.remove("stop_scroll");
+    document.querySelector(".status_messages").style.display = "none";
+}
+
 
 // 방명록 작성
 async function write_guest_book() {
@@ -132,6 +143,56 @@ async function show_guest_book() {
 }
 
 
+async function status_messge() {
+    let owner_id = window.location.search.split('=')[1]
+    const status_data = {
+        status_message: document.getElementById('status_message').value,
+    }
+    console.log(status_data)
+
+    const response = await fetch(`${backend_base_url}/myroom/${owner_id}/`, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            Accept: "application/json",
+            'Content-type': 'application/json'
+        },
+        withCredentials: true,
+        method: 'PUT',
+
+        body: JSON.stringify(status_data)
+    }
+    )
+    response_json = await response.json()
+    window.location.reload(true);
+}
+
+
+async function putArticle() {
+    let board_id = searchParam('board');
+    let article_id = searchParam('article');
+
+    const title = document.getElementById("inputTitle").value
+    const content = document.getElementById("inputContent").value
+
+    const formdata = new FormData();
+
+    formdata.append('title', title)
+    formdata.append('content', content)
+
+    const response = await fetch(`${backend_base_url}/board/${board_id}/edit/${article_id}/`, {
+        method: 'PUT',
+        headers: { Authorization: "Bearer " + localStorage.getItem("access"), },
+        body: formdata
+    })
+
+    if (response.status == 200) {
+        window.location.replace(`${frontend_base_url}/board/article.html?board=${board_id}&article=${article_id}`);
+    } else {
+        alert("작성 실패")
+    }
+}
+
+
 // 회원 정보 조회
 async function show_profile() {
     let owner_id = window.location.search.split('=')[1]
@@ -157,6 +218,7 @@ async function show_profile() {
                 const room_number = data[i]["room_number"]
                 const identification_number = data[i]["identification_number"]
                 const create_date = data[i]["create_date"]
+                const status_message = data[i]["status_message"]
                 // User.data
                 const like_count = data[i]["user"]["like_count"]
                 const follower_count = data[i]["user"]["follower_count"]
@@ -171,7 +233,14 @@ async function show_profile() {
                 const follow_users_data = data[i]["user"]["follow_users"]
                 const like_user_data = data[i]["user"]["like"]
 
+
                 if (login_user_id == user_id) {
+
+                    content_temp = `
+                    <div class="status_message_box">${status_message}</div>
+                    `
+                    $("#status_message_content").append(content_temp)
+
                     content_temp = `
                     <div class="profile_wrap" style="display:flex;">
                         <div class="profile_portrait"><img class="profile_portrait" src="${portrait}"></div>
@@ -188,8 +257,24 @@ async function show_profile() {
                     `
                     $("#show_profile").append(content_temp)
 
-                    // 시민증 모달
+
+                    // 상메, 시민증 모달
                     content_temp = `
+                    <button type="button" class="status_messages_btn" onclick="open_status_message()">상태 메세지</button>
+                    <!-- 상메 모달 -->
+                    <div class="status_messages">
+                        <div class="status_message_modal card text-white bg-primary mb-3" style="border-radius: 15px;">
+                            <div class="card-header" style="margin: auto;">상태 메세지</div>
+                            <textarea id="status_message" class="status_message_text" style="border-radius: 15px;"></textarea>
+                            <div class="btn_set" style="margin: auto;">
+                                <button type="button" class="modal_btn fs-6 btn btn-primary" style="border: solid 1px; margin: 3px;"
+                                    onclick="status_messge()">완료</button>
+                                <button class="modal_btn fs-6 close_status_message btn btn-primary"
+                                    style="border: solid 1px; margin: 3px;" onclick="close_status_message()">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 시민증 모달 -->
                     <button class="open resident_card_btn" onclick="open_card_modal()" style="color: yellow;"><i class="bi bi-star-fill me-1"></i>ID card</button>
                     <div class="resident_card_modal">
                         <div class="card bg-primary resident_card_wrap">
@@ -291,7 +376,7 @@ async function show_profile() {
                                                 <li>꾸미기 버튼을 누릅니다.</li>
                                                 <li>지우기 버튼을 누릅니다.</li>
                                                 <li>지우기 하고자 하는 가구를 마우스로 클릭합니다.</li>
--                                            </ul>
+                                            </ul>
                                             <b>Q 가구를 다른 각도로도 배치하고 싶어요</b>
                                             <ul>
                                                 <li>꾸미기 버튼을 누릅니다.</li>
@@ -310,8 +395,6 @@ async function show_profile() {
                     </div>
                     `
                     $("#show_furniture").append(content_temp)
-
-
 
                     // 팔로워한 유저의 프로필
                     for (let i = 0; i < follower_user_data.length; i++) {
