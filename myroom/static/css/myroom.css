@@ -160,7 +160,6 @@ body {
 }
 
 .btn_like {
-    /* width: 30px; */
     background-color: transparent;
     color: transparent;
     border: 0;
@@ -581,4 +580,77 @@ body {
     background-color: #6b4cbf;
     color: white;
     margin: 6.5px 5px 15px 10px;
+}
+
+.portrait_btn {
+    margin-top: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+}
+
+.portrait_correction {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.portrait_correction_modal {
+    position: absolute;
+    background-color: #fff;
+    width: 300px;
+    height: 350px;
+    border: solid 2px black;
+    border-radius: 10px;
+}
+
+.face-picture-label {
+    display: inline-block;
+}
+
+.face-picture-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    aspect-ratio: 7/9;
+
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3), 0 0 2px rgba(255, 255, 255, 0.3), 0 0 5px rgba(50, 251, 226, 0.2);
+}
+
+/* // input file의 기본 모습을 제거 */
+#profile_img_upload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#profile_img_upload+label {
+    border: 1px solid #d9e1e8;
+    background-color: #fff;
+    color: #2b90d9;
+    border-radius: 2rem;
+    padding: 8px 17px 8px 17px;
+    font-weight: 500;
+    font-size: 15px;
+    box-shadow: 1px 2px 3px 0px #f2f2f2;
+    outline: none;
+}
+
+#profile_img_upload:focus+label,
+#profile_img_upload+label:hover {
+    cursor: pointer;
 }
