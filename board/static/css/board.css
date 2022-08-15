@@ -40,8 +40,7 @@
 }
 
 .board {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin: 0 0 10px 0;
 }
 
 div > a {

@@ -33,7 +33,7 @@ async function postArticle() {
         $("#alert").append(alert_temp)
         return;
     }
-    
+
     if ($('#inputFile').val() == "") {
         formdata.append('title', title)
         formdata.append('content', content)
@@ -191,12 +191,34 @@ async function loadArticle() {
                     temp = `<span class="fs-6"><a class="text-primary  no-deco" onclick="doLike()" style="cursor:pointer"><i  class="bi bi-hand-thumbs-up  me-1"></i>좋아요</a></span>`
                 }
                 $("#articleLikeBtn").append(temp)
-                let btn_temp = `<div class="position-absolute top-0 end-0 mt-3 me-3">
-                                                <a href="${frontend_base_url}/board/board.html?board=${board_id}&page=1" class="text-primary">
-                                                    목록으로 돌아가기 <i class="bi bi-arrow-left-circle-fill"></i>
-                                                </a>
-                                            </div>`
-                $("#goToList").append(btn_temp)
+                let go_list = `<a href="/board/board.html?board=${board_id}&page=1" class="text-primary no-deco">
+                                            목록
+                                                </a>`
+                $("#goToList").append(go_list)
+
+                if (data.prev) {
+                    go_prev = `<a href="${data.prev}" class="text-primary no-deco">
+                                                이전글<i class="bi bi-caret-down-fill"></i>
+                                            </a>`
+                    $("#goToPrev").append(go_prev)
+                } else {
+                    go_prev = `<a class="text-primary no-deco disabled">
+                                                이전글<i class="bi bi-caret-down-fill"></i>
+                                            </a>`
+                    $("#goToPrev").append(go_prev)
+                }
+                if (data.next) {
+                    go_next = `<a href="${data.next}" class="text-primary no-deco">
+                                            다음글<i class="bi bi-caret-up-fill"></i>
+                                            </a>`
+                    $("#goToNext").append(go_next)
+                } else {
+                    go_next = `<a class="text-primary no-deco disabled">
+                                                다음글<i class="bi bi-caret-up-fill"></i>
+                                            </a>`
+                    $("#goToNext").append(go_next)
+                }
+
 
                 if (data.moved) {
                     author_link_temp = `<a href="/myroom/myroom.html?user=${data.author}" class="text-secondary"><i class="bi bi-house-fill"></i></a>`
@@ -219,7 +241,7 @@ async function loadArticle() {
                         <button type="button" class="btn btn-secondary btn-sm me-2" onclick="editButtonClick()">수정</button>
                         <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deleteArticle">삭제</button>
                         `
-                        let msg_temp = `<div class="collapse" id="deleteArticle">
+                    let msg_temp = `<div class="collapse" id="deleteArticle">
                         <div class="form-group d-flex justify-content-end gap-3 align-items-center mt-5">
                             <span class="text-danger">이 글을 삭제하시겠습니까?</span>
                             <button type="button" class="btn btn-dark btn-sm" onclick="deleteArticle()">확인</button>
@@ -300,7 +322,7 @@ async function loadArticle() {
                                 <div id="replyBox-${parent_comment.id}"></div>
                             </div>
                                 `
-                            } else {
+                        } else {
                             comment_temp = `
                             <div class="card text-white bg-dark my-2">
                                 <div class="card-header d-flex justify-content-between mb-0">
@@ -486,8 +508,8 @@ async function loadArticle() {
                                                         </div>
                                                     </div>
                                                 `
-                                            } else {
-                                                reply_temp = `
+                                } else {
+                                    reply_temp = `
                                                             <div class="card text-white bg-dark reply">
                                                                 <div class="card-header d-flex justify-content-between mb-0">
                                                                     <h5 id="commentAuthor-${reply.id}" class="text-secondary">${reply.author_name}
@@ -534,7 +556,7 @@ async function loadArticle() {
                                                                     </div>
                                                                 </div>
                                                             `
-                                    
+
                                 }
                             } else {
                                 if (reply.moved) {

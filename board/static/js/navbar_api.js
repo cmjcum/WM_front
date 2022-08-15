@@ -38,7 +38,7 @@ async function loadNavbar() {
                     $("#coinShop").append(nav_shop_temp)
                 }
 
-                let login_user_temp = `<span class="text-success vertical-middle me-3">${data["nickname"]} 님</span>`
+                let login_user_temp = `${data["nickname"]} 님`
                 $("#username").append(login_user_temp)
 
                 if (searchParam('board')) {
