@@ -19,8 +19,6 @@ function skip_login() {
     console.log(cur_time)
     if (cur_time < token_exp) {
         window.location.replace(`${frontend_base_url}/board/index.html`)
-    } else {
-        pass
     }
 }
 
